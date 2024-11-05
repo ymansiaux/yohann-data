@@ -1,12 +1,18 @@
 ---
 title: "Welcome To My Blog"
-author: "Tristan O'Malley"
-date: "2024-11-02"
+author: "Yohann Mansiaux"
+date: "2024-11-05"
 categories: [news]
+image: "thumbnail.jpg"
 ---
 
-This is the first post in a Quarto blog. Welcome!
+Welcome to my blog !
 
-![](thumbnail.jpg)
+I am a R trainer and developer at [ThinkR](https://thinkr.fr/). I used to have a blog a few years ago, based on Hugo ([in French only](https://ymansiaux-data.netlify.app/)).
 
-Since this post doesn't specify an explicit `image`, the first image in the post will be used in the listing page of posts.
+I have decided to give a try to Quarto Websites. This new site aims at sharing my thoughts and knowledge about R, data science, epidemiology-related stuff.  
+
+Some of my posts are also available in ThinkR websites :
+
+- [Rtask website - English and French](https://rtask.thinkr.fr/blog/)
+- [ThinkR website - French](https://thinkr.fr/blog/)

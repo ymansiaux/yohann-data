@@ -1,9 +1,11 @@
 project:
   type: website
-  output-dir: docs
+  output-dir: docs 
 
 website:
-  title: "blog"
+  title: "Yohann's blog"
+  repo-url: github.com/ymansiaux/yohann-data
+  search: true
   navbar:
     right:
       - about.qmd

@@ -1,19 +1,25 @@
 ---
 title: "About"
-image: profile.jpg
+image: moi.jpg
 about:
   template: jolla
   links:
-    - icon: twitter
-      text: Twitter
-      href: https://twitter.com
+    - icon: bug
+      text: Bluesky
+      href: https://bsky.app/profile/yosky.bsky.social
     - icon: linkedin
       text: LinkedIn
-      href: https://linkedin.com
+      href: https://www.linkedin.com/in/yohann-mansiaux-1816aa20/
     - icon: github
       text: Github
-      href: https://github.com
+      href: https://github.com/ymansiaux
 
 ---
 
-About this blog
+R trainer and developer 🖥️
+
+Data scientist 📊
+
+Epidemiology and life science lover 🦠
+
+Badminton player 🏸

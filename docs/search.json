@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "blog",
     "section": "",
-    "text": "Welcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nInclude a demo dataset in a R package (video tutorial)\n\n\n\n\n\n\ndevelopment\n\n\npackage\n\n\n\n\n\n\n\n\n\nNov 6, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nBeyond Functions: How to Enrich an R Package with Data\n\n\n\n\n\n\ndevelopment\n\n\npackage\n\n\n\n\n\n\n\n\n\nOct 14, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nBoost your shiny app with sparkling data visualizations: A deep dive into Chart.js JavaScript library\n\n\n\n\n\n\nshiny\n\n\njavascript\n\n\n\n\n\n\n\n\n\nSep 3, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nPimping your {shiny} app with a JavaScript library : an example using sweetalert2\n\n\n\n\n\n\nshiny\n\n\njavascript\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\nNo matching items"
+    "text": "Welcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nVSCode for R users\n\n\n\n\n\n\ndev\n\n\nvscode\n\n\n\n\n\n\n\n\n\nNov 9, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nInclude a demo dataset in a R package (video tutorial)\n\n\n\n\n\n\ndevelopment\n\n\npackage\n\n\n\n\n\n\n\n\n\nNov 6, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nBeyond Functions: How to Enrich an R Package with Data\n\n\n\n\n\n\ndevelopment\n\n\npackage\n\n\n\n\n\n\n\n\n\nOct 14, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nBoost your shiny app with sparkling data visualizations: A deep dive into Chart.js JavaScript library\n\n\n\n\n\n\nshiny\n\n\njavascript\n\n\n\n\n\n\n\n\n\nSep 3, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nPimping your {shiny} app with a JavaScript library : an example using sweetalert2\n\n\n\n\n\n\nshiny\n\n\njavascript\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -201,5 +201,12 @@
     "title": "Include a demo dataset in a R package (video tutorial)",
     "section": "",
     "text": "Didn’t have time to read my article on adding data to an R package?\nDon’t worry! Here’s a short video to sum it all up:\n\nEnjoy 🍿"
+  },
+  {
+    "objectID": "posts/vscodeR/index.html",
+    "href": "posts/vscodeR/index.html",
+    "title": "VSCode for R users",
+    "section": "",
+    "text": "A few months ago, I switched from RStudio to Visual Studio Code for my R programming. I was a bit reluctant at first, but I am now convinced that it was a good move. Here are a few reasons why I think VSCode is a great tool for R users.\nCurrently I have 3 articles dedicated to VSCode for R users. They are only available in French for the moment.\nI’ll update and translate them soon.\nYou can find them here:\n\nFaire du R dans VSCode ? Même pas peur !\nPoursuivons notre route avec VSCode : les projets, les scripts, les notebooks … tout est là !\nCréer un package R et le versionner avec VSCode ? Mission possible !\n\nStay tuned!"
   }
 ]

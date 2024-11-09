@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Yohann Mansiaux">
+<meta name="dcterms.date" content="2024-11-09">
 
-<title>blog – Yohann’s blog</title>
+<title>VSCode for R users – Yohann’s blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +25,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,77 +68,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Yohann’s blog</span>
     </a>
   </div>
@@ -149,7 +91,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -172,254 +114,61 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">blog</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">VSCode for R users</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">dev</div>
+                <div class="quarto-category">vscode</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Yohann Mansiaux </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 9, 2024</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(6)</span></div><div class="category" data-category="dev">dev <span class="quarto-category-count">(1)</span></div><div class="category" data-category="development">development <span class="quarto-category-count">(2)</span></div><div class="category" data-category="javascript">javascript <span class="quarto-category-count">(2)</span></div><div class="category" data-category="news">news <span class="quarto-category-count">(1)</span></div><div class="category" data-category="package">package <span class="quarto-category-count">(2)</span></div><div class="category" data-category="shiny">shiny <span class="quarto-category-count">(2)</span></div><div class="category" data-category="vscode">vscode <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<p>A few months ago, I switched from RStudio to Visual Studio Code for my R programming. I was a bit reluctant at first, but I am now convinced that it was a good move. Here are a few reasons why I think VSCode is a great tool for R users.</p>
+<p>Currently I have 3 articles dedicated to VSCode for R users. They are only available in French for the moment.</p>
+<p>I’ll update and translate them soon.</p>
+<p>You can find them here:</p>
+<ul>
+<li><a href="https://thinkr.fr/faire-du-r-dans-vscode-meme-pas-peur/">Faire du R dans VSCode ? Même pas peur !</a></li>
+<li><a href="https://thinkr.fr/poursuivons-notre-route-avec-vscode-les-projets-les-scripts-les-notebooks-tout-est-la/">Poursuivons notre route avec VSCode : les projets, les scripts, les notebooks … tout est là !</a></li>
+<li><a href="https://thinkr.fr/creer-un-package-r-et-le-versionner-avec-vscode-mission-possible/">Créer un package R et le versionner avec VSCode ? Mission possible !</a></li>
+</ul>
+<p>Stay tuned!</p>
 
 
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="news" data-listing-file-modified-sort="1731143109197" data-listing-reading-time-sort="1" data-listing-word-count-sort="153">
-<div class="thumbnail">
-<p><a href="./posts/welcome/index.html" class="no-external"></a></p><a href="./posts/welcome/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/welcome/thumbnail.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/welcome/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/welcome/index.html" class="no-external">Welcome To My Blog</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/welcome/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('news'); return false;">
-news
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/welcome/index.html" class="no-external">Hi folks !</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="./posts/welcome/index.html" class="no-external"></a></p><a href="./posts/welcome/index.html" class="no-external">
-<div class="listing-author">
-Yohann Mansiaux
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="dev,vscode" data-listing-date-sort="1731106800000" data-listing-file-modified-sort="1731145324156" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="120">
-<div class="thumbnail">
-<p><a href="./posts/vscodeR/index.html" class="no-external"></a></p><a href="./posts/vscodeR/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/vscodeR/image.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/vscodeR/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/vscodeR/index.html" class="no-external">VSCode for R users</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/vscodeR/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('dev'); return false;">
-dev
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('vscode'); return false;">
-vscode
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/vscodeR/index.html" class="no-external">A few months ago, I switched from RStudio to Visual Studio Code for my R programming. I was a bit reluctant at first, but I am now convinced that it was a good move. Here…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/vscodeR/index.html" class="no-external">
-<div class="listing-date">
-Nov 9, 2024
-</div>
-<div class="listing-author">
-Yohann Mansiaux
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="development,package" data-listing-date-sort="1730847600000" data-listing-file-modified-sort="1731144570179" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="31">
-<div class="thumbnail">
-<p><a href="./posts/datainpkgs_video/index.html" class="no-external"></a></p><a href="./posts/datainpkgs_video/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/datainpkgs_video/image.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/datainpkgs_video/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/datainpkgs_video/index.html" class="no-external">Include a demo dataset in a R package (video tutorial)</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/datainpkgs_video/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('development'); return false;">
-development
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('package'); return false;">
-package
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/datainpkgs_video/index.html" class="no-external">Didn’t have time to read my article on adding data to an R package?</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/datainpkgs_video/index.html" class="no-external">
-<div class="listing-date">
-Nov 6, 2024
-</div>
-<div class="listing-author">
-Yohann Mansiaux
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="development,package" data-listing-date-sort="1728856800000" data-listing-file-modified-sort="1731144248928" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="885">
-<div class="thumbnail">
-<p><a href="./posts/datainpkgs/index.html" class="no-external"></a></p><a href="./posts/datainpkgs/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/datainpkgs/image.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/datainpkgs/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/datainpkgs/index.html" class="no-external">Beyond Functions: How to Enrich an R Package with Data</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/datainpkgs/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('development'); return false;">
-development
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('package'); return false;">
-package
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/datainpkgs/index.html" class="no-external"><strong>As package developers, we often focus on custom functions, their documentation, and unit testing. To provide a more complete user experience, it can be helpful to include…</strong></a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/datainpkgs/index.html" class="no-external">
-<div class="listing-date">
-Oct 14, 2024
-</div>
-<div class="listing-author">
-Yohann Mansiaux
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="shiny,javascript" data-listing-date-sort="1725314400000" data-listing-file-modified-sort="1731143877682" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="34" data-listing-word-count-sort="6684">
-<div class="thumbnail">
-<p><a href="./posts/chartJS/index.html" class="no-external"></a></p><a href="./posts/chartJS/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/chartJS/image.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/chartJS/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/chartJS/index.html" class="no-external">Boost your shiny app with sparkling data visualizations: A deep dive into Chart.js JavaScript library</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/chartJS/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('shiny'); return false;">
-shiny
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('javascript'); return false;">
-javascript
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/chartJS/index.html" class="no-external"><strong>Let’s continue our exploration of integrating JavaScript code into a {shiny} application! We will show how to move beyond the classic graphs produced in base R or with…</strong></a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/chartJS/index.html" class="no-external">
-<div class="listing-date">
-Sep 3, 2024
-</div>
-<div class="listing-author">
-Yohann Mansiaux
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="shiny,javascript" data-listing-date-sort="1714428000000" data-listing-file-modified-sort="1731143032610" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14" data-listing-word-count-sort="2706">
-<div class="thumbnail">
-<p><a href="./posts/sweetalert2/index.html" class="no-external"></a></p><a href="./posts/sweetalert2/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/sweetalert2/image.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/sweetalert2/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/sweetalert2/index.html" class="no-external">Pimping your {shiny} app with a JavaScript library : an example using sweetalert2</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/sweetalert2/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('shiny'); return false;">
-shiny
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('javascript'); return false;">
-javascript
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/sweetalert2/index.html" class="no-external"><strong>You think that some of the components of <code>{shiny}</code> are not very functional or downright austere? Are you looking to implement some feature in your app but it is not available…<code></code></strong></a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/sweetalert2/index.html" class="no-external">
-<div class="listing-date">
-Apr 30, 2024
-</div>
-<div class="listing-author">
-Yohann Mansiaux
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

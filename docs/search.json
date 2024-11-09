@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "blog",
     "section": "",
-    "text": "Welcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nHow Github Copilot and ChatGPT have changed my life as an R developer\n\n\n\n\n\n\nshiny\n\n\njavascript\n\n\n\n\n\n\n\n\n\nNov 9, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nVSCode for R users\n\n\n\n\n\n\ndev\n\n\nvscode\n\n\n\n\n\n\n\n\n\nNov 7, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nInclude a demo dataset in a R package (video tutorial)\n\n\n\n\n\n\ndevelopment\n\n\npackage\n\n\n\n\n\n\n\n\n\nNov 6, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nBeyond Functions: How to Enrich an R Package with Data\n\n\n\n\n\n\ndevelopment\n\n\npackage\n\n\n\n\n\n\n\n\n\nOct 14, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nBoost your shiny app with sparkling data visualizations: A deep dive into Chart.js JavaScript library\n\n\n\n\n\n\nshiny\n\n\njavascript\n\n\n\n\n\n\n\n\n\nSep 3, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nPimping your {shiny} app with a JavaScript library : an example using sweetalert2\n\n\n\n\n\n\nshiny\n\n\njavascript\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\nNo matching items"
+    "text": "Welcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nHow Github Copilot and ChatGPT have changed my life as an R developer\n\n\n\n\n\n\ndevelopment\n\n\npackage\n\n\nia\n\n\n\n\n\n\n\n\n\nNov 9, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nVSCode for R users\n\n\n\n\n\n\ndevelopment\n\n\nvscode\n\n\n\n\n\n\n\n\n\nNov 7, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nInclude a demo dataset in a R package (video tutorial)\n\n\n\n\n\n\ndevelopment\n\n\npackage\n\n\n\n\n\n\n\n\n\nNov 6, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nBeyond Functions: How to Enrich an R Package with Data\n\n\n\n\n\n\ndevelopment\n\n\npackage\n\n\n\n\n\n\n\n\n\nOct 14, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nBoost your shiny app with sparkling data visualizations: A deep dive into Chart.js JavaScript library\n\n\n\n\n\n\nshiny\n\n\njavascript\n\n\n\n\n\n\n\n\n\nSep 3, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nEnjoy the ultimate comics collection experience with mycomicslibrary ! - Shiny Contest Submission\n\n\n\n\n\n\nshiny\n\n\njavascript\n\n\n\n\n\n\n\n\n\nJul 30, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nPimping your {shiny} app with a JavaScript library : an example using sweetalert2\n\n\n\n\n\n\nshiny\n\n\njavascript\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -292,5 +292,12 @@
     "title": "How Github Copilot and ChatGPT have changed my life as an R developer",
     "section": "Ressources",
     "text": "Ressources\n\nGithub Copilot documentation\nGithub Copilot in RStudio\nVSCode extension for Github Copilot\nR Wizard GPT"
+  },
+  {
+    "objectID": "posts/mycomicslibrary/index.html",
+    "href": "posts/mycomicslibrary/index.html",
+    "title": "Enjoy the ultimate comics collection experience with mycomicslibrary ! - Shiny Contest Submission",
+    "section": "",
+    "text": "I’m excited to announce that I’m participating in the hashtag#ShinyContest 2024! 🚀\nEnjoy the ultimate comics collection experience with “mycomicslibrary”, designed for true comic book enthusiasts !\nThis app allows you to manage your comic book collection. You can add comic books to your collection, rate them, complete information, etc. You can also add comic books to your wishlist if you don’t own them yet!\nApp\nRepo\nHave fun ! 📚"
   }
 ]

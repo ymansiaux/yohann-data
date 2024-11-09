@@ -190,3 +190,5 @@ The main takeaway is that these tools are here to help you, not replace you. The
 - [Github Copilot in RStudio](https://docs.posit.co/ide/user/ide/guide/tools/copilot.html)
 - [VSCode extension for Github Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
 - [R Wizard GPT](https://chatgpt.com/g/g-TgjKDuQwZ-r-wizard)
+
+I also thank my friend [Arthur Bréant](https://github.com/arthurdata) for giving me precious tips on how to use the tools presented in this article.

@@ -23,3 +23,4 @@ Besides videos and blog posts present on this website, you can find some of my c
 
 I hope you will enjoy reading my posts. Feel free to [contact me](https://ymansiaux.github.io/yohann-data/about.html) if you have any questions !
 
+_The sources of this website are available on [Github](https://github.com/ymansiaux/yohann-data/)._

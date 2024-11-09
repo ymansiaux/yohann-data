@@ -11,8 +11,8 @@ website:
       - about.qmd
       - icon: github
         href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
+      - icon: linkedin
+        href: https://www.linkedin.com/in/yohann-mansiaux-1816aa20/
 format:
   html:
     theme: cosmo

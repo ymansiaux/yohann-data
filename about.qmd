@@ -4,8 +4,7 @@ image: moi.jpg
 about:
   template: jolla
   links:
-    - icon: bug
-      text: Bluesky
+    - text: Bluesky
       href: https://bsky.app/profile/yosky.bsky.social
     - icon: linkedin
       text: LinkedIn
@@ -13,6 +12,9 @@ about:
     - icon: github
       text: Github
       href: https://github.com/ymansiaux
+    - icon: envelope
+      text: yohann.mansiaux@gmail.com
+      url: "mailto:yohann.mansiaux@gmail.com"
 
 ---
 

@@ -1,0 +1,20 @@
+---
+title: "Enjoy the ultimate comics collection experience with mycomicslibrary ! - Shiny Contest Submission"
+author: "Yohann Mansiaux"
+date: "2024-07-30"
+categories: [shiny, javascript]
+image: "image.jpg"
+---
+
+I'm excited to announce that I'm participating in the hashtag#ShinyContest 2024! 🚀
+
+Enjoy the ultimate comics collection experience with "mycomicslibrary", designed for true comic book enthusiasts !
+
+This app allows you to manage your comic book collection. You can add comic books to your collection, rate them, complete information, etc. You can also add comic books to your wishlist if you don't own them yet!
+
+[App](https://connect.thinkr.fr/mycomicslibrary/)
+
+[Repo](https://github.com/ymansiaux/mycomicslibrary/)
+
+
+Have fun ! 📚

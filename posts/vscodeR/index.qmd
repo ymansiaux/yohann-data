@@ -2,7 +2,7 @@
 title: "VSCode for R users"
 author: "Yohann Mansiaux"
 date: "2024-11-07"
-categories: [dev, vscode]
+categories: [development, vscode]
 image: "image.png"
 ---
 

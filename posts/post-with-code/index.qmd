@@ -6,4 +6,311 @@ categories: [news, code, analysis]
 image: "image.jpg"
 ---
 
-This is a post with executable code.
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE, eval=FALSE, fig.align = 'center', message=FALSE
+)
+```
+
+**Si vous êtes utilisateur de R, la visualisation de données fait déjà probablement partie de vos activités récurrentes. S'il est devenu très aisé de représenter des données tabulaires, notamment via `{ggplot2}`, la représentation de données spatiales peut apparaitre plus mystérieuse.**
+
+**Pas de panique, vous pouvez affûter vos crayons de couleurs, R va également vous permettre de dessiner de jolies cartes, et ce en quelques petites minutes !**
+
+**Avant de se lancer dans la création de cartes, faisons un petit topo sur les données spatiales et sur l'objectif de la représentation cartographique.**
+
+## Dois-je vraiment réaliser une carte ?
+
+C'est la toute première question à se poser : **la carte est-elle la bonne méthode de visualisation?** Tout va dépendre du type de données et du message à faire passer.
+
+Imaginons que l'on souhaite classifier les départements de France métropolitaine en fonction du nombre de bars que l'on peut y trouver. Comparons une cartographie et un diagramme en barres classique.
+
+**Carte**
+
+```{r tmap1, eval=TRUE, echo=FALSE, out.width="100%"}
+knitr::include_graphics("img/nb_par_dept_carte_pasfaire.png")
+```
+
+**Diagramme en barres**
+
+```{r tmap2, eval=TRUE, echo=FALSE, out.width="100%"}
+knitr::include_graphics("img/nb_par_departement.png")
+```
+
+
+```{r tmap3, fig.show = "hold", out.width = "50%", fig.align = "default", eval=FALSE, echo=FALSE}
+knitr::include_graphics("img/nb_par_departement.png")
+knitr::include_graphics("img/nb_par_dept_carte_pasfaire.png")
+```
+
+
+Même si la carte était une option tentante, on voit qu'il est assez complexe de tirer des enseignements, alors que le diagramme en barre nous a permis d'observer plus aisément une tendance dans nos données et d'avoir une idée des départements les moins bien lotis par exemple. 
+
+
+**Au final, si vous pensez qu'une carte peut faire passer le message désiré en un coup d'oeil la réponse est : foncez ! Dès qu'une structuration spatiale avec du sens existe dans vos données, cette méthode de visualisation de données est parfaitement adaptée.**
+
+## Les bases de la carto
+
+### Les projections
+
+Au fait c'est quoi une carte ? C'est une **répresentation en 2 dimensions d'une partie du Monde** (ou soyons fous de la planète entière).
+
+Passer d'une surface non plane à la surface plane d'une carte implique l'utilisation d'une méthode de projection. 
+
+Il en existe de multiples, plus ou moins adaptées selon la région du globe que l'on souhaite représenter, la plus courante étant la "WGS84". Avec cette méthode, qui est notamment utilsée par les GPS, chaque point sur Terre est représenté par un couple de coordonnées géographiques latitude/longitude. On peut également citer la projection "Lambert 93", qui est particulièrement adaptée pour représenter la France métropolitaine.
+**Selon la méthode utilisée, le rendu sur votre carte ne sera pas le même.**
+
+```{r tmap4, message=FALSE, out.width='55%', echo=FALSE, eval=TRUE}
+knitr::include_graphics("img/projection_deformation.gif")
+```
+
+En R, on utilisera souvent le terme CRS (Coordinates Reference System) pour parler de la projection.
+
+### Les objets géographiques
+
+Pour représenter un jeu de données vectoriel via une carte, on va pouvoir faire appel à différents types d'objets géographiques :
+
+- **des points** : pour représenter des objets sans surface 
+    * les restaurants de votre quartier
+    * les gares TER de votre région administrative
+    * les bureaux de vote de votre ville
+
+- **des lignes** : pour représenter des objets avec une longueur
+    * les limites administratives des départements
+    * les pistes cyclables de votre lieu de vacances
+    * les cours d'eau de votre ville
+
+- **des polygones** : pour représenter des objets avec des surfaces
+  + les pays du Monde
+  + les zones de stationnement payant dans votre quartier
+  + les arrondissements de Paris
+
+## Construisons notre première carte !
+
+Il est temps de se lancer ! Nous allons travailler avec 2 packages :
+
+- {sf} : pour la lecture de données vectorielles ([site du package](https://r-spatial.github.io/sf/))
+
+- {tmap} : pour dessiner notre carte ([site du package](https://r-tmap.github.io/tmap/))
+
+
+Procédons à leur installation puis leur chargement :
+
+```{r tmap5, eval=FALSE}
+install.packages("sf")
+install.packages("tmap")
+```
+
+L'installation des packages de cartographie peut parfois poser des problèmes, si c'est le cas n'hésitez pas à consulter notre [article dédié](https://rtask.thinkr.fr/fr/installation-de-r-4-2-sur-ubuntu-22-04-lts-et-astuces-pour-les-packages-de-cartographie/).
+
+
+```{r tmap6, message=FALSE, echo=FALSE, eval=TRUE}
+library(sf)
+library(tmap)
+library(readr)
+library(dplyr)
+```
+
+
+```{r tmap7, message=FALSE, eval=FALSE}
+library(sf)
+library(tmap)
+```
+
+### Lecture de données "shapefile"
+
+Le shapefile est un format de données utilisées très couramment pour l'analyse de données géospatiales. Plusieurs fichiers sont fournis à chaque fois (`.dbf`, `.prj`, `.shp` ...); si c'est le fichier `.shp` qui sera lu par le package `{sf}`, les autres fichiers sont indispensables et ne doivent pas être supprimés. Ils contiennent par exemple des informations relatives à la projection.
+
+Nous allons ici représenter les données des départements de France métropolitaine. Ces données proviennent du site de l'[IGN](https://geoservices.ign.fr/geofla). 
+Vous pouvez également les télécharger [ici](https://github.com/ThinkR-open/iframe.illustrations/blob/master/data_article_tmap/DEPARTEMENT.zip). Il faudra que vous décompressiez le fichier `DEPARTEMENT.zip`, dans un dossier `data/`. Le plus simple reste de créer un projet dans RStudio qui contiendra vos données et votre document de travail.
+
+```{r tmap8, eval=FALSE, echo=TRUE}
+departements_l93 <- read_sf("data/DEPARTEMENT/DEPARTEMENT.shp")
+```
+
+```{r tmap9, echo=FALSE, message=FALSE, eval=TRUE}
+departements_l93 <- read_sf(file.path(here::here(), "/thinkr_website/2023-09-13_tmap_intro/data/DEPARTEMENT/DEPARTEMENT.shp"))
+```
+
+Une bonne pratique pour garder en tête la projection utilisée est de l'indiquer explicatement dans le nom de notre objet, ici le "_l93" nous indique que les données sont en projection Lambert 93.
+
+Observons les premières lignes de notre jeu de données géographiques :
+
+```{r tmap10, echo=TRUE, eval=FALSE}
+departements_l93
+```
+
+```{r tmap11, echo=FALSE, eval=TRUE}
+departements_l93 |> 
+select(CODE_DEPT, NOM_DEPT, NOM_REG)
+
+```
+
+On constate un rendu assez proche de celui qu'on peut avoir des objets plus familiers comme les `data.frame` ou les `tibble` avec quelques informations supplémentaires, spécifiques d'un jeu de données géographiques.
+Citons notamment le `Geometry type`, qui fait mention ici de `MULTIPOLYGON`. Il s'agit d'une version un peu plus complexe des polygones, dans tous les cas ce type de géométrie parait cohérent étant donné qu'on va répresenter des départements, qui sont des objets avec une surface.
+On voit également le `Projected CRS`, qui nous confirme que nous travaillons avec des données projetées en Lambert 93.
+
+**Enfin, on observe qu'il existe une colonne `geometry`, caractéristique d'un jeu de données géographiques, et qui contient toutes les informations qui vont nous permettre de dessiner nos départements.**
+
+
+### Notre première carte avec {tmap}
+
+L'instruction indispensable pour utiliser `{tmap}` est `tm_shape()`, c'est ici qu'on va passer en entrée notre jeu de données.
+Il faut ensuite indiquer à `{tmap}` comment représenter ces données. Ici on travaille avec des polygones, on va donc utiliser la commande `tm_polygons()`.
+Vous remarquerez que, **de manière analogue à `{ggplot2}`, on va enchainer les instructions via des `+`, de telle sorte à empiler des couches sur notre carte.**
+
+```{r tmap12, echo=TRUE, eval=TRUE}
+tm_shape(departements_l93) +
+  tm_polygons()
+```
+
+**Tadaaaaa ! Voici en à peine 2 lignes de code un jolie carte de la France métropolitaine.**
+
+Et si on colorait nos départements en fonction de leur région ? Il faut pour cela utiliser la colonne "NOM_REG" de notre jeu de données `departements_l93`.
+
+```{r tmap13, echo=TRUE, eval=TRUE} 
+tm_shape(departements_l93) +
+  tm_polygons(col = "NOM_REG", title = "Régions")
+```
+
+Si la palette par défaut ne nous satisfait pas, on peut bien sur la modifier ! Et si vous êtes en manque d'inspiration, `tmaptools::palette_explorer()` est là pour vous aider à choisir.
+
+Personnellement j'aime bien le bleu et le vert, je vais utiliser la palette "GnBu" que j'ai pioché dans `tmaptools::palette_explorer()`.
+
+```{r tmap14, echo=TRUE, eval=TRUE}
+tm_shape(departements_l93) +
+  tm_polygons(col = "NOM_REG", title = "Régions", palette = "GnBu")
+```
+
+On pourrait continuer à "pimper" notre carte en rajoutant un titre ou en changeant la couleur de fond par exemple : pour cela `tm_layout()` vient à la rescousse !
+
+```{r tmap15, echo=TRUE, eval=TRUE}
+tm_shape(departements_l93) +
+  tm_polygons(col = "NOM_REG", title = "Régions", palette = "GnBu") +
+  tm_layout(title = "Carte des départements et régions", bg.color = "ivory")
+```
+
+**Une infinité d'options s'offre à vous pour personnaliser vos cartes**, tous les éléments graphiques qu'on peut modifier dans `{ggplot2}` par exemple sont bien sur modifiables dans `{tmap}` (couleur de remplissage, couleur des bordures, formes des pictogrammes, épaisseurs des lignes, personnalisation des légendes ...).
+
+### Et si on rajoutait une deuxième couche d'information sur notre carte ?
+
+Un deuxième jeu de données est fourni, il contient les coordonnées des chefs-lieux de chaque département.
+Vous pouvez télécharger ces données [ici](https://github.com/ThinkR-open/iframe.illustrations/blob/master/data_article_tmap/CHEFLIEU.zip).
+
+```{r tmap16, echo=FALSE, message=FALSE, eval=TRUE}
+chefs_lieux <- read_csv(file.path(here::here(),"/thinkr_website/2023-09-13_tmap_intro/data/CHEFLIEU/ChefLieu.csv"))
+chefs_lieux_l93 <- st_as_sf(chefs_lieux,
+                         coords = c("X_CHF_LIEU", "Y_CHF_LIEU"),
+                         crs = 2154)
+#st_write(chefs_lieux_l93, file.path(here::here(),"/thinkr_website/2023-09-13_tmap_intro/data/CHEFLIEU/ChefLieu.shp"), append = FALSE)
+```
+
+```{r tmap17, eval=FALSE, echo=TRUE}
+chefs_lieux_l93 <- read_sf("data/CHEFLIEU/ChefLieu.shp")
+```
+
+Si tout à l'heure nous avions travaillé avec des données de polygones possédant une surface, ici nous allons travailler avec des objets géographiques correspondant à des points (les coordonnées latitude/longitude qui décrivent la localisation de chaque chef-lieu).
+
+Pour en avoir le coeur net, observons les premières lignes du jeu de données :
+
+```{r tmap18, echo=TRUE, eval=TRUE}
+chefs_lieux_l93
+```
+
+La section `Geometry type` nous indique bien que nous allons travailler avec des objets de type `POINT`, c'est également confirmé par la colonne `geometry` du jeu de données. Enfin on observe que la projection est également en Lambert 93. 
+Nous pouvons repartir sereinement sur l'amélioration de notre carte.
+
+**Pour ajouter une nouvelle couche de données, nous allons pouvoir repartir de notre code précédent et enchainer avec une nouvelle instruction `tm_shape()` comme nous l'avions fait au tout début.**
+
+```{r tmap19, error = TRUE, echo=TRUE, eval=TRUE}
+tm_shape(departements_l93) +
+  tm_polygons(col = "NOM_REG", title = "Régions", palette = "GnBu") +
+  tm_layout(title = "Carte des départements et régions", bg.color = "ivory") +
+tm_shape(chefs_lieux_l93)
+```
+
+**Aïe une erreur !** 
+
+Pas de panique ! En effet, si nous avons bien demandé à `{tmap}` de prendre en charge ce nouveau jeu de données, nous n'avons donné aucune instruction sur la manière de représenter sa composante géographique.
+Pour représenter des points, on utilise `tm_symbols()` :
+
+```{r tmap20, echo=TRUE, eval=TRUE}
+tm_shape(departements_l93) +
+  tm_polygons(col = "NOM_REG", title = "Régions", palette = "GnBu") +
+  tm_layout(title = "Carte des départements et régions", bg.color = "ivory") +
+tm_shape(chefs_lieux_l93) +
+  tm_symbols()
+```
+
+On peut bien sur modifier par exemple la couleur de fond des points dessinés, ainsi que la couleur de leur bordure extérieure. De plus, ils sont un peu trop volumineux à mon goût, nous allons également réduire leur taille.
+
+```{r tmap21, echo=TRUE, eval=TRUE}
+tm_shape(departements_l93) +
+  tm_polygons(col = "NOM_REG", title = "Régions", palette = "GnBu") +
+  tm_layout(title = "Carte des départements et régions", bg.color = "ivory") +
+tm_shape(chefs_lieux_l93) +
+  tm_symbols(col = "salmon", border.col = "black", size = 0.75)
+```
+
+### Et si on décalait la légende ?
+
+Maintenant que nous sommes presque au bout de notre carte, essayons de décaler la légende, qui nous empêche de profiter pleinement de notre travail. Il s'agit juste d'ajouter une option à `tm_layout()`.
+
+```{r tmap22, echo=TRUE, eval=TRUE}
+tm_shape(departements_l93) +
+  tm_polygons(col = "NOM_REG", title = "Régions", palette = "GnBu") +
+  tm_layout(title = "Carte des départements et régions", bg.color = "ivory", inner.margins = c(0.1, 0.25, 0.1, 0.02)) +
+tm_shape(chefs_lieux_l93) +
+  tm_symbols(col = "salmon", border.col = "black", size = 0.75)
+```
+
+Voilà qui est mieux !
+
+### Une dernière modification pour la route ?
+
+Finissons en beauté en indiquant le Nord sur notre carte, avec une jolie rose des vents, grâce à `tm_compass()`.
+
+```{r tmap23, echo=TRUE, eval=TRUE}
+tm_shape(departements_l93) +
+  tm_polygons(col = "NOM_REG", title = "Régions", palette = "GnBu") +
+  tm_layout(title = "Carte des départements et régions", bg.color = "ivory", inner.margins = c(0.1, 0.25, 0.1, 0.02)) +
+  tm_shape(chefs_lieux_l93) +
+tm_symbols(col = "salmon", border.col = "black", size = 0.75) +
+  tm_compass(type = "rose", position = c("right", "top"))
+```
+
+### Et pour enregistrer ma carte ?
+
+```{r tmap24, eval=FALSE, echo=TRUE}
+ma_superbe_carte <- tm_shape(departements_l93) +
+  tm_polygons(col = "NOM_REG", title = "Régions", palette = "GnBu") +
+  tm_layout(title = "Carte des départements et régions", bg.color = "ivory", inner.margins = c(0.1, 0.25, 0.1, 0.02)) +
+tm_shape(chefs_lieux_l93) +
+  tm_symbols(col = "salmon", border.col = "black", size = 0.75) +
+  tm_compass(type = "rose", position = c("right", "top"))
+
+tmap_save(ma_superbe_carte, filename = "ma_superbe_carte.png")
+```
+
+## Alors, convaincus ?
+
+S'il existe un grand nombre de packages R permettant de réaliser des cartes (notamment `{mapsf}` ou `{ggplot2}`, d'ailleurs les premières cartes présentées dans cet article ont été produites avec `{ggplot2}`!), `{tmap}` en fait sa spécialité et est donc un partenaire de premier choix pour cet exercice.
+
+L'analyse de données spatiales est une discipline qui a ses spécificités (et parfois ses complexités ...) mais **les possibilités pour trouver des données (il existe énorménent de données spatiales en open data), les triturer et produire de jolies cartes sont quasi-infinies !**
+
+Il est notamment possible de :
+
+- rajouter des fonds de cartes
+- produire des cartes interactives
+- produire des cartes animées 
+- incorporer des cartes dans une application Shiny
+
+## Pour aller plus loin 
+
+Si vous êtes utilisateur de bases de données PostGIS, cette ressource peut vous être utile : [https://rtask.thinkr.fr/fr/interagir-avec-postgis-depuis-r-avec-dbi-et-sf/](https://rtask.thinkr.fr/fr/interagir-avec-postgis-depuis-r-avec-dbi-et-sf/).
+
+**Vous avez un problème pour manipuler vos données spatiales ou pour les valoriser ?**
+
+Notre [formation dédiée](https://thinkr.fr/formation-au-logiciel-r/cartographie-et-sig-avec-r/) peut certainement vous aider, dans tous les cas n'hésitez pas à nous [contacter](https://thinkr.fr/contact/) pour nous exposer votre problème.
+
+A bientôt ... et d'ici là amusez vous bien ! 
+

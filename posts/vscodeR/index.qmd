@@ -6,7 +6,7 @@ categories: [dev, vscode]
 image: "image.png"
 ---
 
-A few months ago, I switched from RStudio to Visual Studio Code for my R programming. I was a bit reluctant at first, but I am now convinced that it was a good move. Here are a few reasons why I think VSCode is a great tool for R users.
+A few months ago, I switched from RStudio to Visual Studio Code for my R programming. I was a bit reluctant at first, but I am now convinced that it was a good move.
 
 Currently I have 3 articles dedicated to VSCode for R users. They are only available in French for the moment.
 

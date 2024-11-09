@@ -6,7 +6,7 @@ categories: [development, package]
 image: "image.jpg"
 ---
 
-Didn't have time to read [my article on adding data to an R package](https://ymansiaux.github.io/yohann-data/datainpkgs)? 
+Didn't have time to read [my article on adding data to an R package](https://ymansiaux.github.io/yohann-data/posts/datainpkgs/)? 
 
 Don't worry! Here's a short video to sum it all up: 
 

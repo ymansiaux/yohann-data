@@ -31,7 +31,7 @@ If you want Copilot to base its suggestions not only on the current file but als
 
 ### GitHub Copilot in VSCode
 
-To use GitHub Copilot in VSCode, install the GitHub Copilot extension. Once the extension is installed, enable Copilot by logging into your GitHub account.
+To use GitHub Copilot in VSCode, install the [GitHub Copilot extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot). Once the extension is installed, enable Copilot by logging into your GitHub account.
 
 ### GitHub Copilot in Positron
 
@@ -182,7 +182,9 @@ Among the many R-specific GPT's available, I recommend using R Wizard, which see
 
 For R programmers, GitHub Copilot and ChatGPT can complement each other effectively. Copilot shines for in-context code generation, while ChatGPT is ideal for answering questions, exploring R libraries, and understanding errors. By combining these tools, R developers can boost productivity, streamline repetitive coding tasks, and expand their knowledge—all while enhancing their coding efficiency and accuracy.
 
-The main takeaway is that these tools are here to help you, not replace you. They can save you time and provide new insights, but they can't replace your expertise and creativity. Always review the generated code, documentation, and tests to ensure they meet your project’s requirements. Have fun !
+The main takeaway is that these tools are here to help you, not replace you. They can save you time and provide new insights, but they can't replace your expertise and creativity. Always review the generated code, documentation, and tests to ensure they meet your project’s requirements. 
+
+Have fun !
 
 ## Ressources
 

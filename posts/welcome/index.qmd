@@ -1,7 +1,6 @@
 ---
 title: "Welcome To My Blog"
 author: "Yohann Mansiaux"
-date: "2024-11-05"
 categories: [news]
 image: "thumbnail.jpg"
 ---

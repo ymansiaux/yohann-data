@@ -3,6 +3,8 @@
     "listing": "/index.html",
     "items": [
       "/posts/welcome/index.html",
+      "/posts/datainpkgs_video/index.html",
+      "/posts/datainpkgs/index.html",
       "/posts/chartJS/index.html",
       "/posts/sweetalert2/index.html"
     ]

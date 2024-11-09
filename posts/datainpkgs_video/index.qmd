@@ -1,0 +1,15 @@
+---
+title: "Include a demo dataset in a R package (video tutorial)"
+author: "Yohann Mansiaux"
+date: "2024-11-06"
+categories: [development, package]
+image: "image.jpg"
+---
+
+Didn't have time to read [my article on adding data to an R package](https://ymansiaux.github.io/yohann-data/datainpkgs)? 
+
+Don't worry! Here's a short video to sum it all up: 
+
+{{< video img/include_data_in_a_package_EN.mp4 >}}
+
+Enjoy 🍿 

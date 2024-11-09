@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "blog",
     "section": "",
-    "text": "Welcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nBoost your shiny app with sparkling data visualizations: A deep dive into Chart.js JavaScript library\n\n\n\n\n\n\nshiny\n\n\njavascript\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nPimping your {shiny} app with a JavaScript library : an example using sweetalert2\n\n\n\n\n\n\nshiny\n\n\njavascript\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\nNo matching items"
+    "text": "Welcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nInclude a demo dataset in a R package (video tutorial)\n\n\n\n\n\n\ndevelopment\n\n\npackage\n\n\n\n\n\n\n\n\n\nNov 6, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nBeyond Functions: How to Enrich an R Package with Data\n\n\n\n\n\n\ndevelopment\n\n\npackage\n\n\n\n\n\n\n\n\n\nOct 14, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nBoost your shiny app with sparkling data visualizations: A deep dive into Chart.js JavaScript library\n\n\n\n\n\n\nshiny\n\n\njavascript\n\n\n\n\n\n\n\n\n\nSep 3, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nPimping your {shiny} app with a JavaScript library : an example using sweetalert2\n\n\n\n\n\n\nshiny\n\n\njavascript\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -145,5 +145,61 @@
     "title": "Pimping your {shiny} app with a JavaScript library : an example using sweetalert2",
     "section": "Conclusion",
     "text": "Conclusion\n\nIntegrating JavaScript libraries into a {shiny} application is possible!\n{golem} makes it easier for us\nIt is quite easy when the library is well documented\nIt is important to read the documentation of the library you want to integrate (but this is also true in R!)\nThe browser inspector is a very useful tool to check that everything is going well\nTo integrate more complex libraries, minimal JavaScript skills will probably be required\n\nIf you want more examples of the use of sweetalert2, but also other JavaScript libraries (Grid.js and Chart.js), you can consult the mycomicslibrary application and take a look at its source code.\nThanks for reading this tutorial and have fun in the wonderful world of JavaScript! 🚀"
+  },
+  {
+    "objectID": "posts/datainpkgs/index.html",
+    "href": "posts/datainpkgs/index.html",
+    "title": "Beyond Functions: How to Enrich an R Package with Data",
+    "section": "",
+    "text": "As package developers, we often focus on custom functions, their documentation, and unit testing. To provide a more complete user experience, it can be helpful to include data within the package. Here’s everything you need to know!"
+  },
+  {
+    "objectID": "posts/datainpkgs/index.html#short-on-time-heres-the-gist",
+    "href": "posts/datainpkgs/index.html#short-on-time-heres-the-gist",
+    "title": "Beyond Functions: How to Enrich an R Package with Data",
+    "section": "Short on time? Here’s the gist",
+    "text": "Short on time? Here’s the gist\nIn this article, we present the different ways to incorporate data (broadly defined) into an R package. We cover the three directories used for storing data and explain how to access them, whether you are a package user or a developer. Finally, we discuss best practices for documenting these data."
+  },
+  {
+    "objectID": "posts/datainpkgs/index.html#why-include-data-in-a-package",
+    "href": "posts/datainpkgs/index.html#why-include-data-in-a-package",
+    "title": "Beyond Functions: How to Enrich an R Package with Data",
+    "section": "Why Include Data in a Package?",
+    "text": "Why Include Data in a Package?\nIncluding data in a package can be useful for several reasons:\n\nSimplifying package usage: The data included in the package is directly accessible to users.\nFacilitating reproducibility: The data allows users to replicate the examples provided in the documentation.\nEnhancing unit testing: The included data can be used for testing the package functions.\nSharing information: Distributing documentation, scientific articles, code samples, etc.\n\nHere, “data” should be interpreted broadly. It includes tabular data typically used in R (e.g., CSV or XLSX files, or data.frame objects), but also images, configuration files, articles, code samples, etc."
+  },
+  {
+    "objectID": "posts/datainpkgs/index.html#data-directories-in-an-r-package",
+    "href": "posts/datainpkgs/index.html#data-directories-in-an-r-package",
+    "title": "Beyond Functions: How to Enrich an R Package with Data",
+    "section": "Data Directories in an R Package",
+    "text": "Data Directories in an R Package\nThere are three directories in an R package used to store data: data-raw/, data/, and inst/, each serving a specific purpose and catering to different audiences (developers vs. users).\n\nThe data-raw/ and data/ Pair\nThe goal here is to make data available to package users, which can be used by the package’s functions or included in the documentation examples. These data will be represented as R objects (e.g., data.frame, list, etc.).\n\n\nThe inst/ Directory\nThis directory allows you to store files without format restrictions: tabular files, code sample scripts, notebooks in Rmd/Qmd format, PDF documentation, etc. There are no limits."
+  },
+  {
+    "objectID": "posts/datainpkgs/index.html#using-data-raw-data",
+    "href": "posts/datainpkgs/index.html#using-data-raw-data",
+    "title": "Beyond Functions: How to Enrich an R Package with Data",
+    "section": "Using data-raw/ + data/",
+    "text": "Using data-raw/ + data/\nUse case: You want to make data available to package users that can be used by the package’s functions. The goal is to provide native access from the package’s functions. You’re probably familiar with preloaded datasets in R like mtcars or iris; this follows the same principle.\n\ndata-raw/\nThe data-raw/ folder is used to store scripts for preparing the data. Files in this folder are not included in the final package installed on the user’s computer but contain the code needed to generate the datasets that will later be included in the package.\n\n\ndata/\nOnce prepared in data-raw/, the data is stored in the data/ folder. Files in this folder are included in the final package and are accessible to users. The files are stored in .rda format and are loaded when a user runs library(mypackage).\n\n\n\nExample\n\nCreate the data-raw/ folder using the command usethis::use_data_raw(\"my_dataset_demo\"). This command creates a my_dataset_demo.R file in the data-raw/ folder.\nPrepare the dataset in the my_dataset_demo.R file:\n\n# Create a sample of the \"starwars\" dataset from the dplyr package\n# See https://github.com/tidyverse/dplyr/tree/main/data-raw and https://github.com/tidyverse/dplyr/tree/main/data\nlibrary(dplyr)\nlibrary(readr)\nstarwars_raw &lt;- read_csv(\"data-raw/starwars.csv\")\nstarwars_sample &lt;- starwars_raw |&gt;\n  sample_n(size = 10)\nusethis::use_data(starwars_sample, overwrite = TRUE)\n\nAfter running the command usethis::use_data(starwars_sample, overwrite = TRUE), you’ll see a file named starwars_sample.rda in the data/ folder.\nThere’s still some work to do: now we need to document the dataset. For this, we will use the {checkhelper} package.\n\ncheckhelper::use_data_doc(\"starwars_sample\")\nThis creates a doc_starwars_sample.R file in the package’s R/ folder. The file contains the dataset’s documentation. You can now edit this file to add more information about the dataset\n`r     #' starwars_sample #' #' Description. #' #' @format A data frame with 10 rows and 14 variables: #' \\describe{ #'   \\item{ name }{ The character's name } #'   \\item{ height }{ numeric } #'   \\item{ mass }{ numeric } #'   \\item{ hair_color }{ character } #'   \\item{ skin_color }{ character } #'   \\item{ eye_color }{ character } #'   \\item{ birth_year }{ numeric } #'   \\item{ sex }{ character } #'   \\item{ gender }{ character } #'   \\item{ homeworld }{ character } #'   \\item{ species }{ character } #'   \\item{ films }{ character } #'   \\item{ vehicles }{ character } #'   \\item{ starships }{ character } #' } #' @source Source \"starwars_sample\" While the overall structure of the file should be preserved, you can edit the description, format, and source information as needed.\nFinally, generate the LaTeX documentation using the command devtools::document() or attachment::att_amend_desc().\nOnce your package is installed and loaded, you can access the dataset using the command data(\"starwars_sample\")."
+  },
+  {
+    "objectID": "posts/datainpkgs/index.html#using-inst",
+    "href": "posts/datainpkgs/index.html#using-inst",
+    "title": "Beyond Functions: How to Enrich an R Package with Data",
+    "section": "Using inst/",
+    "text": "Using inst/\nUse case: You want to store files intended for use only in unit tests or to share additional documentation (e.g., a scientific article).\n\n\nExample\n\nCreate the inst/ folder at the package root: dir.create(here::here(\"inst\")).\nPlace the desired files in the folder.\nInstall the package.\nThe files are now accessible using a special function: system.file(), which points to the root of the inst/ directory. For example, to access a file named article.pdf in the inst/ folder, you would use system.file(\"article.pdf\", package = \"mypackage\"). If the file is in a subfolder called “doc,” you would use system.file(\"doc\", \"article.pdf\", package = \"mypackage\").\n\nNote: system.file() does not read a file; it only returns the file path."
+  },
+  {
+    "objectID": "posts/datainpkgs/index.html#conclusion",
+    "href": "posts/datainpkgs/index.html#conclusion",
+    "title": "Beyond Functions: How to Enrich an R Package with Data",
+    "section": "Conclusion",
+    "text": "Conclusion\nYou now know all about incorporating data into an R package. You’ve learned how to store data in the data-raw/, data/, and inst/ directories and make it accessible from the package functions. You’ve also learned how to document these data to make them usable for package users.\nWhether the data is intended for users or developers, you now have all the tools to enrich your R package with data. Happy coding!"
+  },
+  {
+    "objectID": "posts/datainpkgs_video/index.html",
+    "href": "posts/datainpkgs_video/index.html",
+    "title": "Include a demo dataset in a R package (video tutorial)",
+    "section": "",
+    "text": "Didn’t have time to read my article on adding data to an R package?\nDon’t worry! Here’s a short video to sum it all up:\n\nEnjoy 🍿"
   }
 ]

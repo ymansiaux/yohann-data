@@ -1,18 +1,25 @@
 ---
 title: "Welcome To My Blog"
 author: "Yohann Mansiaux"
-date: "2024-11-05"
 categories: [news]
 image: "thumbnail.jpg"
 ---
 
-Welcome to my blog !
+Hi folks !
 
-I am a R trainer and developer at [ThinkR](https://thinkr.fr/). I used to have a blog a few years ago, based on Hugo ([in French only](https://ymansiaux-data.netlify.app/)).
+I am a R trainer and developer. Passionate about knowledge sharing and open source, I enjoy engaging with my peers and learners and contributing to a dynamic and collaborative community.
+
+I used to have a blog a few years ago, based on Hugo ([in French only](https://ymansiaux-data.netlify.app/)).
 
 I have decided to give a try to Quarto Websites. This new site aims at sharing my thoughts and knowledge about R, data science, epidemiology-related stuff.  
 
-Some of my posts are also available in ThinkR websites :
+Besides videos and blog posts present on this website, you can find some of my contributions to open source projects on Github :
 
-- [Rtask website - English and French](https://rtask.thinkr.fr/blog/)
-- [ThinkR website - French](https://thinkr.fr/blog/)
+- [{shinygouv} - Use the French Governmental Design System (DSFR) on you shiny apps"](https://github.com/spyrales/shinygouv)
+  
+- [{lozen} - Github and Gitlab project management tools for devs and lead dev"](https://github.com/ThinkR-open/lozen)
+
+- [{fusen} - Inflates a Rmarkdown file to magically create a package."](https://github.com/ThinkR-open/fusen)
+
+I hope you will enjoy reading my posts. Feel free to [contact me](https://ymansiaux.github.io/yohann-data/about.html) if you have any questions !
+

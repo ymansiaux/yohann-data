@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Harlow Malloc">
-<meta name="dcterms.date" content="2024-11-05">
+<meta name="author" content="Yohann Mansiaux">
+<meta name="dcterms.date" content="2024-04-30">
 
-<title>Post With Code – blog</title>
+<title>Pimping your {shiny} app with a JavaScript library : an example using sweetalert2 – Yohann’s blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -81,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">blog</span>
+    <span class="navbar-title">Yohann’s blog</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -115,11 +149,10 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Post With Code</h1>
+      <h1 class="title">Pimping your {shiny} app with a JavaScript library : an example using sweetalert2</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">news</div>
-                <div class="quarto-category">code</div>
-                <div class="quarto-category">analysis</div>
+                <div class="quarto-category">shiny</div>
+                <div class="quarto-category">javascript</div>
               </div>
                   </div>
   </div>
@@ -130,14 +163,14 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>Harlow Malloc </p>
+               <p>Yohann Mansiaux </p>
             </div>
     </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">November 5, 2024</p>
+        <p class="date">April 30, 2024</p>
       </div>
     </div>
     
@@ -156,9 +189,375 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>This is a post with executable code.</p>
+<p><strong>You think that some of the components of <code>{shiny}</code> are not very functional or downright austere? Are you looking to implement some feature in your app but it is not available in the <code>{shiny}</code> toolbox? Take a look at JavaScript!</strong></p>
+<p>JavaScript is a very popular programming language that is often used to add features to web pages. With HTML and CSS, JavaScript is an essential language for web developers. The size of its user community means that if you are looking to implement a particular feature, there is a good chance that someone has already had the same need as you and has shared their code!</p>
+<p>An other positive point (and essential for us in this case) : it is possible to integrate JavaScript libraries into a <code>{shiny}</code> application to add features that are not available by default. In addition to that, <code>{golem}</code> will help us to set everything up.</p>
+<p>No more excuses to back down, let’s go ! 🚀</p>
+<section id="tldr" class="level2">
+<h2 class="anchored" data-anchor-id="tldr">TL;DR</h2>
+<ul>
+<li>Going further in <code>{shiny}</code> by integrating a JavaScript library is possible!
+<ul>
+<li>We take the example of sweetalert2, which allows to display alerts that are more visually appealing than the basic ones</li>
+<li><code>{golem}</code> has several functions to make it easier for us to integrate JavaScript libraries into a <code>{shiny}</code> app</li>
+<li>This example is rather simple. The integration of libraries is sometimes harder because the documentation might be scarse or the library might be more complex to use</li>
+</ul></li>
+</ul>
+</section>
+<section id="import-sweetalert2-into-a-shiny-app-created-with-golem" class="level2">
+<h2 class="anchored" data-anchor-id="import-sweetalert2-into-a-shiny-app-created-with-golem">Import sweetalert2 into a <code>{shiny}</code> app created with <code>{golem}</code></h2>
+<section id="sweetalert2" class="level3">
+<h3 class="anchored" data-anchor-id="sweetalert2">sweetalert2</h3>
+<ul>
+<li>sweetalert2 is a JavaScript library that allows you to display alerts that are more visually appealing than the basic ones</li>
+<li>It is very well documented</li>
+<li>It is very popular (more than 16000 “stars” on GitHub at the time of publication of this article)</li>
+</ul>
+<p>Let’s take a look at the possibilities offered by sweetalert2: https://sweetalert2.github.io/</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./img/01-sweetalertaccueil.png" class="img-fluid figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>If you click on “Show normal alert”, you will see a classic alert while clicking on “Show success message”, you will see a sweetalert2 alert.</p>
+<p>The first one has a rather austere design while the second one is more modern and more pleasant to the eye, it will probably offer a better user experience.</p>
+<p>Feel free to play with the different types of alerts offered by sweetalert2 to get an idea of what is possible with this library by visiting the <a href="https://sweetalert2.github.io/#examples" target="_blank">examples</a> section.</p>
+</section>
+<section id="add-the-necessary-dependencies-to-the-shiny-app" class="level3">
+<h3 class="anchored" data-anchor-id="add-the-necessary-dependencies-to-the-shiny-app">Add the necessary dependencies to the <code>{shiny}</code> app</h3>
+<p><strong>The following sections assume that you have already created a <code>{shiny}</code> app with <code>{golem}</code>.</strong></p>
+<p>If this is not the case and you want to know more about <code>{golem}</code>, I invite you to consult the <a href="https://thinkr-open.github.io/golem/" target="_blank">official documentation</a>.</p>
+<p>To add sweetalert2 to your <code>{shiny}</code> app, you will need to find a way to incorporate the files needed for its operation into your application.</p>
+<p>Two solutions are available to you:</p>
+<ul>
+<li><p>Use a “CDN” (Content Delivery Network) to load the files from a third-party server. The CDN will be the equivalent of a CRAN for JavaScript libraries. Concretely, we will ask our application to point to the sources of sweetalert2, hosted on a remote server.</p></li>
+<li><p>Download the files needed for its operation and integrate them directly into your application. If your application is intended to be used on a machine that is not connected to the Internet, you will inevitably have to go through this step.</p></li>
+</ul>
+<p><strong>Don’t panic! We will see both methods</strong></p>
+<section id="where-to-find-the-elements-i-need" class="level4">
+<h4 class="anchored" data-anchor-id="where-to-find-the-elements-i-need">Where to find the elements I need?</h4>
+<p>The sweetalert2 documentation is very well done. You will find all the information you need to integrate the library into your application from the <a href="https://sweetalert2.github.io/#download" target="_blank">Download</a> section.</p>
+<p>However, you will need to learn how to identify the elements you need to integrate sweetalert2 into your application.</p>
+<p><strong>Looking for the CDN</strong></p>
+<p>In the “Download &amp; Install” section, you will find a link to the sweetalert2 CDN. This is the link that we will have to add to our application in order to use the library.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="img/02-cdn.png" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>When you click on the link, you will arrive on a page that looks like this:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="img/03-cdn_site.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>What we are interested in here is the link in the <code>&lt;script&gt;</code> tag and the link in the <code>&lt;link&gt;</code> tag. The link to the file with the <code>.js</code> extension corresponds to the sweetalert2 JavaScript file. The link to the file with the <code>.css</code> extension corresponds to the sweetalert2 styles file.</p>
+<p>Copy them and let’s go back to our app!</p>
+</section>
+<section id="method-1-add-dependencies-to-sweetalert2-via-the-cdn" class="level4">
+<h4 class="anchored" data-anchor-id="method-1-add-dependencies-to-sweetalert2-via-the-cdn">Method 1: Add dependencies to sweetalert2 via the CDN</h4>
+<p>Let’s open the <code>R/app_ui.R</code> file of our application and add the two links we copied earlier to the body of the <code>golem_add_external_resources()</code> function.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>golem_add_external_resources <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_resource_path</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"www"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">app_sys</span>(<span class="st">"app/www"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  tags<span class="sc">$</span><span class="fu">head</span>(</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">favicon</span>(),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bundle_resources</span>(</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">path =</span> <span class="fu">app_sys</span>(<span class="st">"app/www"</span>),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">app_title =</span> <span class="st">"golemsweetalert"</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># sweetalert2</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">script</span>(<span class="at">src =</span> <span class="st">"https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js"</span>),</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">link</span>(<span class="at">href =</span> <span class="st">"https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.min.css"</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">rel=</span><span class="st">"stylesheet"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We find here a call to <code>tags$script</code> and a call to <code>tags$link</code> corresponding respectively to the <code>&lt;script&gt;</code> and <code>&lt;link&gt;</code> tags seen on the links provided by the CDN.</p>
+<p>We copy-paste the elements being careful about the parameter names <code>src</code>, <code>href</code> and <code>rel</code> and remembering to separate them with commas. We are indeed moving from HTML code (where elements are separated by spaces) to R code.</p>
+</section>
+<section id="method-2-add-dependencies-to-sweetalert2-locally" class="level4">
+<h4 class="anchored" data-anchor-id="method-2-add-dependencies-to-sweetalert2-locally">Method 2: Add dependencies to sweetalert2 locally</h4>
+<p>The links identified earlier will also be useful to download the files needed to use sweetalert2.</p>
+<p>The link to the JavaScript file will be passed to the <code>golem::use_external_js_file()</code> function while the link to the CSS file will be passed to the <code>golem::use_external_css_file()</code> function.</p>
+<p>To keep a record of this, we will save the following commands in the <code>dev/02_dev.R</code> file in the “External resources” section.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>golem<span class="sc">::</span><span class="fu">use_external_js_file</span>(<span class="st">"https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>golem<span class="sc">::</span><span class="fu">use_external_css_file</span>(<span class="st">"https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.min.css"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Both files are now present in the <code>inst/app/www</code> folder of our application project.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="img/04-import_ok.png" class="img-fluid figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Everything is ok, we can continue our journey 👍.</p>
+</section>
+</section>
+<section id="how-to-know-if-sweetalert2-is-correctly-imported-into-my-shiny-app" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-know-if-sweetalert2-is-correctly-imported-into-my-shiny-app">How to know if sweetalert2 is correctly imported into my {shiny} app?</h3>
+<p>To check that sweetalert2 is correctly imported into our application, we open our browser and then the development console.</p>
+<p>Before that, let’s launch our app with <code>golem::run_dev()</code>!</p>
+<p><strong>NB: The following screenshots were taken with the Google Chrome browser.</strong></p>
+<p>On the window of our application, we right-click and select “Inspect”. In the new window that opens, we choose the “Console” tab and then type the command <code>Swal.fire("Hello sweetalert2!")</code>. This console allows us to execute JavaScript code, which will be interpreted by our browser.</p>
+<p>If everything went well, we should see a sweetalert2 alert appear! Otherwise, we might have an error message in red (which we will have to learn to decipher, as with an R console :-)).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="img/05-console_js.png" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>It works! 🎉</p>
+<section id="how-did-i-know-i-had-to-type-swal.fire-...." class="level4">
+<h4 class="anchored" data-anchor-id="how-did-i-know-i-had-to-type-swal.fire-....">How did I know I had to type <code>Swal.fire(" .... ")</code>?</h4>
+<p>Thanks to the documentation! By going to the sweetalert2 page, we find many examples of using the library. In this case, to display an alert, you have to use the <code>Swal.fire()</code> function. As for learning a new R package, we see that documentation (when it exists …) is of paramount importance for the handling of JavaScript libraries.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="img/06_swal_fire.png" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="create-a-sweetalert2-alert-in-our-shiny-app" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-sweetalert2-alert-in-our-shiny-app">Create a sweetalert2 alert in our {shiny} app</h2>
+<p>Now that we have imported sweetalert2 into our application and checked that the import went well, we are going to create a function that will allow us to call sweetalert2 from our application.</p>
+<p>We are going to try to incorporate the “A title with a text under” alert into our application.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="img/07_exemple_alert1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Three elements can be set here: - The title of the alert - The text of the alert - The type of alert (success, error, warning, info, question) and its associated icon</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="img/08_exemple_alert2.png" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can easily imagine how to modify these elements directly in the JavaScript code but we don’t know yet how to create this alert via R code. Let’s go!</p>
+<section id="create-a-javascript-file-to-call-sweetalert2" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-javascript-file-to-call-sweetalert2">Create a JavaScript file to call sweetalert2</h3>
+<p>In order to call sweetalert2 from our application, we are going to create a JavaScript file in which we will write a function that will allow us to create an alert.</p>
+<p>Let’s create a <code>inst/app/www/sweet_alert.js</code> file in which we will paste the code to create the alert selected earlier. We could have created this file manually, but we will take advantage of the features offered by <code>{golem}</code> to do so.</p>
+<p>Let’s go to the <code>dev/02_dev.R</code> file! We add the following line in the “External Resources” section:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>golem<span class="sc">::</span><span class="fu">add_js_handler</span>(<span class="st">"sweet_alert"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The file name doesn’t matter, but it is important to respect the <code>.js</code> extension so that the file is correctly interpreted as JavaScript code. We could have also created subfolders if we had had many imports and files to manage. The only prerequisite is that everything is located in the <code>inst/app/www</code> directory.</p>
+<p>We obtain a slightly strange skeleton, which will in fact be the skeleton of a JavaScript function, usable in our <code>{shiny}</code> application:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>( document )<span class="fu">.ready</span>(<span class="cf">function</span>() {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Shiny.addCustomMessageHandler</span>(<span class="st">'fun'</span>, <span class="cf">function</span>(arg) {</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>});</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We are going to substitute the term <code>'fun'</code> with the name of the function we want to call in our <code>{shiny}</code> application and add the code to create the sweetalert2 alert.</p>
+<p>We therefore obtain the following code:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>( document )<span class="fu">.ready</span>(<span class="cf">function</span>() {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Shiny.addCustomMessageHandler</span>(<span class="st">'alert_title_and_text_under'</span>, <span class="cf">function</span>(arg) {</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Swal.fire</span>({</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>      title<span class="sc">:</span> <span class="st">"The Internet?"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>      text<span class="sc">:</span> <span class="st">"That thing is still around?"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      icon<span class="sc">:</span> <span class="st">"question"</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    });</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>});</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Our parameters “title”, “text” and “icon” are fixed, we need to find a way to make them vary according to the choices of the user. We can notice the existence of a “arg” parameter in the <code>Shiny.addCustomMessageHandler()</code> function. It is this parameter that will allow us to transmit information to our JavaScript function.</p>
+<p>Let’s modify our code:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>( document )<span class="fu">.ready</span>(<span class="cf">function</span>() {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Shiny.addCustomMessageHandler</span>(<span class="st">'alert_title_and_text_under'</span>, <span class="cf">function</span>(arg) {</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Swal.fire</span>({</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>      title<span class="sc">:</span> arg.title,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>      text<span class="sc">:</span> arg.text,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>      icon<span class="sc">:</span> arg.icon</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    });</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>});</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The notation to use here will be <code>arg.parameter_name</code> to access the values transmitted by our <code>{shiny}</code> application. The notation with the “.” is a JavaScript convention for accessing object properties. To make the parallel with R, it’s a bit like if we were doing <code>arg$parameter_name</code>.</p>
+<p>Our JavaScript code is ready! Let’s move back to the R side!</p>
+</section>
+<section id="what-if-we-tested-all-this-in-our-shiny-app-finally" class="level3">
+<h3 class="anchored" data-anchor-id="what-if-we-tested-all-this-in-our-shiny-app-finally">What if we tested all this in our <code>{shiny}</code> app (FINALLY!)?</h3>
+<p>We are going to add a button in the <code>R/app_ui.R</code> file:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>app_ui <span class="ot">&lt;-</span> <span class="cf">function</span>(request) {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tagList</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Leave this function for adding external resources</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">golem_add_external_resources</span>(),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Your application UI logic</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fluidPage</span>(</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">h1</span>(<span class="st">"golemsweetalert"</span>),</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">actionButton</span>(<span class="at">inputId =</span> <span class="st">"show_alert"</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">label =</span> <span class="st">"Alert demo"</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>On the server side, we add an <code>observeEvent()</code> in the <code>R/app_server.R</code> file, which will call our JavaScript function to generate an alert when the user clicks on the “Alert demo” button.</p>
+<p>Once more, <code>{golem}</code> will make our life easier! We will use the <code>golem::invoke_js()</code> function to call our JavaScript function.</p>
+<p>Two parameters are passed to <code>golem::invoke_js()</code>:</p>
+<ul>
+<li>the first parameter corresponds to the name of the JavaScript function to call</li>
+<li>the second parameter corresponds to a list of parameters, the JavaScript equivalent of our <code>arg</code> object which will be used to transmit the information necessary to create the sweetalert2 alert. The names used in the list here must correspond to the names used in the JavaScript function for the <code>arg</code> parameter (“title”, “text” and “icon”).</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>app_server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Your application server logic</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">observeEvent</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    input<span class="sc">$</span>show_alert,{</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>      golem<span class="sc">::</span><span class="fu">invoke_js</span>(</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"alert_title_and_text_under"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">list</span>(</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"Title"</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">text =</span> <span class="st">"Text"</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">icon =</span> <span class="st">"success"</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        ))</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We run a call to <code>golem::run_dev()</code> to see our application in action!</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="img/09_demo.gif" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Congratulations! 👏</p>
+<p>To make everything more elegant, we can create an R function that will call <code>golem::invoke_js()</code>.</p>
+</section>
+<section id="create-an-r-function-to-call-sweetalert2" class="level3">
+<h3 class="anchored" data-anchor-id="create-an-r-function-to-call-sweetalert2">Create an R function to call sweetalert2</h3>
+<p>We are going to go through <code>{golem}</code> to create our function. To do this, we will add the following line in the <code>dev/02_dev.R</code> file of our application:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>golem<span class="sc">::</span><span class="fu">add_fct</span>(<span class="st">"create_alert_title_and_text_under"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We obtain a <code>R/fct_create_alert_title_and_text_under.R</code> file in which we will be able to write our function, which will call the JavaScript code created in the previous step.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' create_alert_title_and_text_under</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' @description Creates an alert with a title, a text and an icon</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param title alert title</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param text alert text</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param icon alert icon</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#' @return side effect : creates an alert</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#' @noRd</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>create_alert_title_and_text_under <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Title"</span>,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="st">"Text"</span>,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">icon =</span> <span class="st">"success"</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    ) {</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  golem<span class="sc">::</span><span class="fu">invoke_js</span>(</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"alert_title_and_text_under"</span>,</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> title,</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">text =</span> text,</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">icon =</span> icon</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s modify both the <code>R/app_ui.R</code> and <code>R/app_server.R</code> files to be able to define the parameters of our alert through choices made by the user.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>app_ui <span class="ot">&lt;-</span> <span class="cf">function</span>(request) {</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tagList</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Leave this function for adding external resources</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">golem_add_external_resources</span>(),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Your application UI logic</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fluidPage</span>(</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">h1</span>(<span class="st">"golemsweetalert"</span>),</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">textInput</span>(<span class="at">inputId =</span> <span class="st">"title"</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">"title"</span>),</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">textInput</span>(<span class="at">inputId =</span> <span class="st">"text"</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">"text"</span>),</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">radioButtons</span>(<span class="at">inputId =</span> <span class="st">"icon"</span>,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">label =</span> <span class="st">"icon"</span>,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">"warning"</span>, <span class="st">"error"</span>, <span class="st">"success"</span>, <span class="st">"info"</span>, <span class="st">"question"</span>)),</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">actionButton</span>(<span class="at">inputId =</span> <span class="st">"show_alert"</span>,</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>                   <span class="at">label =</span> <span class="st">"Alert demo"</span>)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To define the list of possible “choices” for the <code>radioButtons</code>, we took the possible values for the <code>icon</code> parameter of sweetalert2, as indicated in the official documentation: https://sweetalert2.github.io/#icon.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>app_server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Your application server logic</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">observeEvent</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    input<span class="sc">$</span>show_alert,{</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">create_alert_title_and_text_under</span>(</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> input<span class="sc">$</span>title,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> input<span class="sc">$</span>text,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">icon =</span> input<span class="sc">$</span>icon</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s finally call <code>golem::run_dev()</code>!</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="img/10_demo2.gif" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Bravo ! 👏</p>
+</section>
+</section>
+<section id="and-a-more-complex-example" class="level2">
+<h2 class="anchored" data-anchor-id="and-a-more-complex-example">And a more complex example?</h2>
+<p>Following the previous steps, it is relatively easy to add additional elements to an alert, such as an image or confirmation / cancellation buttons. A slightly deeper dive into the sweetalert2 documentation will help you understand how to add these elements.</p>
+<p>Let’s see what is possible to achieve:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="img/11_demo3.gif" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>You are curious to know more? Go to <a href="https://github.com/ymansiaux/golemsweetalert" target="_blank">this project source code</a>.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<ul>
+<li>Integrating JavaScript libraries into a {shiny} application is possible!</li>
+<li><code>{golem}</code> makes it easier for us</li>
+<li>It is quite easy when the library is well documented</li>
+<li>It is important to read the documentation of the library you want to integrate (but this is also true in R!)</li>
+<li>The browser inspector is a very useful tool to check that everything is going well</li>
+<li>To integrate more complex libraries, minimal JavaScript skills will probably be required</li>
+</ul>
+<p>If you want more examples of the use of sweetalert2, but also other JavaScript libraries (<a href="https://gridjs.io/" target="_blank">Grid.js</a> and <a href="https://www.chartjs.org/" target="_blank">Chart.js</a>), you can consult the <a href="https://connect.thinkr.fr/mycomicslibrary/" target="_blank">mycomicslibrary</a> application and take a look at <a href="https://github.com/ymansiaux/mycomicslibrary" target="_blank">its source code</a>.</p>
+<p>Thanks for reading this tutorial and have fun in the wonderful world of JavaScript! 🚀</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -3,11 +3,13 @@
     "listing": "/index.html",
     "items": [
       "/posts/welcome/index.html",
+      "/posts/iaforr/index.html",
       "/posts/vscodeR/index.html",
       "/posts/datainpkgs_video/index.html",
       "/posts/datainpkgs/index.html",
       "/posts/chartJS/index.html",
-      "/posts/sweetalert2/index.html"
+      "/posts/sweetalert2/index.html",
+      "/posts/tmap/index.html"
     ]
   }
 ]

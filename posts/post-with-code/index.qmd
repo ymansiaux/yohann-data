@@ -1,316 +1,407 @@
 ---
-title: "Post With Code"
-author: "Harlow Malloc"
-date: "2024-11-05"
-categories: [news, code, analysis]
+title: "Pimping your {shiny} app with a JavaScript library : an example using sweetalert2"
+author: "Yohann Mansiaux"
+date: "2024-04-30"
+categories: [shiny, javascript]
 image: "image.jpg"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  echo = TRUE, eval=FALSE, fig.align = 'center', message=FALSE
-)
+**You think that some of the components of `{shiny}` are not very functional or downright austere? Are you looking to implement some feature in your app but it is not available in the `{shiny}` toolbox? Take a look at JavaScript!** 
+
+JavaScript is a very popular programming language that is often used to add features to web pages. With HTML and CSS, JavaScript is an essential language for web developers. The size of its user community means that if you are looking to implement a particular feature, there is a good chance that someone has already had the same need as you and has shared their code!
+
+An other positive point (and essential for us in this case) : it is possible to integrate JavaScript libraries into a `{shiny}` application to add features that are not available by default. In addition to that, `{golem}` will help us to set everything up.
+
+No more excuses to back down, let's go ! 🚀
+
+
+
+## TL;DR
+
+- Going further in `{shiny}` by integrating a JavaScript library is possible!
+  - We take the example of sweetalert2, which allows to display alerts that are more visually appealing than the basic ones
+  - `{golem}` has several functions to make it easier for us to integrate JavaScript libraries into a `{shiny}` app
+  - This example is rather simple. The integration of libraries is sometimes harder because the documentation might be scarse or the library might be more complex to use 
+
+## Import sweetalert2 into a `{shiny}` app created with `{golem}`
+
+### sweetalert2
+
+- sweetalert2 is a JavaScript library that allows you to display alerts that are more visually appealing than the basic ones
+- It is very well documented
+- It is very popular (more than 16000 "stars" on GitHub at the time of publication of this article)
+
+Let's take a look at the possibilities offered by sweetalert2: https://sweetalert2.github.io/
+
+```{r, echo = FALSE, out.width="70%"}
+knitr::include_graphics("./img/01-sweetalertaccueil.png")
 ```
 
-**Si vous êtes utilisateur de R, la visualisation de données fait déjà probablement partie de vos activités récurrentes. S'il est devenu très aisé de représenter des données tabulaires, notamment via `{ggplot2}`, la représentation de données spatiales peut apparaitre plus mystérieuse.**
+If you click on "Show normal alert", you will see a classic alert while clicking on "Show success message", you will see a sweetalert2 alert.
 
-**Pas de panique, vous pouvez affûter vos crayons de couleurs, R va également vous permettre de dessiner de jolies cartes, et ce en quelques petites minutes !**
+The first one has a rather austere design while the second one is more modern and more pleasant to the eye, it will probably offer a better user experience.
 
-**Avant de se lancer dans la création de cartes, faisons un petit topo sur les données spatiales et sur l'objectif de la représentation cartographique.**
+Feel free to play with the different types of alerts offered by sweetalert2 to get an idea of what is possible with this library by visiting the <a href="https://sweetalert2.github.io/#examples" target="_blank">examples</a> section.
 
-## Dois-je vraiment réaliser une carte ?
+### Add the necessary dependencies to the `{shiny}` app
 
-C'est la toute première question à se poser : **la carte est-elle la bonne méthode de visualisation?** Tout va dépendre du type de données et du message à faire passer.
+**The following sections assume that you have already created a `{shiny}` app with `{golem}`.**
 
-Imaginons que l'on souhaite classifier les départements de France métropolitaine en fonction du nombre de bars que l'on peut y trouver. Comparons une cartographie et un diagramme en barres classique.
+If this is not the case and you want to know more about `{golem}`, I invite you to consult the <a href="https://thinkr-open.github.io/golem/" target="_blank">official documentation</a>.
 
-**Carte**
+To add sweetalert2 to your `{shiny}` app, you will need to find a way to incorporate the files needed for its operation into your application.
 
-```{r tmap1, eval=TRUE, echo=FALSE, out.width="100%"}
-knitr::include_graphics("img/nb_par_dept_carte_pasfaire.png")
+Two solutions are available to you:
+
+- Use a "CDN" (Content Delivery Network) to load the files from a third-party server. The CDN will be the equivalent of a CRAN for JavaScript libraries. Concretely, we will ask our application to point to the sources of sweetalert2, hosted on a remote server.
+
+- Download the files needed for its operation and integrate them directly into your application. If your application is intended to be used on a machine that is not connected to the Internet, you will inevitably have to go through this step.
+
+**Don't panic! We will see both methods**
+
+#### Where to find the elements I need?
+
+The sweetalert2 documentation is very well done. You will find all the information you need to integrate the library into your application from the <a href="https://sweetalert2.github.io/#download" target="_blank">Download</a> section.
+
+However, you will need to learn how to identify the elements you need to integrate sweetalert2 into your application.
+
+**Looking for the CDN**
+
+In the "Download & Install" section, you will find a link to the sweetalert2 CDN. This is the link that we will have to add to our application in order to use the library.
+
+```{r, echo = FALSE, out.width="80%"}
+knitr::include_graphics("img/02-cdn.png")
 ```
 
-**Diagramme en barres**
+When you click on the link, you will arrive on a page that looks like this:
 
-```{r tmap2, eval=TRUE, echo=FALSE, out.width="100%"}
-knitr::include_graphics("img/nb_par_departement.png")
+```{r, echo = FALSE, out.width="100%"}
+knitr::include_graphics("img/03-cdn_site.png")
 ```
 
+What we are interested in here is the link in the `<script>` tag and the link in the `<link>` tag. The link to the file with the `.js` extension corresponds to the sweetalert2 JavaScript file. The link to the file with the `.css` extension corresponds to the sweetalert2 styles file.
 
-```{r tmap3, fig.show = "hold", out.width = "50%", fig.align = "default", eval=FALSE, echo=FALSE}
-knitr::include_graphics("img/nb_par_departement.png")
-knitr::include_graphics("img/nb_par_dept_carte_pasfaire.png")
+Copy them and let's go back to our app!
+
+#### Method 1: Add dependencies to sweetalert2 via the CDN
+
+Let's open the `R/app_ui.R` file of our application and add the two links we copied earlier to the body of the `golem_add_external_resources()` function.
+
+``` r
+golem_add_external_resources <- function() {
+  add_resource_path(
+    "www",
+    app_sys("app/www")
+  )
+
+  tags$head(
+    favicon(),
+    bundle_resources(
+      path = app_sys("app/www"),
+      app_title = "golemsweetalert"
+    ),
+    # sweetalert2
+    tags$script(src = "https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js"),
+    tags$link(href = "https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.min.css",
+              rel="stylesheet")
+ 
+  )
+}
 ```
 
+We find here a call to `tags$script` and a call to `tags$link` corresponding respectively to the `<script>` and `<link>` tags seen on the links provided by the CDN.
 
-Même si la carte était une option tentante, on voit qu'il est assez complexe de tirer des enseignements, alors que le diagramme en barre nous a permis d'observer plus aisément une tendance dans nos données et d'avoir une idée des départements les moins bien lotis par exemple. 
+We copy-paste the elements being careful about the parameter names `src`, `href` and `rel` and remembering to separate them with commas. We are indeed moving from HTML code (where elements are separated by spaces) to R code.
 
+#### Method 2: Add dependencies to sweetalert2 locally
 
-**Au final, si vous pensez qu'une carte peut faire passer le message désiré en un coup d'oeil la réponse est : foncez ! Dès qu'une structuration spatiale avec du sens existe dans vos données, cette méthode de visualisation de données est parfaitement adaptée.**
+The links identified earlier will also be useful to download the files needed to use sweetalert2.
 
-## Les bases de la carto
+The link to the JavaScript file will be passed to the `golem::use_external_js_file()` function while the link to the CSS file will be passed to the `golem::use_external_css_file()` function.
 
-### Les projections
+To keep a record of this, we will save the following commands in the `dev/02_dev.R` file in the "External resources" section.
 
-Au fait c'est quoi une carte ? C'est une **répresentation en 2 dimensions d'une partie du Monde** (ou soyons fous de la planète entière).
+``` r
+golem::use_external_js_file("https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js")
+golem::use_external_css_file("https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.min.css")
+```
+Both files are now present in the `inst/app/www` folder of our application project.
 
-Passer d'une surface non plane à la surface plane d'une carte implique l'utilisation d'une méthode de projection. 
-
-Il en existe de multiples, plus ou moins adaptées selon la région du globe que l'on souhaite représenter, la plus courante étant la "WGS84". Avec cette méthode, qui est notamment utilsée par les GPS, chaque point sur Terre est représenté par un couple de coordonnées géographiques latitude/longitude. On peut également citer la projection "Lambert 93", qui est particulièrement adaptée pour représenter la France métropolitaine.
-**Selon la méthode utilisée, le rendu sur votre carte ne sera pas le même.**
-
-```{r tmap4, message=FALSE, out.width='55%', echo=FALSE, eval=TRUE}
-knitr::include_graphics("img/projection_deformation.gif")
+```{r, echo = FALSE, out.width="70%"}
+knitr::include_graphics("img/04-import_ok.png")
 ```
 
-En R, on utilisera souvent le terme CRS (Coordinates Reference System) pour parler de la projection.
+Everything is ok, we can continue our journey 👍.
 
-### Les objets géographiques
+### How to know if sweetalert2 is correctly imported into my {shiny} app?
 
-Pour représenter un jeu de données vectoriel via une carte, on va pouvoir faire appel à différents types d'objets géographiques :
+To check that sweetalert2 is correctly imported into our application, we open our browser and then the development console.
 
-- **des points** : pour représenter des objets sans surface 
-    * les restaurants de votre quartier
-    * les gares TER de votre région administrative
-    * les bureaux de vote de votre ville
+Before that, let's launch our app with `golem::run_dev()`!
 
-- **des lignes** : pour représenter des objets avec une longueur
-    * les limites administratives des départements
-    * les pistes cyclables de votre lieu de vacances
-    * les cours d'eau de votre ville
+**NB: The following screenshots were taken with the Google Chrome browser.**
 
-- **des polygones** : pour représenter des objets avec des surfaces
-  + les pays du Monde
-  + les zones de stationnement payant dans votre quartier
-  + les arrondissements de Paris
+On the window of our application, we right-click and select "Inspect". In the new window that opens, we choose the "Console" tab and then type the command `Swal.fire("Hello sweetalert2!")`. This console allows us to execute JavaScript code, which will be interpreted by our browser.
 
-## Construisons notre première carte !
+If everything went well, we should see a sweetalert2 alert appear! Otherwise, we might have an error message in red (which we will have to learn to decipher, as with an R console :-)).
 
-Il est temps de se lancer ! Nous allons travailler avec 2 packages :
-
-- {sf} : pour la lecture de données vectorielles ([site du package](https://r-spatial.github.io/sf/))
-
-- {tmap} : pour dessiner notre carte ([site du package](https://r-tmap.github.io/tmap/))
-
-
-Procédons à leur installation puis leur chargement :
-
-```{r tmap5, eval=FALSE}
-install.packages("sf")
-install.packages("tmap")
+```{r, echo = FALSE, out.width="80%"}
+knitr::include_graphics("img/05-console_js.png")
 ```
 
-L'installation des packages de cartographie peut parfois poser des problèmes, si c'est le cas n'hésitez pas à consulter notre [article dédié](https://rtask.thinkr.fr/fr/installation-de-r-4-2-sur-ubuntu-22-04-lts-et-astuces-pour-les-packages-de-cartographie/).
+It works! 🎉
 
+#### How did I know I had to type `Swal.fire(" .... ")`?
 
-```{r tmap6, message=FALSE, echo=FALSE, eval=TRUE}
-library(sf)
-library(tmap)
-library(readr)
-library(dplyr)
+Thanks to the documentation! By going to the sweetalert2 page, we find many examples of using the library. In this case, to display an alert, you have to use the `Swal.fire()` function. As for learning a new R package, we see that documentation (when it exists ...) is of paramount importance for the handling of JavaScript libraries.
+
+```{r, echo = FALSE, out.width="80%"}
+knitr::include_graphics("img/06_swal_fire.png")
 ```
 
+## Create a sweetalert2 alert in our {shiny} app
 
-```{r tmap7, message=FALSE, eval=FALSE}
-library(sf)
-library(tmap)
+Now that we have imported sweetalert2 into our application and checked that the import went well, we are going to create a function that will allow us to call sweetalert2 from our application.
+
+We are going to try to incorporate the "A title with a text under" alert into our application.
+
+```{r, echo = FALSE, out.width="80%"}
+knitr::include_graphics("img/07_exemple_alert1.png")
 ```
 
-### Lecture de données "shapefile"
+Three elements can be set here:
+- The title of the alert
+- The text of the alert
+- The type of alert (success, error, warning, info, question) and its associated icon
 
-Le shapefile est un format de données utilisées très couramment pour l'analyse de données géospatiales. Plusieurs fichiers sont fournis à chaque fois (`.dbf`, `.prj`, `.shp` ...); si c'est le fichier `.shp` qui sera lu par le package `{sf}`, les autres fichiers sont indispensables et ne doivent pas être supprimés. Ils contiennent par exemple des informations relatives à la projection.
 
-Nous allons ici représenter les données des départements de France métropolitaine. Ces données proviennent du site de l'[IGN](https://geoservices.ign.fr/geofla). 
-Vous pouvez également les télécharger [ici](https://github.com/ThinkR-open/iframe.illustrations/blob/master/data_article_tmap/DEPARTEMENT.zip). Il faudra que vous décompressiez le fichier `DEPARTEMENT.zip`, dans un dossier `data/`. Le plus simple reste de créer un projet dans RStudio qui contiendra vos données et votre document de travail.
-
-```{r tmap8, eval=FALSE, echo=TRUE}
-departements_l93 <- read_sf("data/DEPARTEMENT/DEPARTEMENT.shp")
+```{r, echo = FALSE, out.width="60%"}
+knitr::include_graphics("img/08_exemple_alert2.png")
 ```
 
-```{r tmap9, echo=FALSE, message=FALSE, eval=TRUE}
-departements_l93 <- read_sf(file.path(here::here(), "/thinkr_website/2023-09-13_tmap_intro/data/DEPARTEMENT/DEPARTEMENT.shp"))
+We can easily imagine how to modify these elements directly in the JavaScript code but we don't know yet how to create this alert via R code. Let's go!
+
+### Create a JavaScript file to call sweetalert2
+
+In order to call sweetalert2 from our application, we are going to create a JavaScript file in which we will write a function that will allow us to create an alert.
+
+Let's create a `inst/app/www/sweet_alert.js` file in which we will paste the code to create the alert selected earlier. We could have created this file manually, but we will take advantage of the features offered by `{golem}` to do so.
+
+Let's go to the `dev/02_dev.R` file! We add the following line in the "External Resources" section:
+
+``` r
+golem::add_js_handler("sweet_alert")
 ```
 
-Une bonne pratique pour garder en tête la projection utilisée est de l'indiquer explicatement dans le nom de notre objet, ici le "_l93" nous indique que les données sont en projection Lambert 93.
+The file name doesn't matter, but it is important to respect the `.js` extension so that the file is correctly interpreted as JavaScript code. We could have also created subfolders if we had had many imports and files to manage. The only prerequisite is that everything is located in the `inst/app/www` directory.
 
-Observons les premières lignes de notre jeu de données géographiques :
+We obtain a slightly strange skeleton, which will in fact be the skeleton of a JavaScript function, usable in our `{shiny}` application:
 
-```{r tmap10, echo=TRUE, eval=FALSE}
-departements_l93
+``` r
+$( document ).ready(function() {
+  Shiny.addCustomMessageHandler('fun', function(arg) {
+ 
+  })
+});
 ```
 
-```{r tmap11, echo=FALSE, eval=TRUE}
-departements_l93 |> 
-select(CODE_DEPT, NOM_DEPT, NOM_REG)
+We are going to substitute the term `'fun'` with the name of the function we want to call in our `{shiny}` application and add the code to create the sweetalert2 alert.
 
+We therefore obtain the following code:
+
+``` r
+$( document ).ready(function() {
+  Shiny.addCustomMessageHandler('alert_title_and_text_under', function(arg) {
+    Swal.fire({
+      title: "The Internet?",
+      text: "That thing is still around?",
+      icon: "question"
+    });
+  })
+});
 ```
 
-On constate un rendu assez proche de celui qu'on peut avoir des objets plus familiers comme les `data.frame` ou les `tibble` avec quelques informations supplémentaires, spécifiques d'un jeu de données géographiques.
-Citons notamment le `Geometry type`, qui fait mention ici de `MULTIPOLYGON`. Il s'agit d'une version un peu plus complexe des polygones, dans tous les cas ce type de géométrie parait cohérent étant donné qu'on va répresenter des départements, qui sont des objets avec une surface.
-On voit également le `Projected CRS`, qui nous confirme que nous travaillons avec des données projetées en Lambert 93.
+Our parameters "title", "text" and "icon" are fixed, we need to find a way to make them vary according to the choices of the user. We can notice the existence of a "arg" parameter in the `Shiny.addCustomMessageHandler()` function. It is this parameter that will allow us to transmit information to our JavaScript function.
 
-**Enfin, on observe qu'il existe une colonne `geometry`, caractéristique d'un jeu de données géographiques, et qui contient toutes les informations qui vont nous permettre de dessiner nos départements.**
+Let's modify our code:
 
-
-### Notre première carte avec {tmap}
-
-L'instruction indispensable pour utiliser `{tmap}` est `tm_shape()`, c'est ici qu'on va passer en entrée notre jeu de données.
-Il faut ensuite indiquer à `{tmap}` comment représenter ces données. Ici on travaille avec des polygones, on va donc utiliser la commande `tm_polygons()`.
-Vous remarquerez que, **de manière analogue à `{ggplot2}`, on va enchainer les instructions via des `+`, de telle sorte à empiler des couches sur notre carte.**
-
-```{r tmap12, echo=TRUE, eval=TRUE}
-tm_shape(departements_l93) +
-  tm_polygons()
+``` r
+$( document ).ready(function() {
+  Shiny.addCustomMessageHandler('alert_title_and_text_under', function(arg) {
+    Swal.fire({
+      title: arg.title,
+      text: arg.text,
+      icon: arg.icon
+    });
+  })
+});
 ```
 
-**Tadaaaaa ! Voici en à peine 2 lignes de code un jolie carte de la France métropolitaine.**
+The notation to use here will be `arg.parameter_name` to access the values transmitted by our `{shiny}` application. The notation with the "." is a JavaScript convention for accessing object properties. To make the parallel with R, it's a bit like if we were doing `arg$parameter_name`.
 
-Et si on colorait nos départements en fonction de leur région ? Il faut pour cela utiliser la colonne "NOM_REG" de notre jeu de données `departements_l93`.
+Our JavaScript code is ready! Let's move back to the R side!
 
-```{r tmap13, echo=TRUE, eval=TRUE} 
-tm_shape(departements_l93) +
-  tm_polygons(col = "NOM_REG", title = "Régions")
+### What if we tested all this in our `{shiny}` app (FINALLY!)?
+
+We are going to add a button in the `R/app_ui.R` file:
+
+``` r
+app_ui <- function(request) {
+  tagList(
+    # Leave this function for adding external resources
+    golem_add_external_resources(),
+    # Your application UI logic
+    fluidPage(
+      h1("golemsweetalert"),
+      actionButton(inputId = "show_alert",
+                   label = "Alert demo")
+    )
+  )
+}
 ```
 
-Si la palette par défaut ne nous satisfait pas, on peut bien sur la modifier ! Et si vous êtes en manque d'inspiration, `tmaptools::palette_explorer()` est là pour vous aider à choisir.
+On the server side, we add an `observeEvent()` in the `R/app_server.R` file, which will call our JavaScript function to generate an alert when the user clicks on the "Alert demo" button.
 
-Personnellement j'aime bien le bleu et le vert, je vais utiliser la palette "GnBu" que j'ai pioché dans `tmaptools::palette_explorer()`.
+Once more, `{golem}` will make our life easier! We will use the `golem::invoke_js()` function to call our JavaScript function.
 
-```{r tmap14, echo=TRUE, eval=TRUE}
-tm_shape(departements_l93) +
-  tm_polygons(col = "NOM_REG", title = "Régions", palette = "GnBu")
+Two parameters are passed to `golem::invoke_js()`:
+
+- the first parameter corresponds to the name of the JavaScript function to call
+- the second parameter corresponds to a list of parameters, the JavaScript equivalent of our `arg` object which will be used to transmit the information necessary to create the sweetalert2 alert. The names used in the list here must correspond to the names used in the JavaScript function for the `arg` parameter ("title", "text" and "icon").
+
+``` r
+app_server <- function(input, output, session) {
+  # Your application server logic
+  observeEvent(
+    input$show_alert,{
+      golem::invoke_js(
+        "alert_title_and_text_under",
+        list(
+          title = "Title",
+          text = "Text",
+          icon = "success"
+        ))
+    }
+  )
+}
+```
+We run a call to `golem::run_dev()` to see our application in action!
+
+```{r, echo = FALSE}
+knitr::include_graphics("img/09_demo.gif")
 ```
 
-On pourrait continuer à "pimper" notre carte en rajoutant un titre ou en changeant la couleur de fond par exemple : pour cela `tm_layout()` vient à la rescousse !
+Congratulations! 👏
 
-```{r tmap15, echo=TRUE, eval=TRUE}
-tm_shape(departements_l93) +
-  tm_polygons(col = "NOM_REG", title = "Régions", palette = "GnBu") +
-  tm_layout(title = "Carte des départements et régions", bg.color = "ivory")
+To make everything more elegant, we can create an R function that will call `golem::invoke_js()`.
+
+### Create an R function to call sweetalert2
+
+We are going to go through `{golem}` to create our function. To do this, we will add the following line in the `dev/02_dev.R` file of our application:
+
+``` r
+golem::add_fct("create_alert_title_and_text_under")
 ```
 
-**Une infinité d'options s'offre à vous pour personnaliser vos cartes**, tous les éléments graphiques qu'on peut modifier dans `{ggplot2}` par exemple sont bien sur modifiables dans `{tmap}` (couleur de remplissage, couleur des bordures, formes des pictogrammes, épaisseurs des lignes, personnalisation des légendes ...).
+We obtain a `R/fct_create_alert_title_and_text_under.R` file in which we will be able to write our function, which will call the JavaScript code created in the previous step.
 
-### Et si on rajoutait une deuxième couche d'information sur notre carte ?
 
-Un deuxième jeu de données est fourni, il contient les coordonnées des chefs-lieux de chaque département.
-Vous pouvez télécharger ces données [ici](https://github.com/ThinkR-open/iframe.illustrations/blob/master/data_article_tmap/CHEFLIEU.zip).
-
-```{r tmap16, echo=FALSE, message=FALSE, eval=TRUE}
-chefs_lieux <- read_csv(file.path(here::here(),"/thinkr_website/2023-09-13_tmap_intro/data/CHEFLIEU/ChefLieu.csv"))
-chefs_lieux_l93 <- st_as_sf(chefs_lieux,
-                         coords = c("X_CHF_LIEU", "Y_CHF_LIEU"),
-                         crs = 2154)
-#st_write(chefs_lieux_l93, file.path(here::here(),"/thinkr_website/2023-09-13_tmap_intro/data/CHEFLIEU/ChefLieu.shp"), append = FALSE)
+``` r
+#' create_alert_title_and_text_under
+#'
+#' @description Creates an alert with a title, a text and an icon
+#' @param title alert title
+#' @param text alert text
+#' @param icon alert icon
+#' @return side effect : creates an alert
+#'
+#' @noRd
+create_alert_title_and_text_under <- function(
+    title = "Title",
+    text = "Text",
+    icon = "success"
+    ) {
+  golem::invoke_js(
+    "alert_title_and_text_under",
+    list(
+      title = title,
+      text = text,
+      icon = icon
+    )
+  )
+}
 ```
 
-```{r tmap17, eval=FALSE, echo=TRUE}
-chefs_lieux_l93 <- read_sf("data/CHEFLIEU/ChefLieu.shp")
+Let's modify both the `R/app_ui.R` and `R/app_server.R` files to be able to define the parameters of our alert through choices made by the user.
+
+``` r
+app_ui <- function(request) {
+  tagList(
+    # Leave this function for adding external resources
+    golem_add_external_resources(),
+    # Your application UI logic
+    fluidPage(
+      h1("golemsweetalert"),
+      textInput(inputId = "title",
+                label = "title"),
+      textInput(inputId = "text",
+                label = "text"),
+      radioButtons(inputId = "icon",
+                   label = "icon",
+                   choices = c("warning", "error", "success", "info", "question")),
+      actionButton(inputId = "show_alert",
+                   label = "Alert demo")
+    )
+  )
+}
+```
+To define the list of possible "choices" for the `radioButtons`, we took the possible values for the `icon` parameter of sweetalert2, as indicated in the official documentation: https://sweetalert2.github.io/#icon.
+
+``` r
+app_server <- function(input, output, session) {
+  # Your application server logic
+  observeEvent(
+    input$show_alert,{
+      create_alert_title_and_text_under(
+        title = input$title,
+        text = input$text,
+        icon = input$icon
+      )
+    }
+  )
+}
 ```
 
-Si tout à l'heure nous avions travaillé avec des données de polygones possédant une surface, ici nous allons travailler avec des objets géographiques correspondant à des points (les coordonnées latitude/longitude qui décrivent la localisation de chaque chef-lieu).
+Let's finally call `golem::run_dev()`!
 
-Pour en avoir le coeur net, observons les premières lignes du jeu de données :
-
-```{r tmap18, echo=TRUE, eval=TRUE}
-chefs_lieux_l93
+```{r, echo = FALSE}
+knitr::include_graphics("img/10_demo2.gif")
 ```
 
-La section `Geometry type` nous indique bien que nous allons travailler avec des objets de type `POINT`, c'est également confirmé par la colonne `geometry` du jeu de données. Enfin on observe que la projection est également en Lambert 93. 
-Nous pouvons repartir sereinement sur l'amélioration de notre carte.
+Bravo ! 👏 
 
-**Pour ajouter une nouvelle couche de données, nous allons pouvoir repartir de notre code précédent et enchainer avec une nouvelle instruction `tm_shape()` comme nous l'avions fait au tout début.**
+## And a more complex example?
 
-```{r tmap19, error = TRUE, echo=TRUE, eval=TRUE}
-tm_shape(departements_l93) +
-  tm_polygons(col = "NOM_REG", title = "Régions", palette = "GnBu") +
-  tm_layout(title = "Carte des départements et régions", bg.color = "ivory") +
-tm_shape(chefs_lieux_l93)
+Following the previous steps, it is relatively easy to add additional elements to an alert, such as an image or confirmation / cancellation buttons. A slightly deeper dive into the sweetalert2 documentation will help you understand how to add these elements.
+
+Let's see what is possible to achieve:
+
+```{r, echo = FALSE}
+knitr::include_graphics("img/11_demo3.gif")
 ```
 
-**Aïe une erreur !** 
+You are curious to know more? Go to <a href="https://github.com/ymansiaux/golemsweetalert" target="_blank">this project source code</a>.
 
-Pas de panique ! En effet, si nous avons bien demandé à `{tmap}` de prendre en charge ce nouveau jeu de données, nous n'avons donné aucune instruction sur la manière de représenter sa composante géographique.
-Pour représenter des points, on utilise `tm_symbols()` :
 
-```{r tmap20, echo=TRUE, eval=TRUE}
-tm_shape(departements_l93) +
-  tm_polygons(col = "NOM_REG", title = "Régions", palette = "GnBu") +
-  tm_layout(title = "Carte des départements et régions", bg.color = "ivory") +
-tm_shape(chefs_lieux_l93) +
-  tm_symbols()
-```
+## Conclusion
 
-On peut bien sur modifier par exemple la couleur de fond des points dessinés, ainsi que la couleur de leur bordure extérieure. De plus, ils sont un peu trop volumineux à mon goût, nous allons également réduire leur taille.
+- Integrating JavaScript libraries into a {shiny} application is possible!
+- `{golem}` makes it easier for us
+- It is quite easy when the library is well documented
+- It is important to read the documentation of the library you want to integrate (but this is also true in R!)
+- The browser inspector is a very useful tool to check that everything is going well
+- To integrate more complex libraries, minimal JavaScript skills will probably be required
 
-```{r tmap21, echo=TRUE, eval=TRUE}
-tm_shape(departements_l93) +
-  tm_polygons(col = "NOM_REG", title = "Régions", palette = "GnBu") +
-  tm_layout(title = "Carte des départements et régions", bg.color = "ivory") +
-tm_shape(chefs_lieux_l93) +
-  tm_symbols(col = "salmon", border.col = "black", size = 0.75)
-```
+If you want more examples of the use of sweetalert2, but also other JavaScript libraries (<a href="https://gridjs.io/" target="_blank">Grid.js</a> and <a href="https://www.chartjs.org/" target="_blank">Chart.js</a>), you can consult the <a href="https://connect.thinkr.fr/mycomicslibrary/" target="_blank">mycomicslibrary</a> application and take a look at <a href="https://github.com/ymansiaux/mycomicslibrary" target="_blank">its source code</a>.
 
-### Et si on décalait la légende ?
-
-Maintenant que nous sommes presque au bout de notre carte, essayons de décaler la légende, qui nous empêche de profiter pleinement de notre travail. Il s'agit juste d'ajouter une option à `tm_layout()`.
-
-```{r tmap22, echo=TRUE, eval=TRUE}
-tm_shape(departements_l93) +
-  tm_polygons(col = "NOM_REG", title = "Régions", palette = "GnBu") +
-  tm_layout(title = "Carte des départements et régions", bg.color = "ivory", inner.margins = c(0.1, 0.25, 0.1, 0.02)) +
-tm_shape(chefs_lieux_l93) +
-  tm_symbols(col = "salmon", border.col = "black", size = 0.75)
-```
-
-Voilà qui est mieux !
-
-### Une dernière modification pour la route ?
-
-Finissons en beauté en indiquant le Nord sur notre carte, avec une jolie rose des vents, grâce à `tm_compass()`.
-
-```{r tmap23, echo=TRUE, eval=TRUE}
-tm_shape(departements_l93) +
-  tm_polygons(col = "NOM_REG", title = "Régions", palette = "GnBu") +
-  tm_layout(title = "Carte des départements et régions", bg.color = "ivory", inner.margins = c(0.1, 0.25, 0.1, 0.02)) +
-  tm_shape(chefs_lieux_l93) +
-tm_symbols(col = "salmon", border.col = "black", size = 0.75) +
-  tm_compass(type = "rose", position = c("right", "top"))
-```
-
-### Et pour enregistrer ma carte ?
-
-```{r tmap24, eval=FALSE, echo=TRUE}
-ma_superbe_carte <- tm_shape(departements_l93) +
-  tm_polygons(col = "NOM_REG", title = "Régions", palette = "GnBu") +
-  tm_layout(title = "Carte des départements et régions", bg.color = "ivory", inner.margins = c(0.1, 0.25, 0.1, 0.02)) +
-tm_shape(chefs_lieux_l93) +
-  tm_symbols(col = "salmon", border.col = "black", size = 0.75) +
-  tm_compass(type = "rose", position = c("right", "top"))
-
-tmap_save(ma_superbe_carte, filename = "ma_superbe_carte.png")
-```
-
-## Alors, convaincus ?
-
-S'il existe un grand nombre de packages R permettant de réaliser des cartes (notamment `{mapsf}` ou `{ggplot2}`, d'ailleurs les premières cartes présentées dans cet article ont été produites avec `{ggplot2}`!), `{tmap}` en fait sa spécialité et est donc un partenaire de premier choix pour cet exercice.
-
-L'analyse de données spatiales est une discipline qui a ses spécificités (et parfois ses complexités ...) mais **les possibilités pour trouver des données (il existe énorménent de données spatiales en open data), les triturer et produire de jolies cartes sont quasi-infinies !**
-
-Il est notamment possible de :
-
-- rajouter des fonds de cartes
-- produire des cartes interactives
-- produire des cartes animées 
-- incorporer des cartes dans une application Shiny
-
-## Pour aller plus loin 
-
-Si vous êtes utilisateur de bases de données PostGIS, cette ressource peut vous être utile : [https://rtask.thinkr.fr/fr/interagir-avec-postgis-depuis-r-avec-dbi-et-sf/](https://rtask.thinkr.fr/fr/interagir-avec-postgis-depuis-r-avec-dbi-et-sf/).
-
-**Vous avez un problème pour manipuler vos données spatiales ou pour les valoriser ?**
-
-Notre [formation dédiée](https://thinkr.fr/formation-au-logiciel-r/cartographie-et-sig-avec-r/) peut certainement vous aider, dans tous les cas n'hésitez pas à nous [contacter](https://thinkr.fr/contact/) pour nous exposer votre problème.
-
-A bientôt ... et d'ici là amusez vous bien ! 
-
+Thanks for reading this tutorial and have fun in the wonderful world of JavaScript! 🚀

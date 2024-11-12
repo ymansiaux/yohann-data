@@ -2,18 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ymansiaux.github.io/yohann-data/index.html</loc>
-    <lastmod>2024-11-12T10:13:40.396Z</lastmod>
+    <lastmod>2024-11-12T10:15:39.584Z</lastmod>
   </url>
   <url>
     <loc>https://ymansiaux.github.io/yohann-data/posts/iaforr/index.html</loc>
-    <lastmod>2024-11-12T09:28:52.876Z</lastmod>
+    <lastmod>2024-11-12T10:15:37.097Z</lastmod>
   </url>
   <url>
     <loc>https://ymansiaux.github.io/yohann-data/about.html</loc>
-    <lastmod>2024-11-12T10:12:59.565Z</lastmod>
+    <lastmod>2024-11-12T10:15:36.784Z</lastmod>
   </url>
   <url>
     <loc>https://ymansiaux.github.io/yohann-data/posts/welcome/index.html</loc>
     <lastmod>2024-11-12T08:24:25.945Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ymansiaux.github.io/yohann-data/posts/sweetalert2/index.html</loc>
+    <lastmod>2024-11-12T10:15:37.101Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ymansiaux.github.io/yohann-data/posts/datainpkgs/index.html</loc>
+    <lastmod>2024-11-12T10:15:37.091Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ymansiaux.github.io/yohann-data/posts/chartJS/index.html</loc>
+    <lastmod>2024-11-12T10:15:37.091Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ymansiaux.github.io/yohann-data/posts/datainpkgs_video/index.html</loc>
+    <lastmod>2024-11-12T10:15:37.095Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ymansiaux.github.io/yohann-data/posts/mycomicslibrary/index.html</loc>
+    <lastmod>2024-11-12T10:15:37.099Z</lastmod>
   </url>
 </urlset>

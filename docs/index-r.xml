@@ -165,17 +165,9 @@ font-style: inherit;">function</span>(text) {  </span>
 <p>I also thank my friend <a href="https://github.com/arthurdata">Arthur Bréant</a> for giving me precious tips on how to use the tools presented in this article.</p>
 
 
-
 </section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div> ]]></description>
+ ]]></description>
   <category>development</category>
   <category>package</category>
   <category>ia</category>

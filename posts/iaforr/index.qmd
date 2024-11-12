@@ -2,7 +2,7 @@
 title: "How Github Copilot and ChatGPT have changed my life as an R developer"
 author: "Yohann Mansiaux"
 date: "2024-11-09"
-categories: [development, package, ia]
+categories: [development, package, ia, R]
 image: "image.jpg"
 ---
 

@@ -2,7 +2,7 @@
 title: "Include a demo dataset in a R package (video tutorial)"
 author: "Yohann Mansiaux"
 date: "2024-11-06"
-categories: [development, package]
+categories: [development, package, R, video]
 image: "image.jpg"
 ---
 

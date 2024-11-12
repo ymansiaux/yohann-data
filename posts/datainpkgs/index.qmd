@@ -2,7 +2,7 @@
 title: "Beyond Functions: How to Enrich an R Package with Data"
 author: "Yohann Mansiaux"
 date: "2024-10-14"
-categories: [development, package]
+categories: [development, package, R]
 image: "image.jpg"
 ---
 

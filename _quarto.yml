@@ -9,12 +9,21 @@ website:
   cookie-consent: true
   search: true
   navbar:
-    right:
-      - about.qmd
+    left:
+      - text: "Home"
+        href: index.qmd
+      - text: "About me"
+        href: about.qmd
+      - text: "r-bloggers" 
+        href: https://www.r-bloggers.com/
+    right:      
       - icon: github
         href: https://github.com/
       - icon: linkedin
         href: https://www.linkedin.com/in/yohann-mansiaux-1816aa20/
+      - text: Bluesky
+        href: https://bsky.app/profile/yosky.bsky.social      
+
 format:
   html:
     theme: cosmo

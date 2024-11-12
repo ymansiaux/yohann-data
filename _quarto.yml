@@ -28,8 +28,8 @@ website:
       - icon: envelope
         text: email
         url: "mailto:yohann.mansiaux@gmail.com"      
-      - text: RSS
-        href: index.xml
+      - text: rss
+        href: https://ymansiaux.github.io/yohann-data/index.xml
 
 format:
   html:

@@ -2,9 +2,11 @@ project:
   type: website
   output-dir: docs 
 
-website:
+website:  
   title: "Yohann's blog"
+  description: "Yohann Mansiaux's blog - R, dev and other stuff"
   repo-url: github.com/ymansiaux/yohann-data
+  site-url: "https://ymansiaux.github.io/yohann-data/"
   google-analytics: "G-YYG34HFXPT"
   cookie-consent: true
   search: true

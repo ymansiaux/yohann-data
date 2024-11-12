@@ -6,8 +6,8 @@
       version="2.0">
 <channel>
 <title>Yohann&#39;s blog</title>
-<link>https://ymansiaux.github.io/yohann-data/</link>
-<atom:link href="https://ymansiaux.github.io/yohann-data/index.xml" rel="self" type="application/rss+xml"/>
+<link>https://ymansiaux.github.io/yohann-data/#category=R</link>
+<atom:link href="https://ymansiaux.github.io/yohann-data/index-r.xml" rel="self" type="application/rss+xml"/>
 <description>Yohann Mansiaux&#39;s blog - R, dev and other stuff</description>
 <generator>quarto-1.5.56</generator>
 <lastBuildDate>Fri, 08 Nov 2024 23:00:00 GMT</lastBuildDate>
@@ -183,36 +183,6 @@ No matching items
   <guid>https://ymansiaux.github.io/yohann-data/posts/iaforr/</guid>
   <pubDate>Fri, 08 Nov 2024 23:00:00 GMT</pubDate>
   <media:content url="https://ymansiaux.github.io/yohann-data/posts/iaforr/image.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
-  <title>VSCode for R users</title>
-  <dc:creator>Yohann Mansiaux</dc:creator>
-  <link>https://ymansiaux.github.io/yohann-data/posts/vscodeR/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<p>A few months ago, I switched from RStudio to Visual Studio Code for my R programming. I was a bit reluctant at first, but I am now convinced that it was a good move.</p>
-<p>Currently I have 3 articles dedicated to VSCode for R users. They are only available in French for the moment.</p>
-<p>I’ll update and translate them soon.</p>
-<p>You can find them here:</p>
-<ul>
-<li><a href="https://thinkr.fr/faire-du-r-dans-vscode-meme-pas-peur/">Faire du R dans VSCode ? Même pas peur !</a></li>
-<li><a href="https://thinkr.fr/poursuivons-notre-route-avec-vscode-les-projets-les-scripts-les-notebooks-tout-est-la/">Poursuivons notre route avec VSCode : les projets, les scripts, les notebooks … tout est là !</a></li>
-<li><a href="https://thinkr.fr/creer-un-package-r-et-le-versionner-avec-vscode-mission-possible/">Créer un package R et le versionner avec VSCode ? Mission possible !</a></li>
-</ul>
-<p>Stay tuned!</p>
-
-
-
- ]]></description>
-  <category>development</category>
-  <category>vscode</category>
-  <guid>https://ymansiaux.github.io/yohann-data/posts/vscodeR/</guid>
-  <pubDate>Wed, 06 Nov 2024 23:00:00 GMT</pubDate>
-  <media:content url="https://ymansiaux.github.io/yohann-data/posts/vscodeR/image.png" medium="image" type="image/png" height="144" width="144"/>
 </item>
 <item>
   <title>Include a demo dataset in a R package (video tutorial)</title>
@@ -4744,37 +4714,6 @@ font-style: inherit;">$</span>icon</span>
   <guid>https://ymansiaux.github.io/yohann-data/posts/sweetalert2/</guid>
   <pubDate>Mon, 29 Apr 2024 22:00:00 GMT</pubDate>
   <media:content url="https://ymansiaux.github.io/yohann-data/posts/sweetalert2/image.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
-  <title>Welcome To My Blog</title>
-  <dc:creator>Yohann Mansiaux</dc:creator>
-  <link>https://ymansiaux.github.io/yohann-data/posts/welcome/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<p>Hi folks !</p>
-<p>I am a R trainer and developer. Passionate about knowledge sharing and open source, I enjoy engaging with my peers and learners and contributing to a dynamic and collaborative community.</p>
-<p>I used to have a blog a few years ago, based on Hugo (<a href="https://ymansiaux-data.netlify.app/">in French only</a>).</p>
-<p>I have decided to give a try to Quarto Websites. This new site aims at sharing my thoughts and knowledge about R, data science, epidemiology-related stuff.</p>
-<p>Besides videos and blog posts present on this website, you can find some of my contributions to open source projects on Github :</p>
-<ul>
-<li><p><a href="https://github.com/spyrales/shinygouv">{shinygouv} - Use the French Governmental Design System (DSFR) on you shiny apps”</a></p></li>
-<li><p><a href="https://github.com/ThinkR-open/lozen">{lozen} - Github and Gitlab project management tools for devs and lead dev”</a></p></li>
-<li><p><a href="https://github.com/ThinkR-open/fusen">{fusen} - Inflates a Rmarkdown file to magically create a package.”</a></p></li>
-</ul>
-<p>I hope you will enjoy reading my posts. Feel free to <a href="https://ymansiaux.github.io/yohann-data/about.html">contact me</a> if you have any questions !</p>
-<p><em>The sources of this website are available on <a href="https://github.com/ymansiaux/yohann-data/">Github</a>.</em></p>
-
-
-
- ]]></description>
-  <category>news</category>
-  <guid>https://ymansiaux.github.io/yohann-data/posts/welcome/</guid>
-  <pubDate>Tue, 12 Nov 2024 09:48:49 GMT</pubDate>
-  <media:content url="https://ymansiaux.github.io/yohann-data/posts/welcome/thumbnail.jpg" medium="image" type="image/jpeg"/>
 </item>
 </channel>
 </rss>

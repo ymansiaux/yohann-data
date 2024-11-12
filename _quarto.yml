@@ -25,6 +25,8 @@ website:
         href: https://www.linkedin.com/in/yohann-mansiaux-1816aa20/
       - text: Bluesky
         href: https://bsky.app/profile/yosky.bsky.social      
+      - icon: rss
+        href: index.xml
 
 format:
   html:

@@ -26,9 +26,8 @@ website:
       - text: Bluesky
         href: https://bsky.app/profile/yosky.bsky.social
       - icon: envelope
-        text: email
         url: "mailto:yohann.mansiaux@gmail.com"      
-      - text: rss
+      - icon: rss
         href: https://ymansiaux.github.io/yohann-data/index.xml
 
 format:

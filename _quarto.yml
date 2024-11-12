@@ -23,10 +23,10 @@ website:
         href: https://github.com/
       - icon: linkedin
         href: https://www.linkedin.com/in/yohann-mansiaux-1816aa20/
-      - text: Bluesky
-        href: https://bsky.app/profile/yosky.bsky.social      
       - icon: rss
         href: index.xml
+      - text: Bluesky
+        href: https://bsky.app/profile/yosky.bsky.social      
 
 format:
   html:

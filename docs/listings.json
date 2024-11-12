@@ -11,26 +11,5 @@
       "/posts/mycomicslibrary/index.html",
       "/posts/sweetalert2/index.html"
     ]
-  },
-  {
-    "listing": "/posts/iaforr/index.html",
-    "items": []
-  },
-  {
-    "listing": "/about.html",
-    "items": [
-      "/posts/datainpkgs/index.html",
-      "/posts/chartJS/index.html",
-      "/posts/mycomicslibrary/index.html",
-      "/posts/iaforr/index.html",
-      "/posts/datainpkgs_video/index.html",
-      "/posts/sweetalert2/index.html",
-      "/posts/vscodeR/index.html",
-      "/posts/welcome/index.html"
-    ]
-  },
-  {
-    "listing": "/posts/welcome/index.html",
-    "items": []
   }
 ]

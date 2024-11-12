@@ -2,7 +2,7 @@
 title: "Pimping your {shiny} app with a JavaScript library : an example using sweetalert2"
 author: "Yohann Mansiaux"
 date: "2024-04-30"
-categories: [shiny, javascript]
+categories: [shiny, javascript, R]
 image: "image.jpg"
 ---
 

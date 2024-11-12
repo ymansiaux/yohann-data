@@ -2,7 +2,7 @@
 title: "Enjoy the ultimate comics collection experience with mycomicslibrary ! - Shiny Contest Submission"
 author: "Yohann Mansiaux"
 date: "2024-07-30"
-categories: [shiny, javascript]
+categories: [shiny, javascript, R]
 image: "image.jpg"
 ---
 

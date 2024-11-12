@@ -2,7 +2,7 @@
 title: "Boost your shiny app with sparkling data visualizations: A deep dive into Chart.js JavaScript library"
 author: "Yohann Mansiaux"
 date: "2024-09-03"
-categories: [shiny, javascript]
+categories: [shiny, javascript, R]
 image: "image.jpg"
 ---
 

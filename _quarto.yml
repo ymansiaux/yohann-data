@@ -6,6 +6,7 @@ website:
   title: "Yohann's blog"
   repo-url: github.com/ymansiaux/yohann-data
   google-analytics: "G-YYG34HFXPT"
+  cookie-consent: true
   search: true
   navbar:
     right:

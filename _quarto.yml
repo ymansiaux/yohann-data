@@ -21,9 +21,7 @@ website:
       - text: "Home"
         href: index.qmd
       - text: "About me"
-        href: about.qmd
-      - text: "r-bloggers" 
-        href: https://www.r-bloggers.com/
+        href: about.qmd      
     right:      
       - icon: github
         href: https://github.com/

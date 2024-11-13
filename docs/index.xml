@@ -12,162 +12,10 @@
 <generator>quarto-1.5.56</generator>
 <lastBuildDate>Fri, 08 Nov 2024 23:00:00 GMT</lastBuildDate>
 <item>
-  <title>How Github Copilot and ChatGPT have changed my life as an R developer</title>
+  <title></title>
   <dc:creator>Yohann Mansiaux</dc:creator>
   <link>https://ymansiaux.github.io/yohann-data/posts/iaforr/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<p>The world of development is evolving rapidly, and artificial intelligence (AI) is playing an increasingly crucial role in developers’ daily lives. With the rise of AI tools, R developers can now automate repetitive tasks, speed up their workflow, and even discover new methods for analysis and visualization.</p>
-<p>I’ll focus on a specific AI tool that can significantly assist R developers: GitHub Copilot. Copilot offers a variety of features, from code generation to programming assistance, automatic documentation, and problem-solving.</p>
-<p>I’ll also give a quick feedback about my usage of ChatGPT.</p>
-<section id="github-copilot" class="level2">
-<h2 class="anchored" data-anchor-id="github-copilot">GitHub Copilot</h2>
-<p>GitHub Copilot is an AI tool that assists developers in their daily work by generating code and other code-related elements (such as documentation) based on context. Copilot can be used as an extension for VSCode. Since the release of version 2023.09.0, GitHub Copilot is also available in RStudio. Copilot can be used to generate R code, comments, unit tests, documentation, and more.</p>
-<section id="what-are-the-prerequisites-for-using-github-copilot" class="level3">
-<h3 class="anchored" data-anchor-id="what-are-the-prerequisites-for-using-github-copilot">What Are the Prerequisites for Using GitHub Copilot?</h3>
-<p>To use GitHub Copilot, you need a GitHub account and a Copilot license. This tool is paid (<a href="https://github.com/features/copilot/plans">see pricing options</a>), but students, teachers, and maintainers of popular open-source projects can get a free license.</p>
-</section>
-<section id="github-copilot-in-rstudio" class="level3">
-<h3 class="anchored" data-anchor-id="github-copilot-in-rstudio">GitHub Copilot in RStudio</h3>
-<p>To use GitHub Copilot in RStudio, install the latest version of RStudio (2023.09.0 or later). Once installed, activate Copilot by going to <code>Tools &gt; Global Options &gt; Copilot</code> and checking the box <code>Enable GitHub Copilot</code>.</p>
-<p><img src="https://ymansiaux.github.io/yohann-data/posts/iaforr/img/01-copilot_rstudio.png" class="img-fluid"></p>
-<p>If you want Copilot to base its suggestions not only on the current file but also on other project files, check the box <code>Index project files with GitHub Copilot</code>.</p>
-</section>
-<section id="github-copilot-in-vscode" class="level3">
-<h3 class="anchored" data-anchor-id="github-copilot-in-vscode">GitHub Copilot in VSCode</h3>
-<p>To use GitHub Copilot in VSCode, install the <a href="https://marketplace.visualstudio.com/items?itemName=GitHub.copilot">GitHub Copilot extension</a>. Once the extension is installed, enable Copilot by logging into your GitHub account.</p>
-</section>
-<section id="github-copilot-in-positron" class="level3">
-<h3 class="anchored" data-anchor-id="github-copilot-in-positron">GitHub Copilot in Positron</h3>
-<p>Currently, GitHub Copilot is not available in Positron.</p>
-</section>
-</section>
-<section id="github-copilot-for-r-development" class="level2">
-<h2 class="anchored" data-anchor-id="github-copilot-for-r-development">GitHub Copilot for R Development</h2>
-<p>We’ll review GitHub Copilot’s features for R development. Some features are available in both RStudio and VSCode, while others can only be used in VSCode.</p>
-<section id="code-completion-writing-functions" class="level3">
-<h3 class="anchored" data-anchor-id="code-completion-writing-functions">Code Completion: Writing Functions</h3>
-<p>Let’s say we’re developing an R package and want to write a function to clean text by removing spaces and special characters.</p>
-<p>We start with a comment describing the function’s intent and provide an empty function skeleton:</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Function to clean text by removing spaces and special characters</span></span>
-<span id="cb1-2">clean_text <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">function</span>(text) {  </span>
-<span id="cb1-3">}</span></code></pre></div>
-<p>After a few seconds, Copilot suggests an implementation for <code>clean_text</code>. Suggestions appear in gray and can be accepted by pressing the <code>Tab</code> key.</p>
-<p><img src="https://ymansiaux.github.io/yohann-data/posts/iaforr/img/02-copilot_suggestion.png" class="img-fluid"></p>
-<p>The initial function comment isn’t mandatory, but it helps Copilot better understand the context and suggest more relevant code.</p>
-<p>Code completion also works seamlessly in VSCode.</p>
-<p><img src="https://ymansiaux.github.io/yohann-data/posts/iaforr/img/03-copilot_suggestion_vscode.png" class="img-fluid"></p>
-<p>Interestingly, in both cases, a step to convert text to lowercase is suggested, even though I didn’t request it. This could be useful, but make sure this step fits your use case. Remember, Copilot isn’t perfect and may sometimes generate incorrect or inappropriate code. Always review and modify the generated code as necessary.</p>
-<p>You can continue in RStudio to generate the function’s documentation with Roxygen tags, for instance. Again, starting with a comment indicating your intention allows Copilot to suggest documentation.</p>
-<p><img src="https://ymansiaux.github.io/yohann-data/posts/iaforr/img/04-copilot_suggestion_doc_rstudio.png" class="img-fluid"></p>
-<p>RStudio usage is limited to code completion, so we’ll switch to VSCode to showcase more advanced features and a fuller development experience.</p>
-</section>
-<section id="how-to-access-github-copilot-features-in-vscode" class="level3">
-<h3 class="anchored" data-anchor-id="how-to-access-github-copilot-features-in-vscode">How to Access GitHub Copilot Features in VSCode?</h3>
-<p>There are multiple ways to access Copilot’s interface in VSCode. Right-clicking on an open file allows you to access the <code>Copilot</code> option in the context menu. You can also use the shortcut <code>Ctrl + Shift + P</code> (on Windows) to open the command palette, then type <code>Copilot</code> to access the interface. Recently, a Copilot icon was also added to the VSCode toolbar.</p>
-<p><img src="https://ymansiaux.github.io/yohann-data/posts/iaforr/img/06-copilot_vscode2.png" class="img-fluid"></p>
-</section>
-<section id="chat" class="level3">
-<h3 class="anchored" data-anchor-id="chat">Chat</h3>
-<p>Copilot can be used as a chatbot to get information on functions or packages, or to write code, as we did before.</p>
-<p><img src="https://ymansiaux.github.io/yohann-data/posts/iaforr/img/07-copilot_chat.png" class="img-fluid"></p>
-<p><img src="https://ymansiaux.github.io/yohann-data/posts/iaforr/img/08-copilot_chat_result.png" class="img-fluid"></p>
-<p>Again, providing as much context as possible will lead to more relevant suggestions.</p>
-<p>You can also use the chat to modify the code Copilot initially generated, for example, to change the packages used.</p>
-<p><img src="https://ymansiaux.github.io/yohann-data/posts/iaforr/img/08-bis_copilot_chat_result2.png" class="img-fluid"></p>
-</section>
-<section id="code-explanation" class="level3">
-<h3 class="anchored" data-anchor-id="code-explanation">Code Explanation</h3>
-<p>Copilot can also explain code. For example, if you don’t understand some code, you can ask Copilot to explain it.</p>
-<p><img src="https://ymansiaux.github.io/yohann-data/posts/iaforr/img/09-copilot_explain.png" class="img-fluid"> <img src="https://ymansiaux.github.io/yohann-data/posts/iaforr/img/10-copilot_explain_result.png" class="img-fluid"></p>
-<p>Note: This feature is also accessible via chat by typing “/explain”.</p>
-</section>
-<section id="code-correction" class="level3">
-<h3 class="anchored" data-anchor-id="code-correction">Code Correction</h3>
-<p>Following the same process, select the “Fix” option to detect errors in the code. Here, Copilot didn’t detect an error but suggested an enhancement. Our code didn’t initially trim leading and trailing spaces. Copilot offers a solution to fix this.</p>
-<p><img src="https://ymansiaux.github.io/yohann-data/posts/iaforr/img/12-copilot_fix_result.png" class="img-fluid"></p>
-<p>Note: This feature is also accessible via chat by typing “/fix”.</p>
-</section>
-<section id="code-review" class="level3">
-<h3 class="anchored" data-anchor-id="code-review">Code Review</h3>
-<p>The “Review and Comment” feature suggests improvements for style or performance.</p>
-<p><img src="https://ymansiaux.github.io/yohann-data/posts/iaforr/img/13-copilot_review.png" class="img-fluid"></p>
-</section>
-<section id="documentation" class="level3">
-<h3 class="anchored" data-anchor-id="documentation">Documentation</h3>
-<p>The “Generate Doc” feature creates a Roxygen documentation skeleton for the function. The generated documentation is often generic, so you’ll usually need to complete it, particularly for parameter explanations or reproducible examples. For instance, it may omit an <code>@export</code> tag, which could cause issues during a <code>devtools::check()</code> of your package!</p>
-<p><img src="https://ymansiaux.github.io/yohann-data/posts/iaforr/img/14-copilot_doc.png" class="img-fluid"></p>
-<p>Note: This feature is also accessible via chat by typing “/doc”.</p>
-</section>
-<section id="unit-tests" class="level3">
-<h3 class="anchored" data-anchor-id="unit-tests">Unit Tests</h3>
-<p>The “Generate Tests” option generates unit tests for the function. It works well but has the drawback of adding the test file in the package’s <code>R/</code> folder. You’ll need to move the content into a chosen file in the <code>testthat/tests/</code> folder.</p>
-<p>Note: This feature is also accessible via chat by typing “/tests”.</p>
-</section>
-<section id="what-about-shiny" class="level3">
-<h3 class="anchored" data-anchor-id="what-about-shiny">What About <code>{shiny}</code>?</h3>
-<p>Though we’ve focused on R package development, Copilot can also be used to develop Shiny applications. For example, to generate a simple Shiny app, start with a comment describing the app, and let Copilot generate the code. This is very useful for quickly setting up a UI, but as always, you’ll need to refine the code to meet specific needs.</p>
-<p><img src="https://ymansiaux.github.io/yohann-data/posts/iaforr/img/16-shiny_app.png" class="img-fluid"> <img src="https://ymansiaux.github.io/yohann-data/posts/iaforr/img/17-shiny_app2.png" class="img-fluid"></p>
-<p>For a Shiny development assistant, you can also check out <a href="https://shiny.posit.co/blog/posts/shiny-assistant/">ShinyAssistant</a>.</p>
-</section>
-<section id="summary-of-the-r-developer-experience-with-github-copilot" class="level3">
-<h3 class="anchored" data-anchor-id="summary-of-the-r-developer-experience-with-github-copilot">Summary of the R Developer Experience with GitHub Copilot</h3>
-<p>GitHub Copilot is a powerful tool that can greatly accelerate R package development. It can generate code, documentation, unit tests, and more. However, remember that Copilot isn’t perfect and can sometimes produce incorrect or unsuitable code. It’s essential to review and adjust the generated code as needed. It’s equally important to revise generated documentation and tests for accuracy and relevance.</p>
-<p>To ensure sufficient unit tests, it’s recommended to check package coverage using the <code>{covr}</code> package.</p>
-<p>Moreover, there’s no magic behind this tool—GitHub Copilot bases its suggestions on the current file’s content and other project files. The more precise the context, the more relevant the suggestions will be. Taking extra care with function and parameter names makes suggestions as suitable as possible (this is true for development even without Copilot!).</p>
-</section>
-</section>
-<section id="how-can-i-use-chatgpt-as-an-r-developer" class="level2">
-<h2 class="anchored" data-anchor-id="how-can-i-use-chatgpt-as-an-r-developer">How can I use ChatGPT as an R developer?</h2>
-<p>I also often rely on ChatGPT for R-programming related tasks.</p>
-<p>More often, I’ll use ChatGPT in advance of a task, to compare its suggestions with the way I would have approached the problem. This allows me to see if I’ve forgotten something, or if I couldn’t have done things differently.</p>
-<p>I’ll also use his knowledge to give me information on a package I don’t know, or to give me examples of code. It’s a great complement to the official documentation.</p>
-<p>In the same way, I’ll ask him to explain errors I encounter, or concepts I don’t understand.</p>
-<p>Finally, as with Github Copilot, the key lies in the quality of the question asked. The more precise the question, the more relevant the answer.</p>
-<p>I often tend to start my queries with: “I’m an R developer and I prefer using tidyverse packages. I’d like to know what I can do to…”. Telling him if you’re a user of specific packages can help refine the suggestions.</p>
-<p>Explain how a conversational assistant can answer specific questions, help with debugging, generate code examples and provide detailed explanations of errors or package usage.</p>
-<section id="did-you-know-that-some-r-specific-gpts-are-available" class="level3">
-<h3 class="anchored" data-anchor-id="did-you-know-that-some-r-specific-gpts-are-available">Did you know that some R-specific GPT’s are available?</h3>
-<p>I recently discovered that some R-specific GPT’s are available. They are trained on R-specific data and can provide more relevant answers to R-related questions. I haven’t had the opportunity to test them yet, but I’m looking forward to it.</p>
-<p>Here is the way to access them:</p>
-<p>You should click on “Explore GPTs” in the ChatGPT interface, then type “R programming” in the search menu.</p>
-<p><img src="https://ymansiaux.github.io/yohann-data/posts/iaforr/img/18-othergpt.png" class="img-fluid"></p>
-<p><img src="https://ymansiaux.github.io/yohann-data/posts/iaforr/img/19-rgpt.png" class="img-fluid"></p>
-<p><img src="https://ymansiaux.github.io/yohann-data/posts/iaforr/img/20-rwizard.png" class="img-fluid"></p>
-<p>Among the many R-specific GPT’s available, I recommend using R Wizard, which seems to be the most popular among R developers.</p>
-</section>
-</section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>For R programmers, GitHub Copilot and ChatGPT can complement each other effectively. Copilot shines for in-context code generation, while ChatGPT is ideal for answering questions, exploring R libraries, and understanding errors. By combining these tools, R developers can boost productivity, streamline repetitive coding tasks, and expand their knowledge—all while enhancing their coding efficiency and accuracy.</p>
-<p>The main takeaway is that these tools are here to help you, not replace you. They can save you time and provide new insights, but they can’t replace your expertise and creativity. Always review the generated code, documentation, and tests to ensure they meet your project’s requirements.</p>
-<p>Have fun !</p>
-</section>
-<section id="ressources" class="level2">
-<h2 class="anchored" data-anchor-id="ressources">Ressources</h2>
-<ul>
-<li><a href="https://docs.github.com/en/copilot">Github Copilot documentation</a></li>
-<li><a href="https://docs.posit.co/ide/user/ide/guide/tools/copilot.html">Github Copilot in RStudio</a></li>
-<li><a href="https://marketplace.visualstudio.com/items?itemName=GitHub.copilot">VSCode extension for Github Copilot</a></li>
-<li><a href="https://chatgpt.com/g/g-TgjKDuQwZ-r-wizard">R Wizard GPT</a></li>
-</ul>
-<p>I also thank my friend <a href="https://github.com/arthurdata">Arthur Bréant</a> for giving me precious tips on how to use the tools presented in this article.</p>
-
-
-</section>
-
- ]]></description>
+  <description><![CDATA[ undefined ]]></description>
   <category>development</category>
   <category>package</category>
   <category>ia</category>
@@ -4765,7 +4613,7 @@ font-style: inherit;">$</span>icon</span>
  ]]></description>
   <category>news</category>
   <guid>https://ymansiaux.github.io/yohann-data/posts/welcome/</guid>
-  <pubDate>Tue, 12 Nov 2024 10:17:27 GMT</pubDate>
+  <pubDate>Wed, 13 Nov 2024 07:39:13 GMT</pubDate>
   <media:content url="https://ymansiaux.github.io/yohann-data/posts/welcome/thumbnail.jpg" medium="image" type="image/jpeg"/>
 </item>
 </channel>

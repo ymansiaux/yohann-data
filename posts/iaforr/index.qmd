@@ -4,6 +4,7 @@ author: "Yohann Mansiaux"
 date: "2024-11-09"
 categories: [development, package, ia, R]
 image: "image.jpg"
+draft: true
 ---
 
 

@@ -23,7 +23,7 @@ website:
         href: https://github.com/
       - icon: linkedin
         href: https://www.linkedin.com/in/yohann-mansiaux-1816aa20/
-      - text: Bluesky
+      - text: "{{< iconify logos:bluesky >}}"
         href: https://bsky.app/profile/yosky.bsky.social
       - icon: envelope
         url: "mailto:yohann.mansiaux@gmail.com"      

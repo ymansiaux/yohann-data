@@ -4,7 +4,6 @@ author: "Yohann Mansiaux"
 date: "2024-11-09"
 categories: [development, package, ia, R]
 image: "image.jpg"
-draft: true
 ---
 
 
@@ -16,7 +15,7 @@ I'll also give a quick feedback about my usage of ChatGPT.
 
 ## GitHub Copilot
 
-GitHub Copilot is an AI tool that assists developers in their daily work by generating code and other code-related elements (such as documentation) based on context. Copilot can be used as an extension for VSCode. Since the release of version 2023.09.0, GitHub Copilot is also available in RStudio. Copilot can be used to generate R code, comments, unit tests, documentation, and more.
+GitHub Copilot is an AI tool that assists developers in their daily work by generating code and other code-related elements (such as documentation or unit tests) based on context. Copilot can be used as an extension for VSCode. Since the release of version 2023.09.0, GitHub Copilot is also available in RStudio. Copilot can be used to generate R code, comments, unit tests, documentation, and more.
 
 ### What Are the Prerequisites for Using GitHub Copilot?
 
@@ -142,7 +141,7 @@ For a Shiny development assistant, you can also check out [ShinyAssistant](https
 
 GitHub Copilot is a powerful tool that can greatly accelerate R package development. It can generate code, documentation, unit tests, and more. However, remember that Copilot isn’t perfect and can sometimes produce incorrect or unsuitable code. It’s essential to review and adjust the generated code as needed. It’s equally important to revise generated documentation and tests for accuracy and relevance.
 
-To ensure sufficient unit tests, it’s recommended to check package coverage using the `{covr}` package.
+To ensure that no unit tests were omitted, it’s recommended to check package coverage using the `{covr}` package.
 
 Moreover, there’s no magic behind this tool—GitHub Copilot bases its suggestions on the current file’s content and other project files. The more precise the context, the more relevant the suggestions will be. Taking extra care with function and parameter names makes suggestions as suitable as possible (this is true for development even without Copilot!).
 

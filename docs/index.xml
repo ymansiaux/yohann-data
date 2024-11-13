@@ -10,20 +10,7 @@
 <atom:link href="https://ymansiaux.github.io/yohann-data/index.xml" rel="self" type="application/rss+xml"/>
 <description>Yohann Mansiaux&#39;s blog - R, dev and other stuff</description>
 <generator>quarto-1.5.56</generator>
-<lastBuildDate>Fri, 08 Nov 2024 23:00:00 GMT</lastBuildDate>
-<item>
-  <title></title>
-  <dc:creator>Yohann Mansiaux</dc:creator>
-  <link>https://ymansiaux.github.io/yohann-data/posts/iaforr/</link>
-  <description><![CDATA[ undefined ]]></description>
-  <category>development</category>
-  <category>package</category>
-  <category>ia</category>
-  <category>R</category>
-  <guid>https://ymansiaux.github.io/yohann-data/posts/iaforr/</guid>
-  <pubDate>Fri, 08 Nov 2024 23:00:00 GMT</pubDate>
-  <media:content url="https://ymansiaux.github.io/yohann-data/posts/iaforr/image.jpg" medium="image" type="image/jpeg"/>
-</item>
+<lastBuildDate>Wed, 06 Nov 2024 23:00:00 GMT</lastBuildDate>
 <item>
   <title>VSCode for R users</title>
   <dc:creator>Yohann Mansiaux</dc:creator>
@@ -3844,7 +3831,6 @@ font-style: inherit;">;</span></span></code></pre></div>
  ]]></description>
   <category>shiny</category>
   <category>javascript</category>
-  <category>R</category>
   <guid>https://ymansiaux.github.io/yohann-data/posts/mycomicslibrary/</guid>
   <pubDate>Mon, 29 Jul 2024 22:00:00 GMT</pubDate>
   <media:content url="https://ymansiaux.github.io/yohann-data/posts/mycomicslibrary/image.jpg" medium="image" type="image/jpeg"/>
@@ -4613,7 +4599,7 @@ font-style: inherit;">$</span>icon</span>
  ]]></description>
   <category>news</category>
   <guid>https://ymansiaux.github.io/yohann-data/posts/welcome/</guid>
-  <pubDate>Wed, 13 Nov 2024 07:39:13 GMT</pubDate>
+  <pubDate>Wed, 13 Nov 2024 07:45:54 GMT</pubDate>
   <media:content url="https://ymansiaux.github.io/yohann-data/posts/welcome/thumbnail.jpg" medium="image" type="image/jpeg"/>
 </item>
 </channel>

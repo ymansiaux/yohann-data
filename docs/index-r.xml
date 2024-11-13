@@ -10,20 +10,7 @@
 <atom:link href="https://ymansiaux.github.io/yohann-data/index-r.xml" rel="self" type="application/rss+xml"/>
 <description>Yohann Mansiaux&#39;s blog - R, dev and other stuff</description>
 <generator>quarto-1.5.56</generator>
-<lastBuildDate>Fri, 08 Nov 2024 23:00:00 GMT</lastBuildDate>
-<item>
-  <title></title>
-  <dc:creator>Yohann Mansiaux</dc:creator>
-  <link>https://ymansiaux.github.io/yohann-data/posts/iaforr/</link>
-  <description><![CDATA[ undefined ]]></description>
-  <category>development</category>
-  <category>package</category>
-  <category>ia</category>
-  <category>R</category>
-  <guid>https://ymansiaux.github.io/yohann-data/posts/iaforr/</guid>
-  <pubDate>Fri, 08 Nov 2024 23:00:00 GMT</pubDate>
-  <media:content url="https://ymansiaux.github.io/yohann-data/posts/iaforr/image.jpg" medium="image" type="image/jpeg"/>
-</item>
+<lastBuildDate>Tue, 05 Nov 2024 23:00:00 GMT</lastBuildDate>
 <item>
   <title>Include a demo dataset in a R package (video tutorial)</title>
   <dc:creator>Yohann Mansiaux</dc:creator>
@@ -3791,33 +3778,6 @@ font-style: inherit;">;</span></span></code></pre></div>
   <guid>https://ymansiaux.github.io/yohann-data/posts/chartJS/</guid>
   <pubDate>Mon, 02 Sep 2024 22:00:00 GMT</pubDate>
   <media:content url="https://ymansiaux.github.io/yohann-data/posts/chartJS/image.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
-  <title>Enjoy the ultimate comics collection experience with mycomicslibrary ! - Shiny Contest Submission</title>
-  <dc:creator>Yohann Mansiaux</dc:creator>
-  <link>https://ymansiaux.github.io/yohann-data/posts/mycomicslibrary/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<p>I’m excited to announce that I’m participating in the hashtag#ShinyContest 2024! 🚀</p>
-<p>Enjoy the ultimate comics collection experience with “mycomicslibrary”, designed for true comic book enthusiasts !</p>
-<p>This app allows you to manage your comic book collection. You can add comic books to your collection, rate them, complete information, etc. You can also add comic books to your wishlist if you don’t own them yet!</p>
-<p><a href="https://connect.thinkr.fr/mycomicslibrary/">App</a></p>
-<p><a href="https://github.com/ymansiaux/mycomicslibrary/">Repo</a></p>
-<p>Have fun ! 📚</p>
-
-
-
- ]]></description>
-  <category>shiny</category>
-  <category>javascript</category>
-  <category>R</category>
-  <guid>https://ymansiaux.github.io/yohann-data/posts/mycomicslibrary/</guid>
-  <pubDate>Mon, 29 Jul 2024 22:00:00 GMT</pubDate>
-  <media:content url="https://ymansiaux.github.io/yohann-data/posts/mycomicslibrary/image.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Pimping your {shiny} app with a JavaScript library : an example using sweetalert2</title>

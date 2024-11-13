@@ -10,6 +10,12 @@ website:
   google-analytics: "G-YYG34HFXPT"
   cookie-consent: true
   search: true
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - text: "r-bloggers" 
+        href: https://www.r-bloggers.com/
   navbar:
     left:
       - text: "Home"

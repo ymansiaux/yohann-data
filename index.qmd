@@ -1,5 +1,5 @@
 ---
-title: "Welcome folks !"
+title: "Welcome home folks !"
 listing:
   contents: posts
   feed: 

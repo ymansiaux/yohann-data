@@ -5,7 +5,7 @@ categories: [debug, vscode, development]
 image: "image.jpg"
 ---
 
-Hi folks ! Debugging code in an everyday task for developers. In a recent video, I presented [how to debug R code in RStudio IDE](https://www.youtube.com/watch?v=WB5e8P2KHhI).
+Debugging code in an everyday (often painful) task for developers. In a recent video, I presented [how to debug R code in RStudio IDE](https://www.youtube.com/watch?v=WB5e8P2KHhI).
 
 Two native functions available natively in R were shown : `browser()` and `debugonce()`. They are very useful to debug your code.
 
@@ -54,9 +54,9 @@ compute_risk <- function(cases, total) {
 }
 ```
 
-# Debugging code in the R console
+# Debugging code in the R terminal
 
-Before showing you how to use the specific VSCode debugger, let's see how to debug the code in the R console.
+Before showing you how to use the specific VSCode debugger, let's see how to debug the code in the R terminal.
 
 In the same way as in RStudio, you can use the `debugonce()` function to debug the `calculate_rr_in_df()` function. However, the little toolbar you've been used to will have disappeared. 
 You'll need to use keyboard shortcuts to move on the debugging your code. 

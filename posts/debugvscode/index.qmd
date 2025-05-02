@@ -1,13 +1,11 @@
 ---
 title: "The recipe to debug your R code in VSCode"
 author: "Yohann Mansiaux"
-categories: [news]
-image: "thumbnail.jpg"
+categories: [debug, vscode, development]
+image: "image.jpg"
 ---
 
-Hi folks !
-
-Debugging code in an everyday task for developers. In a recent video, I presented [how to debug R code in RStudio IDE](https://www.youtube.com/watch?v=WB5e8P2KHhI).
+Hi folks ! Debugging code in an everyday task for developers. In a recent video, I presented [how to debug R code in RStudio IDE](https://www.youtube.com/watch?v=WB5e8P2KHhI).
 
 Two native functions available natively in R were shown : `browser()` and `debugonce()`. They are very useful to debug your code.
 
@@ -153,6 +151,16 @@ To have access to the `RProfile` file, you can run `usethis::edit_r_profile()` i
 
 # Conclusion
 
-The experience of R programming in VSCode is very pleasant. However, one of the last drawbacks that I had was to get the equivalent of the RStudio debugging process. Thanks to the R Debugger extension, this is now possible !
+The experience of R programming in VSCode has grown remarkably robust in recent years. While debugging was previously a key advantage of RStudio, the R Debugger extension has effectively closed that gap.
 
-I hope this blog post was useful to you, and that the debugging process, which is a stressful task whatsoever, will be easier for you now !
+When comparing the two IDEs specifically for debugging:
+- **VSCode** offers an elegant visual debugging experience with intuitive breakpoints and a clean variable inspection panel
+- **RStudio** provides a more integrated experience but with essentially the same core functionality
+
+For those considering a switch from RStudio to VSCode, the debugging workflow should no longer be a concern. Both environments now offer powerful tools for stepping through your code and identifying bugs efficiently.
+
+Setting up the debugging environment in VSCode takes only about 5-10 minutes for most users, and the productivity gains are well worth the initial configuration time.
+
+I hope this blog post helps make your debugging process less stressful and more productive! If you have additional VSCode debugging tips or questions, feel free to reach out to me.
+
+Happy debugging!

@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Welcome home folks !",
     "section": "",
-    "text": "Welcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nHow Github Copilot and ChatGPT have changed my life as an R developer\n\n\n\n\n\n\ndevelopment\n\n\npackage\n\n\nia\n\n\nR\n\n\n\n\n\n\n\n\n\nNov 9, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nVSCode for R users\n\n\n\n\n\n\ndevelopment\n\n\nvscode\n\n\n\n\n\n\n\n\n\nNov 7, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nInclude a demo dataset in a R package (video tutorial)\n\n\n\n\n\n\ndevelopment\n\n\npackage\n\n\nR\n\n\nvideo\n\n\n\n\n\n\n\n\n\nNov 6, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nBeyond Functions: How to Enrich an R Package with Data\n\n\n\n\n\n\ndevelopment\n\n\npackage\n\n\nR\n\n\n\n\n\n\n\n\n\nOct 14, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nBoost your shiny app with sparkling data visualizations: A deep dive into Chart.js JavaScript library\n\n\n\n\n\n\nshiny\n\n\njavascript\n\n\nR\n\n\n\n\n\n\n\n\n\nSep 3, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nEnjoy the ultimate comics collection experience with mycomicslibrary ! - Shiny Contest Submission\n\n\n\n\n\n\nshiny\n\n\njavascript\n\n\n\n\n\n\n\n\n\nJul 30, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nPimping your {shiny} app with a JavaScript library : an example using sweetalert2\n\n\n\n\n\n\nshiny\n\n\njavascript\n\n\nR\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\nNo matching items"
+    "text": "The recipe to debug your R code in VSCode\n\n\n\n\n\n\ndebug\n\n\nvscode\n\n\ndevelopment\n\n\n\n\n\n\n\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nHow Github Copilot and ChatGPT have changed my life as an R developer\n\n\n\n\n\n\ndevelopment\n\n\npackage\n\n\nia\n\n\nR\n\n\n\n\n\n\n\n\n\nNov 9, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nVSCode for R users\n\n\n\n\n\n\ndevelopment\n\n\nvscode\n\n\n\n\n\n\n\n\n\nNov 7, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nInclude a demo dataset in a R package (video tutorial)\n\n\n\n\n\n\ndevelopment\n\n\npackage\n\n\nR\n\n\nvideo\n\n\n\n\n\n\n\n\n\nNov 6, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nBeyond Functions: How to Enrich an R Package with Data\n\n\n\n\n\n\ndevelopment\n\n\npackage\n\n\nR\n\n\n\n\n\n\n\n\n\nOct 14, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nBoost your shiny app with sparkling data visualizations: A deep dive into Chart.js JavaScript library\n\n\n\n\n\n\nshiny\n\n\njavascript\n\n\nR\n\n\n\n\n\n\n\n\n\nSep 3, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nEnjoy the ultimate comics collection experience with mycomicslibrary ! - Shiny Contest Submission\n\n\n\n\n\n\nshiny\n\n\njavascript\n\n\n\n\n\n\n\n\n\nJul 30, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJun 1, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\n\n\n\n\n\n\nPimping your {shiny} app with a JavaScript library : an example using sweetalert2\n\n\n\n\n\n\nshiny\n\n\njavascript\n\n\nR\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nYohann Mansiaux\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/vscodeR/index.html",
@@ -215,5 +215,47 @@
     "title": "Welcome To My Blog",
     "section": "",
     "text": "Hi folks !\nI am a R trainer and developer. Passionate about knowledge sharing and open source, I enjoy engaging with my peers and learners and contributing to a dynamic and collaborative community.\nI used to have a blog a few years ago, based on Hugo (in French only).\nI have decided to give a try to Quarto Websites. This new site aims at sharing my thoughts and knowledge about R, data science, epidemiology-related stuff.\nBesides videos and blog posts present on this website, you can find some of my contributions to open source projects on Github :\n\n{shinygouv} - Use the French Governmental Design System (DSFR) on you shiny apps”\n{lozen} - Github and Gitlab project management tools for devs and lead dev”\n{fusen} - Inflates a Rmarkdown file to magically create a package.”\n\nI hope you will enjoy reading my posts. Feel free to contact me if you have any questions !\nThe sources of this website are available on Github."
+  },
+  {
+    "objectID": "posts/debugvscode/index.html",
+    "href": "posts/debugvscode/index.html",
+    "title": "The recipe to debug your R code in VSCode",
+    "section": "",
+    "text": "Hi folks !\nDebugging code in an everyday task for developers. In a recent video, I presented how to debug R code in RStudio IDE.\nTwo native functions available natively in R were shown : browser() and debugonce(). They are very useful to debug your code.\nWe are going to show you how to use these functions in VSCode, as well as introducing “breakpoints”. Breakpoints are markers that you can set in your code to pause execution at a specific line. This allows you to inspect the state of your code at that point and step through it line by line. They are very close to the browser() function. They can also be used in RStudio IDE, but I have to admit that I never used them.\nImportant: this blog post assumes that you have a functional setup of VSCode for using R.\nIf you don’t have it yet, I recommend you to check out the following ressources:"
+  },
+  {
+    "objectID": "posts/debugvscode/index.html#prerequisites",
+    "href": "posts/debugvscode/index.html#prerequisites",
+    "title": "The recipe to debug your R code in VSCode",
+    "section": "Prerequisites",
+    "text": "Prerequisites\nBefore we start, make sure you have the following prerequisites:\n\nHaving installed the R package {vscDebugger}:\n\n\nremotes::install_github(\"ManuelHentschel/vscDebugger\")\n\n\nHaving installed the VSCode extension R Debugger."
+  },
+  {
+    "objectID": "posts/debugvscode/index.html#launch-a-debugging-session",
+    "href": "posts/debugvscode/index.html#launch-a-debugging-session",
+    "title": "The recipe to debug your R code in VSCode",
+    "section": "Launch a debugging session",
+    "text": "Launch a debugging session\nLaunching a debugging session is very easy. You just have to click on the “Run and Debug” icon in the left menu of VSCode, and then select “R Debugger”.\nSince we are working with a R package, we need to select the “Debug R-Package” option. This will launch a debugging session in the context of the package, i.e a call to the function pkgload::load_all() will be made, ensuring the sourcing of all functions in our environment. If we are working with a script, we can select the “Debug R-File” option."
+  },
+  {
+    "objectID": "posts/debugvscode/index.html#use-breakpoints",
+    "href": "posts/debugvscode/index.html#use-breakpoints",
+    "title": "The recipe to debug your R code in VSCode",
+    "section": "Use breakpoints",
+    "text": "Use breakpoints\nBreakpoints are markers that you can set in your code to pause execution at a specific line. This allows you to inspect the state of your code at that point and step through it line by line. Adding a breaking point is very easy. You just have to click on the left margin of the line you want to set a breakpoint on. A red dot will appear, indicating that a breakpoint has been set. This is equivalent of adding a browser() function in your code.\nImportant note: the breakpoints are not saved in your code. They are only set in the context of the debugging session. This means that if you close the debugging session, the breakpoints will be removed. This is different from the browser() function, which is saved in your code !\nOnce your debugging session is launched, you can see that the color of the bottom bar has changed. Moreover, a new specific terminal has been opened, called “DEBUG CONSOLE”. This is where you can see the output of your code, and where you can enter commands to inspect the state of your code. Previously, we working in the classical R terminal, because we were not using the specific VSCode debugging tool.\n\nThis way to debug your code is much more user-friendly than the previous one. You can see the state of your code at any point, and you can step through it line by line. You can also inspect the variables in your code, and see their values. Breakpoints are very easy to use, and not intrusive as the use of browser() can be. This feature, coupled to the use of the command palette, make the debugging process easier.\nIf you are lost between the use of the RStudio command palette and the VSCode command palette, below is a correspondence between the two:"
+  },
+  {
+    "objectID": "posts/debugvscode/index.html#use-debugonce-and-browser",
+    "href": "posts/debugvscode/index.html#use-debugonce-and-browser",
+    "title": "The recipe to debug your R code in VSCode",
+    "section": "Use debugonce() and browser()",
+    "text": "Use debugonce() and browser()\nUsing the debugonce() and browser() functions in VSCode is very similar to using them in RStudio. You can use them in the same way, and they will work as expected."
+  },
+  {
+    "objectID": "posts/debugvscode/index.html#displaying-data.frames-and-plots-in-the-debug-console",
+    "href": "posts/debugvscode/index.html#displaying-data.frames-and-plots-in-the-debug-console",
+    "title": "The recipe to debug your R code in VSCode",
+    "section": "Displaying data.frames and plots in the Debug Console",
+    "text": "Displaying data.frames and plots in the Debug Console\nWhen you are debugging your code, you can display data.frames and plots in the Debug Console. This is very useful to inspect the state of your code at a specific point.\nNatively, data.frames are displayed in a very compact way, which is not very user-friendly. However, like shown in a previous video, you can right-click on the data.frame on the “Variables” panel, and select “Show in Data Viewer”.\n\nOn my VSCode (I’m working on Windows 11), data.frames and plots were not opened by default in my current VSCode window. I had to edit the RProfile file to add the following:\n\nif (Sys.getenv(\"VSCODE_DEBUG_SESSION\") == \"1\") {\n    Sys.setenv(TERM_PROGRAM = \"vscode\")\n    source(file.path(Sys.getenv(if (.Platform$OS.type == \"windows\") \"USERPROFILE\" else \"HOME\"), \".vscode-R\", \"init.R\"))\n}\n\nTo have access to the RProfile file, you can run usethis::edit_r_profile() in the R console. This will open the RProfile file in your default editor. You can then add the code above to the file, and save it (your session must be restarted to use it)."
   }
 ]

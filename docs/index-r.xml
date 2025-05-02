@@ -9,7 +9,7 @@
 <link>https://ymansiaux.github.io/yohann-data/#category=R</link>
 <atom:link href="https://ymansiaux.github.io/yohann-data/index-r.xml" rel="self" type="application/rss+xml"/>
 <description>Yohann Mansiaux&#39;s blog - R, dev and other stuff</description>
-<generator>quarto-1.6.39</generator>
+<generator>quarto-1.6.43</generator>
 <lastBuildDate>Fri, 08 Nov 2024 23:00:00 GMT</lastBuildDate>
 <item>
   <title>How Github Copilot and ChatGPT have changed my life as an R developer</title>

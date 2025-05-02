@@ -1,7 +1,7 @@
 ---
 title: "The recipe to debug your R code in VSCode"
 author: "Yohann Mansiaux"
-categories: [debug, vscode, development]
+categories: [debug, vscode, development, R]
 image: "image.jpg"
 ---
 
@@ -12,7 +12,7 @@ Two native functions available natively in R were shown : `browser()` and `debug
 - `debugonce()` is a function that allows you to debug a function the next time it is called. It is useful when you want to debug a function without modifying its code.
 - `browser()` is a function that allows you to pause the execution of your code at a specific point and enter the debugging environment. It is useful when you want to inspect the state of your code at a specific point in time.
 
-We are going to show you how to use these functions in VSCode, as well as introducing "breakpoints". Breakpoints are markers that you can set in your code to pause execution at a specific line. This allows you to inspect the state of your code at that point and step through it line by line. They are very close to the `browser()` function. They can also be used in RStudio IDE, but I have to admit that I never used them.
+We are going to see how to use these functions in VSCode, as well as introducing "breakpoints". Breakpoints are markers that you can set in your code to pause execution at a specific line. This allows you to inspect the state of your code at that point and step through it line by line. They are very close to the `browser()` function. They can also be used in RStudio IDE, but I have to admit that I never used them.
 
 **Important: this blog post assumes that you have a functional setup of VSCode for using R.**
 
@@ -99,7 +99,7 @@ remotes::install_github("ManuelHentschel/vscDebugger")
 Launching a debugging session is very easy. You just have to click on the "Run and Debug" icon in the left menu of VSCode, and then select "R Debugger".
 
 Since we are working with a R package, we need to select the "Debug R-Package" option. This will launch a debugging session in the context of the package, i.e a call to the function `pkgload::load_all()` will be made, ensuring the sourcing of all functions in our environment.
-If we are working with a script, we can select the "Debug R-File" option.
+If you are working with a just a R script, you can select the "Debug R-File" option.
 
 {{< video img/02_open_debugger.mp4 >}}
 
@@ -111,7 +111,7 @@ This is equivalent of adding a `browser()` function in your code.
 
 **Important note:** the breakpoints are not saved in your code. They are only set in the context of the debugging session. This means that if you close the debugging session, the breakpoints will be removed. This is different from the `browser()` function, which is saved in your code !
 
-Once your debugging session is launched, you can see that the color of the bottom bar has changed. Moreover, a new specific terminal has been opened, called "DEBUG CONSOLE". This is where you can see the output of your code, and where you can enter commands to inspect the state of your code. Previously, we working in the classical R terminal, because we were not using the specific VSCode debugging tool.
+Once your debugging session is launched, you can see that the color of the bottom bar has changed. Moreover, a new specific terminal has been opened, called "DEBUG CONSOLE". This is where you can see the output of your code, and where you can enter commands to inspect the state of your code. Previously, we were working in the classical R terminal, because we were not using the specific VSCode debugging tool.
 
 {{< video img/03_breakpoints.mp4 >}}
 
@@ -131,7 +131,7 @@ Using the `debugonce()` and `browser()` functions in VSCode is very similar to u
 
 ## Displaying data.frames and plots in the Debug Console
 
-When you are debugging your code, you can display data.frames and plots in the Debug Console. This is very useful to inspect the state of your code at a specific point.
+When you are debugging your code, you can display data.frames and plots in the Debug Console. 
 
 Natively, data.frames are displayed in a very compact way, which is not very user-friendly. However, like shown in a previous video, you can right-click on the data.frame on the "Variables" panel, and select "Show in Data Viewer". 
 
@@ -155,11 +155,9 @@ The experience of R programming in VSCode has grown remarkably robust in recent 
 
 When comparing the two IDEs specifically for debugging:
 - **VSCode** offers an elegant visual debugging experience with intuitive breakpoints and a clean variable inspection panel
-- **RStudio** provides a more integrated experience but with essentially the same core functionality
+- **RStudio** provides a more integrated experience but with essentially the same core functionalities.
 
 For those considering a switch from RStudio to VSCode, the debugging workflow should no longer be a concern. Both environments now offer powerful tools for stepping through your code and identifying bugs efficiently.
-
-Setting up the debugging environment in VSCode takes only about 5-10 minutes for most users, and the productivity gains are well worth the initial configuration time.
 
 I hope this blog post helps make your debugging process less stressful and more productive! If you have additional VSCode debugging tips or questions, feel free to reach out to me.
 

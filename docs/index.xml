@@ -4777,8 +4777,7 @@ font-style: inherit;">$</span>icon</span>
 
 
 
-<p>Hi folks !</p>
-<p>Debugging code in an everyday task for developers. In a recent video, I presented <a href="https://www.youtube.com/watch?v=WB5e8P2KHhI">how to debug R code in RStudio IDE</a>.</p>
+<p>Debugging code in an everyday (often painful) task for developers. In a recent video, I presented <a href="https://www.youtube.com/watch?v=WB5e8P2KHhI">how to debug R code in RStudio IDE</a>.</p>
 <p>Two native functions available natively in R were shown : <code>browser()</code> and <code>debugonce()</code>. They are very useful to debug your code.</p>
 <ul>
 <li><code>debugonce()</code> is a function that allows you to debug a function the next time it is called. It is useful when you want to debug a function without modifying its code.</li>
@@ -4871,9 +4870,9 @@ font-style: inherit;">return</span>(results)</span>
 <span id="cb2-4">}</span></code></pre></div>
 </div>
 </section>
-<section id="debugging-code-in-the-r-console" class="level1">
-<h1>Debugging code in the R console</h1>
-<p>Before showing you how to use the specific VSCode debugger, let’s see how to debug the code in the R console.</p>
+<section id="debugging-code-in-the-r-terminal" class="level1">
+<h1>Debugging code in the R terminal</h1>
+<p>Before showing you how to use the specific VSCode debugger, let’s see how to debug the code in the R terminal.</p>
 <p>In the same way as in RStudio, you can use the <code>debugonce()</code> function to debug the <code>calculate_rr_in_df()</code> function. However, the little toolbar you’ve been used to will have disappeared. You’ll need to use keyboard shortcuts to move on the debugging your code.</p>
 <p>Here are the keyboard shortcuts you’ll need to debug your code in VSCode’s R terminal:</p>
 <p><img src="https://ymansiaux.github.io/yohann-data/posts/debugvscode/img/raccourcis_clavier_debug_rstudio.png" class="img-fluid"></p>
@@ -4986,8 +4985,12 @@ font-style: inherit;">"init.R"</span>))</span>
 </section>
 <section id="conclusion" class="level1">
 <h1>Conclusion</h1>
-<p>The experience of R programming in VSCode is very pleasant. However, one of the last drawbacks that I had was to get the equivalent of the RStudio debugging process. Thanks to the R Debugger extension, this is now possible !</p>
-<p>I hope this blog post was useful to you, and that the debugging process, which is a stressful task whatsoever, will be easier for you now !</p>
+<p>The experience of R programming in VSCode has grown remarkably robust in recent years. While debugging was previously a key advantage of RStudio, the R Debugger extension has effectively closed that gap.</p>
+<p>When comparing the two IDEs specifically for debugging: - <strong>VSCode</strong> offers an elegant visual debugging experience with intuitive breakpoints and a clean variable inspection panel - <strong>RStudio</strong> provides a more integrated experience but with essentially the same core functionality</p>
+<p>For those considering a switch from RStudio to VSCode, the debugging workflow should no longer be a concern. Both environments now offer powerful tools for stepping through your code and identifying bugs efficiently.</p>
+<p>Setting up the debugging environment in VSCode takes only about 5-10 minutes for most users, and the productivity gains are well worth the initial configuration time.</p>
+<p>I hope this blog post helps make your debugging process less stressful and more productive! If you have additional VSCode debugging tips or questions, feel free to reach out to me.</p>
+<p>Happy debugging!</p>
 
 
 </section>
@@ -4997,7 +5000,7 @@ font-style: inherit;">"init.R"</span>))</span>
   <category>vscode</category>
   <category>development</category>
   <guid>https://ymansiaux.github.io/yohann-data/posts/debugvscode/</guid>
-  <pubDate>Fri, 02 May 2025 12:54:42 GMT</pubDate>
+  <pubDate>Fri, 02 May 2025 13:08:19 GMT</pubDate>
   <media:content url="https://ymansiaux.github.io/yohann-data/posts/debugvscode/image.jpg" medium="image" type="image/jpeg"/>
 </item>
 </channel>

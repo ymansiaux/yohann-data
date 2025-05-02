@@ -357,7 +357,7 @@ font-style: inherit;">"starwars_sample"</span>)</span></code></pre></div>
 
 
 <p><strong>Let’s continue our exploration of integrating JavaScript code into a {shiny} application! We will show how to move beyond the classic graphs produced in base R or with {ggplot2} to explore the interactive dataviz production libraries of JavaScript, particularly the Chart.js library.</strong></p>
-<p>If you missed <a href="https://rtask.thinkr.fr/pimping-your-shiny-app-with-a-javascript-library-an-example-using-sweetalert2/" target="_blank">my first article on integrating JavaScript libraries into a {shiny} application</a> I invite you to read it before diving into this one.</p>
+<p>If you missed <a href="https://ymansiaux.github.io/yohann-data/posts/sweetalert2/" target="_blank">my first article on integrating JavaScript libraries into a {shiny} application</a> I invite you to read it before diving into this one.</p>
 <p>Crucial concepts are covered and will not be repeated here. We particularly think about:</p>
 <ul>
 <li>How to add a JavaScript library’s dependencies to a {shiny} application<br>

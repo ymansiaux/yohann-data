@@ -4783,7 +4783,7 @@ font-style: inherit;">$</span>icon</span>
 <li><code>debugonce()</code> is a function that allows you to debug a function the next time it is called. It is useful when you want to debug a function without modifying its code.</li>
 <li><code>browser()</code> is a function that allows you to pause the execution of your code at a specific point and enter the debugging environment. It is useful when you want to inspect the state of your code at a specific point in time.</li>
 </ul>
-<p>We are going to show you how to use these functions in VSCode, as well as introducing “breakpoints”. Breakpoints are markers that you can set in your code to pause execution at a specific line. This allows you to inspect the state of your code at that point and step through it line by line. They are very close to the <code>browser()</code> function. They can also be used in RStudio IDE, but I have to admit that I never used them.</p>
+<p>We are going to see how to use these functions in VSCode, as well as introducing “breakpoints”. Breakpoints are markers that you can set in your code to pause execution at a specific line. This allows you to inspect the state of your code at that point and step through it line by line. They are very close to the <code>browser()</code> function. They can also be used in RStudio IDE, but I have to admit that I never used them.</p>
 <p><strong>Important: this blog post assumes that you have a functional setup of VSCode for using R.</strong></p>
 <p>If you don’t have it yet, I recommend you to check out the following ressources:</p>
 <ul>
@@ -4907,14 +4907,14 @@ font-style: inherit;">"ManuelHentschel/vscDebugger"</span>)</span></code></pre><
 <section id="launch-a-debugging-session" class="level2">
 <h2 class="anchored" data-anchor-id="launch-a-debugging-session">Launch a debugging session</h2>
 <p>Launching a debugging session is very easy. You just have to click on the “Run and Debug” icon in the left menu of VSCode, and then select “R Debugger”.</p>
-<p>Since we are working with a R package, we need to select the “Debug R-Package” option. This will launch a debugging session in the context of the package, i.e a call to the function <code>pkgload::load_all()</code> will be made, ensuring the sourcing of all functions in our environment. If we are working with a script, we can select the “Debug R-File” option.</p>
+<p>Since we are working with a R package, we need to select the “Debug R-Package” option. This will launch a debugging session in the context of the package, i.e a call to the function <code>pkgload::load_all()</code> will be made, ensuring the sourcing of all functions in our environment. If you are working with a just a R script, you can select the “Debug R-File” option.</p>
 <div class="quarto-video"><video id="video_shortcode_videojs_video2" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="img/02_open_debugger.mp4"></video></div>
 </section>
 <section id="use-breakpoints" class="level2">
 <h2 class="anchored" data-anchor-id="use-breakpoints">Use breakpoints</h2>
 <p>Breakpoints are markers that you can set in your code to pause execution at a specific line. This allows you to inspect the state of your code at that point and step through it line by line. Adding a breaking point is very easy. You just have to click on the left margin of the line you want to set a breakpoint on. A red dot will appear, indicating that a breakpoint has been set. This is equivalent of adding a <code>browser()</code> function in your code.</p>
 <p><strong>Important note:</strong> the breakpoints are not saved in your code. They are only set in the context of the debugging session. This means that if you close the debugging session, the breakpoints will be removed. This is different from the <code>browser()</code> function, which is saved in your code !</p>
-<p>Once your debugging session is launched, you can see that the color of the bottom bar has changed. Moreover, a new specific terminal has been opened, called “DEBUG CONSOLE”. This is where you can see the output of your code, and where you can enter commands to inspect the state of your code. Previously, we working in the classical R terminal, because we were not using the specific VSCode debugging tool.</p>
+<p>Once your debugging session is launched, you can see that the color of the bottom bar has changed. Moreover, a new specific terminal has been opened, called “DEBUG CONSOLE”. This is where you can see the output of your code, and where you can enter commands to inspect the state of your code. Previously, we were working in the classical R terminal, because we were not using the specific VSCode debugging tool.</p>
 <div class="quarto-video"><video id="video_shortcode_videojs_video3" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="img/03_breakpoints.mp4"></video></div>
 <p>This way to debug your code is much more user-friendly than the previous one. You can see the state of your code at any point, and you can step through it line by line. You can also inspect the variables in your code, and see their values. Breakpoints are very easy to use, and not intrusive as the use of <code>browser()</code> can be. This feature, coupled to the use of the command palette, make the debugging process easier.</p>
 <p>If you are lost between the use of the RStudio command palette and the VSCode command palette, below is a correspondence between the two:</p>
@@ -4927,7 +4927,7 @@ font-style: inherit;">"ManuelHentschel/vscDebugger"</span>)</span></code></pre><
 </section>
 <section id="displaying-data.frames-and-plots-in-the-debug-console" class="level2">
 <h2 class="anchored" data-anchor-id="displaying-data.frames-and-plots-in-the-debug-console">Displaying data.frames and plots in the Debug Console</h2>
-<p>When you are debugging your code, you can display data.frames and plots in the Debug Console. This is very useful to inspect the state of your code at a specific point.</p>
+<p>When you are debugging your code, you can display data.frames and plots in the Debug Console.</p>
 <p>Natively, data.frames are displayed in a very compact way, which is not very user-friendly. However, like shown in a previous video, you can right-click on the data.frame on the “Variables” panel, and select “Show in Data Viewer”.</p>
 <p><img src="https://ymansiaux.github.io/yohann-data/posts/debugvscode/img/data_viewer.png" class="img-fluid"></p>
 <p>On my VSCode (I’m working on Windows 11), data.frames and plots were not opened by default in my current VSCode window. I had to edit the <code>RProfile</code> file to add the following:</p>
@@ -4986,9 +4986,8 @@ font-style: inherit;">"init.R"</span>))</span>
 <section id="conclusion" class="level1">
 <h1>Conclusion</h1>
 <p>The experience of R programming in VSCode has grown remarkably robust in recent years. While debugging was previously a key advantage of RStudio, the R Debugger extension has effectively closed that gap.</p>
-<p>When comparing the two IDEs specifically for debugging: - <strong>VSCode</strong> offers an elegant visual debugging experience with intuitive breakpoints and a clean variable inspection panel - <strong>RStudio</strong> provides a more integrated experience but with essentially the same core functionality</p>
+<p>When comparing the two IDEs specifically for debugging: - <strong>VSCode</strong> offers an elegant visual debugging experience with intuitive breakpoints and a clean variable inspection panel - <strong>RStudio</strong> provides a more integrated experience but with essentially the same core functionalities.</p>
 <p>For those considering a switch from RStudio to VSCode, the debugging workflow should no longer be a concern. Both environments now offer powerful tools for stepping through your code and identifying bugs efficiently.</p>
-<p>Setting up the debugging environment in VSCode takes only about 5-10 minutes for most users, and the productivity gains are well worth the initial configuration time.</p>
 <p>I hope this blog post helps make your debugging process less stressful and more productive! If you have additional VSCode debugging tips or questions, feel free to reach out to me.</p>
 <p>Happy debugging!</p>
 
@@ -4999,8 +4998,9 @@ font-style: inherit;">"init.R"</span>))</span>
   <category>debug</category>
   <category>vscode</category>
   <category>development</category>
+  <category>R</category>
   <guid>https://ymansiaux.github.io/yohann-data/posts/debugvscode/</guid>
-  <pubDate>Fri, 02 May 2025 13:50:48 GMT</pubDate>
+  <pubDate>Fri, 02 May 2025 13:59:36 GMT</pubDate>
   <media:content url="https://ymansiaux.github.io/yohann-data/posts/debugvscode/image.jpg" medium="image" type="image/jpeg"/>
 </item>
 </channel>

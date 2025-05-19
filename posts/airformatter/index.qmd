@@ -34,8 +34,15 @@ If you wish Air to be used as your default formatter, please comment or remove t
 ``` json
   "[r]": {
     // "editor.defaultFormatter": "REditorSupport.r",
-    "editor.formatOnSave": true,
-    "editor.wordSeparators": "`~!@#%$^&*()-=+[{]}\\|;:'\",<>/?"
+    "editor.formatOnSave": true
+  }
+  "[rmd]": {
+    // "editor.defaultFormatter": "REditorSupport.r",
+    "editor.formatOnSave": true
+  }
+  "[quarto]": {
+    // "editor.defaultFormatter": "REditorSupport.r",
+    "editor.formatOnSave": true
   }
 ```
 

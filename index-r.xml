@@ -9,7 +9,7 @@
 <link>https://ymansiaux.github.io/yohann-data/#category=R</link>
 <atom:link href="https://ymansiaux.github.io/yohann-data/index-r.xml" rel="self" type="application/rss+xml"/>
 <description>Yohann Mansiaux&#39;s blog - R, dev and other stuff</description>
-<generator>quarto-1.7.29</generator>
+<generator>quarto-1.7.31</generator>
 <lastBuildDate>Sat, 09 Nov 2024 00:00:00 GMT</lastBuildDate>
 <item>
   <title>How Github Copilot and ChatGPT have changed my life as an R developer</title>
@@ -4913,7 +4913,7 @@ font-style: inherit;">"init.R"</span>))</span>
   <category>development</category>
   <category>R</category>
   <guid>https://ymansiaux.github.io/yohann-data/posts/debugvscode/</guid>
-  <pubDate>Fri, 02 May 2025 13:59:36 GMT</pubDate>
+  <pubDate>Mon, 19 May 2025 08:30:20 GMT</pubDate>
   <media:content url="https://ymansiaux.github.io/yohann-data/posts/debugvscode/image.jpg" medium="image" type="image/jpeg"/>
 </item>
 </channel>

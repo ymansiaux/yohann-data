@@ -1,0 +1,179 @@
+---
+title: "Keep your R code clean and consistent with Air"
+author: "Yohann Mansiaux"
+categories: [vscode, development]
+image: "image.jpg"
+---
+
+Consistent code formatting is a crucial aspect of collaborative development that often gets overlooked. Well-formatted code provides several significant benefits:
+
+- **Readability**: Uniform formatting makes code easier to read and understand for everyone
+- **Maintainability**: Consistent style reduces cognitive load when navigating through code
+- **Collaboration**: Standardized formatting reduces merge conflicts and makes code reviews more efficient
+
+Air formatter for R brings these benefits to R codebases with minimal setup effort, helping teams establish and maintain a consistent coding style automatically. While this guide focuses specifically on Air, the principles and benefits apply to any code formatter - the most important factor is having all team members use the same formatting tool with consistent settings.
+
+# Requirements
+
+- Air installed
+- Depending on your IDE, you may also need to install some extensions (as as VSCode user I had to install the [Air - R Language Support extension](https://marketplace.visualstudio.com/items?itemName=Posit.air-vscode)).
+- To test if the formatter is working, you can use the following command: `air format .` in a Terminal (**not the R console**) !
+
+Please read the following resources before starting:
+
+- https://posit-dev.github.io/air/formatter.html
+- https://www.tidyverse.org/blog/2025/02/air/
+
+**Warning for VSCode users**
+
+Before using Air I was using the REditorSupport formatter provided with the [R extension for VSCode](https://github.com/REditorSupport/vscode-R). Air was not working, because I forgot to edit correctly my `settings.json` file.
+
+If you wish Air to be used as your default formatter, please comment or remove the line `"editor.defaultFormatter": "REditorSupport.r"` in your `settings.json` file.
+
+``` json
+  "[r]": {
+    // "editor.defaultFormatter": "REditorSupport.r",
+    "editor.formatOnSave": true,
+    "editor.wordSeparators": "`~!@#%$^&*()-=+[{]}\\|;:'\",<>/?"
+  }
+```
+
+As set in the `settings.json` file, Air is used as the default formatter as will be applied on save of any R file. There are other ways to use Air, the pre-commit or the Github Actions workflow.
+
+# Pre-commit hook
+
+A pre-commit hook is an operation that is performed before a commit is made. If you are a R package developer, you sometimes already have been complaning about a message telling that both README-related files: `README.md` and `README.Rmd` must be staged together in a specific commit.
+
+This pre-commit hook is added automatically to your project when you are using `usethis::use_readme_rmd()` ! 
+
+## How to add a pre-commit hook
+
+``` r
+usethis::use_git_hook(
+  "pre-commit",
+  "air format ."
+  )
+```
+
+This command implies that for each commit you will make, the entire codebase of your project will be reformated.
+
+Pre-commit hooks are located in a hidden folder of your repository. If you want to take a look at the generated/modified file you must look for the following file (starting from the root of your project): `.git/hooks/pre-commit`
+
+The pros of pre-commit hooks are:
+
+- Ensures all code is formatted before it's committed to the repository
+- Prevents unformatted code from entering the codebase
+- Enforces consistent code style across the project
+
+The cons of pre-commit hooks are:
+
+- They are local to each developer's machine and must be set up individually
+- Can be bypassed with `git commit --no-verify` if a developer chooses to
+- May slow down the commit process for large codebases
+- Requires Air to be installed on each developer's machine
+- If formatting rules change, all developers need to update their local setup
+
+If you are already using the option `"editor.formatOnSave": true`, the pre-commit hook might be useless (except for the first time you will be using it, by formatting the entire codebase), and you might be more interested in using the Github Actions workflow !
+
+# Using Github Actions
+
+In the `main` branch of a project I want to have only "bullet-proof" code, i.e a code in which the `devtools::check()` returns no error, no warning, no note. Each time I'm opening a Pull Request from a branch to the main branch, I run a Github Action which calls `devtools::check()`. I allow merging the proposed code only if this Github Action pass.
+
+To ensure that the merged code has also the expected format, I've completed my Github Action yaml configuration file to call the Air formatter on my codebase only if the `devtools::check()` was successful.
+
+This very convenient when you are working with other colleagues on the same project, with potentially different IDE, to ensure the code format is the same between everyone and hence to avoid merge conflicts because of formatting.
+
+Contrary to pre-commit hooks which are "computer-specific", Github Actions workflow will be run remotely, ensuring that any modification to the code formatter settings will be applied to any code submitted to the main codebase !
+
+To use this Github Actions workflow, please create the following folder: `.github/workflow/` and add the following in a `.yaml` file.
+
+```yaml
+# Workflow derived from https://github.com/posit-dev/setup-air/tree/main/examples
+on:
+  pull_request:
+    branches: [main, master]
+
+name: check_and_formatting.yml
+
+permissions:
+  contents: write
+
+jobs:
+  R-CMD-check:
+    runs-on: ${{ matrix.config.os }}
+
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - { os: ubuntu-latest, r: "release" }
+
+    env:
+      GITHUB_PAT: ${{ secrets.GH_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: quarto-dev/quarto-actions/setup@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.config.r }}
+          http-user-agent: ${{ matrix.config.http-user-agent }}
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+          needs: check
+
+      - uses: r-lib/actions/check-r-package@v2
+        with:
+          upload-snapshots: true
+          build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
+
+  format-check:
+    name: format-check
+    needs: R-CMD-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install
+        uses: posit-dev/setup-air@v1
+
+      - name: Check
+        run: air format .
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --cached --quiet || git commit -m "style: auto-format code via air format"
+
+      - name: Push changes
+        if: github.event_name == 'pull_request' && github.head_ref != ''
+        run: |
+          git pull --rebase origin ${{ github.head_ref }}
+          git push origin HEAD:${{ github.head_ref }}
+
+```
+
+# Conclusion
+
+Implementing automated code formatting with Air provides immediate benefits for both individual developers and teams. Whether you choose to use the formatter through your IDE, pre-commit hooks, or GitHub Actions, the result is the same: consistently formatted code that's easier to read, maintain, and collaborate on.
+
+By incorporating Air into your workflow:
+
+- You eliminate time-consuming style discussions and manual formatting
+- Your codebase maintains a consistent style regardless of who contributes
+- Code reviews can focus on substance rather than style
+- New team members can quickly adapt to your project's conventions
+
+Don't hesitate to ask me any question about this workflow or any idea of improvement !

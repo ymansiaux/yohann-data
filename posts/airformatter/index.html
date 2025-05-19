@@ -297,9 +297,16 @@ cookieconsent.run({
 <p>If you wish Air to be used as your default formatter, please comment or remove the line <code>"editor.defaultFormatter": "REditorSupport.r"</code> in your <code>settings.json</code> file.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  <span class="er">"</span><span class="ot">[</span><span class="er">r</span><span class="ot">]</span><span class="er">":</span> <span class="fu">{</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="er">//</span> <span class="dt">"editor.defaultFormatter"</span><span class="fu">:</span> <span class="st">"REditorSupport.r"</span><span class="fu">,</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"editor.formatOnSave"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"editor.wordSeparators"</span><span class="fu">:</span> <span class="st">"`~!@#%$^&amp;*()-=+[{]}</span><span class="ch">\\</span><span class="st">|;:'</span><span class="ch">\"</span><span class="st">,&lt;&gt;/?"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"editor.formatOnSave"</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="er">"</span><span class="ot">[</span><span class="er">rmd</span><span class="ot">]</span><span class="er">":</span> <span class="fu">{</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="er">//</span> <span class="dt">"editor.defaultFormatter"</span><span class="fu">:</span> <span class="st">"REditorSupport.r"</span><span class="fu">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"editor.formatOnSave"</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="er">"</span><span class="ot">[</span><span class="er">quarto</span><span class="ot">]</span><span class="er">":</span> <span class="fu">{</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="er">//</span> <span class="dt">"editor.defaultFormatter"</span><span class="fu">:</span> <span class="st">"REditorSupport.r"</span><span class="fu">,</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"editor.formatOnSave"</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>As set in the <code>settings.json</code> file, Air is used as the default formatter as will be applied on save of any R file. There are other ways to use Air, the pre-commit or the Github Actions workflow.</p>
 </section>
 <section id="pre-commit-hook" class="level1">

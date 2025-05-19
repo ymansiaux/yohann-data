@@ -1,8 +1,9 @@
 ---
 title: "Keep your R code clean and consistent with Air"
 author: "Yohann Mansiaux"
-categories: [vscode, development]
+categories: [vscode, development, R]
 image: "image.jpg"
+date: 2025-05-19
 ---
 
 Consistent code formatting is a crucial aspect of collaborative development that often gets overlooked. Well-formatted code provides several significant benefits:

@@ -1,0 +1,264 @@
+---
+title: "Python package development for R developers"
+author: "Yohann Mansiaux"
+categories: [development, package, R, python]
+image: "image.jpg"
+date: 2025-10-13
+---
+
+# Développer un package Python quand on vient de R : retour d’expérience
+
+J’ai beaucoup appris en développant et en contribuant à différents packages R au fil des années. Sans avoir (encore !) de package personnel sur le CRAN, j’utilise le développement de package au quotidien et j’ai eu la chance de former plusieurs collègues ou étudiants à cette pratique. Une fois la crainte du premier package surmontée, le développement en R devient fluide, notamment grâce à un écosystème d’outils bien intégrés : `devtools`, `usethis`, `testthat`, `roxygen2`, etc. Et si vous utilisez RStudio, les nombreux utilitaires accessibles en quelques clics simplifient encore davantage la vie.
+
+Souhaitant améliorer mes compétences en Python, j’ai voulu voir si ce cadre rassurant existait également en Python en créant un petit projet de package — une façon d’apprendre par comparaison directe.
+
+**Mon expérience Python est beaucoup plus limitée que celle que j’ai en R, mais j’espère que ce retour d’expérience vous sera utile. N’hésitez pas à me signaler toute erreur ou imprécision !** 😀
+
+Bonne lecture 🐍
+
+---
+
+## Choix de l’outil de développement
+
+Ces derniers mois, j’ai vu passer de nombreux messages vantant l’outil `uv` comme gestionnaire d’environnements et de dépendances pour Python. Si j'ai bien compris, `uv` remplace à la fois `pip`, `venv`, et dans une certaine mesure `poetry`. Il propose également plusieurs raccourcis utiles pour le développement de packages.
+
+`poetry` aurait pu être une autre option, mais je n’ai pas encore eu l’occasion de l’essayer.
+
+---
+
+## Création du package
+
+En R, j’utilise souvent `usethis::create_package()` pour créer un nouveau package.
+
+Avec `uv`, on peut faire la même chose avec la commande suivante :
+
+```bash
+uv init blueskypy --lib
+```
+
+Cela crée une structure de projet similaire à celle d’un package R :
+
+```
+blueskypy/
+├── pyproject.toml
+├── README.md
+├── .gitignore
+├── .python-version
+└── src/
+    └── blueskypy/
+        ├── __init__.py
+        └── py.typed
+```
+
+Les développeurs R reconnaîtront plusieurs éléments familiers :
+
+- `README.md` : description du package, installation, exemples d’usage.  
+- `.gitignore` : fichiers à exclure du versionnement.  
+- `src/` : répertoire des fichiers sources (équivalent du dossier `R/` dans un package R).  
+- `pyproject.toml` : métadonnées, dépendances, etc. (équivalent du fichier `DESCRIPTION`).
+
+D’autres fichiers sont spécifiques à Python, `py.typed` et `python-version`.
+
+---
+
+## Mise en place du versionnement
+
+En R, j’utilise rarement `usethis::use_git()`, préférant la ligne de commande.  
+Même approche ici :
+
+```bash
+git init
+git remote add origin repo_url.git
+git branch -M main
+```
+
+---
+
+## Ajouter une fonction et ses dépendances
+
+Pour interagir avec l’API de Bluesky, j’ai choisi d’utiliser la bibliothèque `requests`.
+
+En R, j’aurais utilisé `usethis::use_package()`.  
+En Python avec `uv`, il suffit d’exécuter :
+
+```bash
+uv add requests
+```
+
+Cette commande met à jour le fichier `pyproject.toml` et crée un fichier `uv.lock`, qui détaille toutes les dépendances exactes du projet :
+
+```toml
+dependencies = [
+    "requests>=2.32.5",
+]
+```
+
+J’ajoute ensuite ma première fonction dans `src/blueskypy/session.py` :
+
+```python
+"""Bluesky session management module"""
+import requests
+
+def create_session(
+    handle=None,
+    password=None,
+    url="https://bsky.social/xrpc/com.atproto.server.createSession",
+):
+    """Create a Bluesky session and return the access JWT.
+
+    Args:
+        handle: The Bluesky handle (if None, uses BLUESKY_HANDLE env var).
+        password: The password (if None, uses BLUESKY_PASSWORD env var).
+        url: The Bluesky API URL.
+
+    Returns:
+        The access JWT.
+    """
+    # ... code ...
+    return "access_jwt"
+```
+
+La documentation est ici intégrée sous forme de *docstring*, un concept proche de la documentation `roxygen2` en R (`#' @param`, etc.).
+
+Dans l’IDE Cursor, j’utilise l’extension Pylance, qui vérifie notamment la présence de docstrings et se "fâche" en cas de manque de documentation — une fonctionnalité que j’aimerais bien voir dans R ! Et Cursor me permet de les compléter de manière très rapide.
+
+![](img/01-docstring.png)
+
+---
+
+## Tester et relancer son code
+
+En R, j’utilise `load_all()` de manière quasi compulsive pour recharger mon package après chaque modification.  
+En Python, l’équivalent est l’installation “editable” :
+
+```bash
+uv pip install -e .
+```
+
+Cela rend le package disponible sans avoir à le réinstaller à chaque changement.
+
+Pour exécuter un script de test :
+
+```bash
+uv run script.py
+```
+
+Et si vous travaillez dans un notebook Quarto, vous pouvez forcer le rechargement d’un module modifié sans redémarrer le kernel grâce à :
+
+```python
+import blueskypy.bluesky_session
+import importlib
+importlib.reload(blueskypy.bluesky_session)
+blueskypy.bluesky_session.create_session()  
+```
+
+Ceci me permet de prendre en compte les modifications de code dans la fonction `create_session()` sans avoir à redémarrer le kernel.
+
+C’est l’équivalent Python du `devtools::load_all()` en R. Mais je trouve cela beaucoup plus lourd que dans R 🫤.
+
+---
+
+## Documentation et vignettes
+
+De la même manière que l'utilisation des tags roxygen2 nous permet d'obtenir une page de documentation, les docstrings que nous avons utilisés pour documenter notre fonction `create_session()` nous permettent de générer une page de documentation pour cette fonction.
+
+De manière native, la documentation s'affiche dans le terminal, a priori il n'est pas possible d'afficher simplement la documentation au format HTML, comme dans un package R.
+
+![](img/02-help.png)
+
+Suivant l'IDE utilisé, la page de documentation peut également s'afficher de manière interactive, en passant la souris sur le nom de la fonction.
+
+![](img/03-help_hover.png)
+
+---
+
+## Ajouter une vignette
+
+Les vignettes sont des pages de documentation plus complètes que les pages de documentation de fonction. En R on peut facile créer une vignette avec la fonction `usethis::use_vignette()`.
+
+En Python, j'ai l'impression qu'il faut creuser du côté de l'outil [`sphinx`](https://www.sphinx-doc.org/en/master/), qui propose l'écriture de vignettes basées sur le format Markdown (donc a priori un utilisateur de R ne serait pas trop perdu !). 
+
+---
+
+## Données internes au package
+
+Dans mes projets en R, je suis habitué à utiliser le dossier `data-raw/` pour insérer des données, et le dossier `data/` pour les données qui sont incluses dans le package. C'est notamment très utiles pour fournir des exemples facilement reproductibles pour les utilisateurs du package, que ce soit dans le README, les pages d'aide des fonctions ou les vignettes.
+
+En Python, je n'ai pas trouvé d'équivalent à ces dossiers, mais j'ai pu tout de même insérer des données dans le package en créant une fonction renvoyant des données manipulables par l'utilisateur.
+
+Ces données contiennent un échantillon de posts Bluesky. J'ai stocké un fichier json dans un dossier `data/` présent au niveau des sources du package (j'ai l'impression que Python est plus permissif que R pour le stockage de fichiers/dossiers dans le package).
+
+Et au final j'ai une fonction `load_sample_posts()` qui me permet de charger ces données dans l'environnement de travail.
+
+```python
+"""Data loading utilities for the blueskypy package."""
+
+import json
+from importlib.resources import files
+
+def load_sample_posts():
+    """Load sample posts from the data directory."""
+    data_file = files("blueskypy") / "data" / "sample_posts.json"
+    with open(data_file, "r", encoding="utf-8") as f:
+        json_content = json.load(f)
+    return json_content
+
+```
+
+---
+
+## Déboguer son code
+
+Le débogage n’est pas spécifique au développement de packages, mais c’est une étape essentielle dans toute démarche de développement.
+
+En R, j’utilise très souvent `browser()` ou `debugonce()` — deux fonctions indispensables pour comprendre le comportement d’un code, surtout dans des fonctions imbriquées.
+
+En Python, l’équivalent le plus direct est la fonction intégrée `breakpoint()`, que l’on place à l’endroit où l’on souhaite suspendre l’exécution.
+Lorsqu’elle est atteinte, l’interpréteur ouvre une session interactive (gérée par le module pdb), qui permet d’inspecter les variables, d’exécuter des instructions pas à pas, et de reprendre l’exécution.
+
+
+---
+
+## Tests et vérifications
+
+Les tests unitaires se placent dans un dossier `tests/`, que j’ai créé manuellement.  
+J’utilise `pytest` pour les exécuter :
+
+```bash
+pytest tests/
+```
+
+C’est l’équivalent de `devtools::test()` en R.
+
+Pour vérifier la qualité du code et de sa documentation d'une manière plus globale, je n'ai pas trouvé d'outil équivalent à `devtools::check()` en R.
+
+---
+
+## Installation du package
+
+L’installation locale se fait via :
+
+```bash
+uv pip install .
+```
+
+---
+
+## Conclusion
+
+En tant que développeur R, je n’ai pas été totalement dépaysé en développant un package Python.  
+La logique de structure et d’organisation reste assez similaire, même si la pratique diffère.
+
+Quelques points m’ont semblé moins fluides :
+
+- La documentation : en R, `roxygen2`, les vignettes et `pkgdown` forment un écosystème redoutablement efficace.  
+- Le `load_all()` : Python demande un peu plus de gymnastique entre `reload()` et les environnements “editable”.  
+- Le `devtools::check()` : je n’ai pas trouvé d’outil aussi complet et intégré.
+
+Mais globalement, cette expérience m’a permis de mieux comprendre le monde Python, et de réaliser à quel point R a su rendre le développement de packages simple, intégré et cohérent.
+
+**Les sources du package sont disponibles [ici](https://github.com/ymansiaux/blueskyPy_article).**
+
+Encore une fois, n'hésitez pas à me signaler des erreurs que j'aurais pu faire, ou à m'aiguiller sur les choses sur lesquelles j'ai été plus en difficulté !
+
+Merci à tous !

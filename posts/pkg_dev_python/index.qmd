@@ -8,7 +8,7 @@ date: 2025-10-13
 
 # Developing a Python package when coming from R: experience feedback
 
-I've learned a lot by developing and contributing to various R packages over the years. Without having (yet!) a personal package on CRAN, I use package development on a daily basis and have had the chance to train several colleagues or students in this practice. Once the fear of the first package is overcome, development in R becomes fluid, especially thanks to a well-integrated ecosystem of tools: `devtools`, `usethis`, `testthat`, `roxygen2`, etc. And if you use RStudio, the many utilities accessible with a few clicks simplify life even further.
+I've learned a lot by developing and contributing to various R packages over the years. Without having (yet!) a personal package on CRAN, I use package development on a daily basis and have had the chance to train several colleagues or students in this practice. Once the fear of the first package is overcome, package development in R becomes fluid, especially thanks to a well-integrated ecosystem of tools: `devtools`, `usethis`, `testthat`, `roxygen2`, etc. And if you use RStudio, the many utilities accessible with a few clicks simplify life even further.
 
 Wanting to improve my Python skills, I wanted to see if this reassuring framework also existed in Python by creating a small package project — a way to learn through direct comparison.
 
@@ -93,7 +93,7 @@ dependencies = [
 ]
 ```
 
-I then add my first function in `src/blueskypy/session.py`:
+I then add my first function in `src/blueskypy/session.py` (I could not find a equivalent to `usethis::use_r()` in Python):
 
 ```python
 """Bluesky session management module"""
@@ -186,7 +186,7 @@ In my R projects, I'm used to using the `data-raw/` folder to insert data, and t
 
 In Python, I haven't found an equivalent to these folders, but I was still able to insert data into the package by creating a function that returns data manipulable by the user.
 
-This data contains a sample of Bluesky posts. I stored a json file in a `data/` folder present at the package source level (I have the impression that Python is more permissive than R for storing files/folders in the package).
+This data contains a sample of Bluesky posts. I stored a json file in a `data/` folder present at the same level as the source code (I have the impression that Python is more permissive than R for storing files/folders in the package).
 
 And in the end I have a `load_sample_posts()` function that allows me to load this data into the working environment.
 
@@ -230,7 +230,7 @@ pytest tests/
 
 This is the equivalent of `devtools::test()` in R.
 
-To check code and documentation quality in a more global way, I haven't found a tool equivalent to `devtools::check()` in R.
+To check code and documentation quality in a more global way, I haven't found a tool equivalent to `devtools::check()` in R. Sometimes this tool is my worst nightmare... but most of the time it's a lifesaver!
 
 ---
 
@@ -257,7 +257,7 @@ A few points seemed less fluid to me:
 
 But overall, this experience allowed me to better understand the Python world, and to realize how much R has managed to make package development simple, integrated and coherent.
 
-**The package sources are available [here](https://github.com/ymansiaux/blueskyPy_article).**
+**The package sources are available [here](https://github.com/ymansiaux/blueskyPy_article). (with a bit more functions than presented in the article)**
 
 Again, don't hesitate to point out errors I may have made, or to guide me on the things I had more difficulty with!
 

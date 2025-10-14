@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -71,14 +71,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-6fc0b4f21feaadf59918ca6973b0cd26.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-29a19b5acbeac218a8c860e48340d4df.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -146,6 +147,8 @@ cookieconsent.run({
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Yohann’s blog</span>
     </a>
@@ -157,7 +160,7 @@ cookieconsent.run({
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -247,6 +250,10 @@ cookieconsent.run({
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -353,7 +360,7 @@ cookieconsent.run({
 <section id="method-1-add-dependencies-to-sweetalert2-via-the-cdn" class="level4">
 <h4 class="anchored" data-anchor-id="method-1-add-dependencies-to-sweetalert2-via-the-cdn">Method 1: Add dependencies to sweetalert2 via the CDN</h4>
 <p>Let’s open the <code>R/app_ui.R</code> file of our application and add the two links we copied earlier to the body of the <code>golem_add_external_resources()</code> function.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>golem_add_external_resources <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>golem_add_external_resources <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_resource_path</span>(</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"www"</span>,</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">app_sys</span>(<span class="st">"app/www"</span>)</span>
@@ -371,7 +378,7 @@ cookieconsent.run({
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">rel=</span><span class="st">"stylesheet"</span>)</span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a> </span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>We find here a call to <code>tags$script</code> and a call to <code>tags$link</code> corresponding respectively to the <code>&lt;script&gt;</code> and <code>&lt;link&gt;</code> tags seen on the links provided by the CDN.</p>
 <p>We copy-paste the elements being careful about the parameter names <code>src</code>, <code>href</code> and <code>rel</code> and remembering to separate them with commas. We are indeed moving from HTML code (where elements are separated by spaces) to R code.</p>
 </section>
@@ -380,8 +387,8 @@ cookieconsent.run({
 <p>The links identified earlier will also be useful to download the files needed to use sweetalert2.</p>
 <p>The link to the JavaScript file will be passed to the <code>golem::use_external_js_file()</code> function while the link to the CSS file will be passed to the <code>golem::use_external_css_file()</code> function.</p>
 <p>To keep a record of this, we will save the following commands in the <code>dev/02_dev.R</code> file in the “External resources” section.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>golem<span class="sc">::</span><span class="fu">use_external_js_file</span>(<span class="st">"https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>golem<span class="sc">::</span><span class="fu">use_external_css_file</span>(<span class="st">"https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.min.css"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>golem<span class="sc">::</span><span class="fu">use_external_js_file</span>(<span class="st">"https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>golem<span class="sc">::</span><span class="fu">use_external_css_file</span>(<span class="st">"https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.min.css"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Both files are now present in the <code>inst/app/www</code> folder of our application project.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -456,17 +463,17 @@ cookieconsent.run({
 <p>In order to call sweetalert2 from our application, we are going to create a JavaScript file in which we will write a function that will allow us to create an alert.</p>
 <p>Let’s create a <code>inst/app/www/sweet_alert.js</code> file in which we will paste the code to create the alert selected earlier. We could have created this file manually, but we will take advantage of the features offered by <code>{golem}</code> to do so.</p>
 <p>Let’s go to the <code>dev/02_dev.R</code> file! We add the following line in the “External Resources” section:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>golem<span class="sc">::</span><span class="fu">add_js_handler</span>(<span class="st">"sweet_alert"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>golem<span class="sc">::</span><span class="fu">add_js_handler</span>(<span class="st">"sweet_alert"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The file name doesn’t matter, but it is important to respect the <code>.js</code> extension so that the file is correctly interpreted as JavaScript code. We could have also created subfolders if we had had many imports and files to manage. The only prerequisite is that everything is located in the <code>inst/app/www</code> directory.</p>
 <p>We obtain a slightly strange skeleton, which will in fact be the skeleton of a JavaScript function, usable in our <code>{shiny}</code> application:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>( document )<span class="fu">.ready</span>(<span class="cf">function</span>() {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>( document )<span class="fu">.ready</span>(<span class="cf">function</span>() {</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Shiny.addCustomMessageHandler</span>(<span class="st">'fun'</span>, <span class="cf">function</span>(arg) {</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a> </span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>});</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>});</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>We are going to substitute the term <code>'fun'</code> with the name of the function we want to call in our <code>{shiny}</code> application and add the code to create the sweetalert2 alert.</p>
 <p>We therefore obtain the following code:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>( document )<span class="fu">.ready</span>(<span class="cf">function</span>() {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>( document )<span class="fu">.ready</span>(<span class="cf">function</span>() {</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Shiny.addCustomMessageHandler</span>(<span class="st">'alert_title_and_text_under'</span>, <span class="cf">function</span>(arg) {</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Swal.fire</span>({</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>      title<span class="sc">:</span> <span class="st">"The Internet?"</span>,</span>
@@ -474,10 +481,10 @@ cookieconsent.run({
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      icon<span class="sc">:</span> <span class="st">"question"</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    });</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>});</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>});</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Our parameters “title”, “text” and “icon” are fixed, we need to find a way to make them vary according to the choices of the user. We can notice the existence of a “arg” parameter in the <code>Shiny.addCustomMessageHandler()</code> function. It is this parameter that will allow us to transmit information to our JavaScript function.</p>
 <p>Let’s modify our code:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>( document )<span class="fu">.ready</span>(<span class="cf">function</span>() {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>( document )<span class="fu">.ready</span>(<span class="cf">function</span>() {</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Shiny.addCustomMessageHandler</span>(<span class="st">'alert_title_and_text_under'</span>, <span class="cf">function</span>(arg) {</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Swal.fire</span>({</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>      title<span class="sc">:</span> arg.title,</span>
@@ -485,14 +492,14 @@ cookieconsent.run({
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>      icon<span class="sc">:</span> arg.icon</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    });</span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>});</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>});</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The notation to use here will be <code>arg.parameter_name</code> to access the values transmitted by our <code>{shiny}</code> application. The notation with the “.” is a JavaScript convention for accessing object properties. To make the parallel with R, it’s a bit like if we were doing <code>arg$parameter_name</code>.</p>
 <p>Our JavaScript code is ready! Let’s move back to the R side!</p>
 </section>
 <section id="what-if-we-tested-all-this-in-our-shiny-app-finally" class="level3">
 <h3 class="anchored" data-anchor-id="what-if-we-tested-all-this-in-our-shiny-app-finally">What if we tested all this in our <code>{shiny}</code> app (FINALLY!)?</h3>
 <p>We are going to add a button in the <code>R/app_ui.R</code> file:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>app_ui <span class="ot">&lt;-</span> <span class="cf">function</span>(request) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>app_ui <span class="ot">&lt;-</span> <span class="cf">function</span>(request) {</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tagList</span>(</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Leave this function for adding external resources</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">golem_add_external_resources</span>(),</span>
@@ -503,7 +510,7 @@ cookieconsent.run({
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">label =</span> <span class="st">"Alert demo"</span>)</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>On the server side, we add an <code>observeEvent()</code> in the <code>R/app_server.R</code> file, which will call our JavaScript function to generate an alert when the user clicks on the “Alert demo” button.</p>
 <p>Once more, <code>{golem}</code> will make our life easier! We will use the <code>golem::invoke_js()</code> function to call our JavaScript function.</p>
 <p>Two parameters are passed to <code>golem::invoke_js()</code>:</p>
@@ -511,7 +518,7 @@ cookieconsent.run({
 <li>the first parameter corresponds to the name of the JavaScript function to call</li>
 <li>the second parameter corresponds to a list of parameters, the JavaScript equivalent of our <code>arg</code> object which will be used to transmit the information necessary to create the sweetalert2 alert. The names used in the list here must correspond to the names used in the JavaScript function for the <code>arg</code> parameter (“title”, “text” and “icon”).</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>app_server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>app_server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Your application server logic</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">observeEvent</span>(</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    input<span class="sc">$</span>show_alert,{</span>
@@ -524,7 +531,7 @@ cookieconsent.run({
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        ))</span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    }</span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>We run a call to <code>golem::run_dev()</code> to see our application in action!</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -541,9 +548,9 @@ cookieconsent.run({
 <section id="create-an-r-function-to-call-sweetalert2" class="level3">
 <h3 class="anchored" data-anchor-id="create-an-r-function-to-call-sweetalert2">Create an R function to call sweetalert2</h3>
 <p>We are going to go through <code>{golem}</code> to create our function. To do this, we will add the following line in the <code>dev/02_dev.R</code> file of our application:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>golem<span class="sc">::</span><span class="fu">add_fct</span>(<span class="st">"create_alert_title_and_text_under"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>golem<span class="sc">::</span><span class="fu">add_fct</span>(<span class="st">"create_alert_title_and_text_under"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>We obtain a <code>R/fct_create_alert_title_and_text_under.R</code> file in which we will be able to write our function, which will call the JavaScript code created in the previous step.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' create_alert_title_and_text_under</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' create_alert_title_and_text_under</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' @description Creates an alert with a title, a text and an icon</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param title alert title</span></span>
@@ -565,9 +572,9 @@ cookieconsent.run({
 <span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">icon =</span> icon</span>
 <span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Let’s modify both the <code>R/app_ui.R</code> and <code>R/app_server.R</code> files to be able to define the parameters of our alert through choices made by the user.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>app_ui <span class="ot">&lt;-</span> <span class="cf">function</span>(request) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>app_ui <span class="ot">&lt;-</span> <span class="cf">function</span>(request) {</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tagList</span>(</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Leave this function for adding external resources</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">golem_add_external_resources</span>(),</span>
@@ -585,9 +592,9 @@ cookieconsent.run({
 <span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>                   <span class="at">label =</span> <span class="st">"Alert demo"</span>)</span>
 <span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>To define the list of possible “choices” for the <code>radioButtons</code>, we took the possible values for the <code>icon</code> parameter of sweetalert2, as indicated in the official documentation: https://sweetalert2.github.io/#icon.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>app_server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>app_server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Your application server logic</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">observeEvent</span>(</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    input<span class="sc">$</span>show_alert,{</span>
@@ -598,7 +605,7 @@ cookieconsent.run({
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>      )</span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    }</span>
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Let’s finally call <code>golem::run_dev()</code>!</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -695,13 +702,14 @@ cookieconsent.run({
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

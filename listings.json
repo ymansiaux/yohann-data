@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/pkg_dev_python/index.html",
       "/posts/airformatter/index.html",
       "/posts/debugvscode/index.html",
       "/posts/iaforr/index.html",

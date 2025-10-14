@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Yohann Mansiaux">
-<meta name="dcterms.date" content="2024-07-30">
+<meta name="dcterms.date" content="2025-10-13">
 
-<title>Enjoy the ultimate comics collection experience with mycomicslibrary ! - Shiny Contest Submission – Yohann’s blog</title>
+<title>Python package development for R developers – Yohann’s blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -169,7 +204,7 @@ cookieconsent.run({
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Enjoy the ultimate comics collection experience with mycomicslibrary ! - Shiny Contest Submission</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Python package development for R developers</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -182,10 +217,12 @@ cookieconsent.run({
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Enjoy the ultimate comics collection experience with mycomicslibrary ! - Shiny Contest Submission</h1>
+      <h1 class="title">Python package development for R developers</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">shiny</div>
-                <div class="quarto-category">javascript</div>
+                <div class="quarto-category">development</div>
+                <div class="quarto-category">package</div>
+                <div class="quarto-category">R</div>
+                <div class="quarto-category">python</div>
               </div>
                   </div>
   </div>
@@ -203,7 +240,7 @@ cookieconsent.run({
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">July 30, 2024</p>
+        <p class="date">October 13, 2025</p>
       </div>
     </div>
     
@@ -244,14 +281,185 @@ cookieconsent.run({
 
 
 
-<p>I’m excited to announce that I’m participating in the hashtag#ShinyContest 2024! 🚀</p>
-<p>Enjoy the ultimate comics collection experience with “mycomicslibrary”, designed for true comic book enthusiasts !</p>
-<p>This app allows you to manage your comic book collection. You can add comic books to your collection, rate them, complete information, etc. You can also add comic books to your wishlist if you don’t own them yet!</p>
-<p><a href="https://connect.thinkr.fr/mycomicslibrary/">App</a></p>
-<p><a href="https://github.com/ymansiaux/mycomicslibrary/">Repo</a></p>
-<p>Have fun ! 📚</p>
+<section id="developing-a-python-package-when-coming-from-r-experience-feedback" class="level1">
+<h1>Developing a Python package when coming from R: experience feedback</h1>
+<p>I’ve learned a lot by developing and contributing to various R packages over the years. Without having (yet!) a personal package on CRAN, I use package development on a daily basis and have had the chance to train several colleagues or students in this practice. Once the fear of the first package is overcome, package development in R becomes fluid, especially thanks to a well-integrated ecosystem of tools: <code>devtools</code>, <code>usethis</code>, <code>testthat</code>, <code>roxygen2</code>, etc. And if you use RStudio, the many utilities accessible with a few clicks simplify life even further.</p>
+<p>Wanting to improve my Python skills, I wanted to see if this reassuring framework also existed in Python by creating a small package project — a way to learn through direct comparison.</p>
+<p><strong>My Python experience is much more limited than my R experience, but I hope this feedback will be useful to you. Don’t hesitate to point out any errors or inaccuracies!</strong> 😀</p>
+<p>Happy reading 🐍</p>
+<hr>
+<section id="development-tool-choice" class="level2">
+<h2 class="anchored" data-anchor-id="development-tool-choice">Development tool choice</h2>
+<p>In recent months, I’ve seen many messages praising the <code>uv</code> tool as a Python environment and dependency manager. If I understand correctly, <code>uv</code> replaces both <code>pip</code>, <code>venv</code>, and to some extent <code>poetry</code>. It also offers several useful shortcuts for package development.</p>
+<p><code>poetry</code> could have been another option, but I haven’t had the opportunity to try it yet.</p>
+<hr>
+</section>
+<section id="package-creation" class="level2">
+<h2 class="anchored" data-anchor-id="package-creation">Package creation</h2>
+<p>In R, I often use <code>usethis::create_package()</code> to create a new package.</p>
+<p>With <code>uv</code>, you can do the same thing with the following command:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> init blueskypy <span class="at">--lib</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This creates a project structure similar to that of an R package:</p>
+<pre><code>blueskypy/
+├── pyproject.toml
+├── README.md
+├── .gitignore
+├── .python-version
+└── src/
+    └── blueskypy/
+        ├── __init__.py
+        └── py.typed</code></pre>
+<p>R developers will recognize several familiar elements:</p>
+<ul>
+<li><code>README.md</code>: package description, installation, usage examples.<br>
+</li>
+<li><code>.gitignore</code>: files to exclude from versioning.<br>
+</li>
+<li><code>src/</code>: source files directory (equivalent to the <code>R/</code> folder in an R package).<br>
+</li>
+<li><code>pyproject.toml</code>: metadata, dependencies, etc. (equivalent to the <code>DESCRIPTION</code> file).</li>
+</ul>
+<p>Other files are specific to Python, <code>py.typed</code> and <code>python-version</code>.</p>
+<hr>
+</section>
+<section id="version-control-setup" class="level2">
+<h2 class="anchored" data-anchor-id="version-control-setup">Version control setup</h2>
+<p>In R, I rarely use <code>usethis::use_git()</code>, preferring the command line.<br>
+Same approach here:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> init</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add origin repo_url.git</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">-M</span> main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="adding-a-function-and-its-dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="adding-a-function-and-its-dependencies">Adding a function and its dependencies</h2>
+<p>To interact with the Bluesky API, I chose to use the <code>requests</code> library.</p>
+<p>In R, I would have used <code>usethis::use_package()</code>.<br>
+In Python with <code>uv</code>, just run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> add requests</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This command updates the <code>pyproject.toml</code> file and creates a <code>uv.lock</code> file, which details all the exact dependencies of the project:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">dependencies</span> <span class="op">=</span> <span class="op">[</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"requests&gt;=2.32.5"</span><span class="op">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>I then add my first function in <code>src/blueskypy/session.py</code> (I could not find a equivalent to <code>usethis::use_r()</code> in Python):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">"""Bluesky session management module"""</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_session(</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    handle<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    password<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    url<span class="op">=</span><span class="st">"https://bsky.social/xrpc/com.atproto.server.createSession"</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Create a Bluesky session and return the access JWT.</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">        handle: The Bluesky handle (if None, uses BLUESKY_HANDLE env var).</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">        password: The password (if None, uses BLUESKY_PASSWORD env var).</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">        url: The Bluesky API URL.</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">        The access JWT.</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... code ...</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"access_jwt"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The documentation is here integrated in the form of a <em>docstring</em>, a concept close to <code>roxygen2</code> documentation in R (<code>#' @param</code>, etc.).</p>
+<p>In the Cursor IDE, I use the Pylance extension, which checks for the presence of docstrings and “complains” in case of missing documentation — a feature I’d love to see in R! And Cursor allows me to complete them very quickly.</p>
+<p><img src="img/01-docstring.png" class="img-fluid"></p>
+<hr>
+</section>
+<section id="testing-and-reloading-code" class="level2">
+<h2 class="anchored" data-anchor-id="testing-and-reloading-code">Testing and reloading code</h2>
+<p>In R, I use <code>load_all()</code> almost compulsively to reload my package after each modification.<br>
+In Python, the equivalent is “editable” installation:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install <span class="at">-e</span> .</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This makes the package available without having to reinstall it with each change.</p>
+<p>To run a test script:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run script.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>And if you work in a Quarto notebook, you can force reloading a modified module without restarting the kernel thanks to:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> blueskypy.bluesky_session</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(blueskypy.bluesky_session)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>blueskypy.bluesky_session.create_session()  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This allows me to take into account code modifications in the <code>create_session()</code> function without having to restart the kernel.</p>
+<p>This is the Python equivalent of <code>devtools::load_all()</code> in R. But I find this much heavier than in R 🫤.</p>
+<hr>
+</section>
+<section id="documentation-and-vignettes" class="level2">
+<h2 class="anchored" data-anchor-id="documentation-and-vignettes">Documentation and vignettes</h2>
+<p>In the same way that using roxygen2 tags allows us to get a documentation page, the docstrings we used to document our <code>create_session()</code> function allow us to generate a documentation page for this function.</p>
+<p>Natively, the documentation displays in the terminal, and it’s apparently not possible to simply display the documentation in HTML format, as in an R package.</p>
+<p><img src="img/02-help.png" class="img-fluid"></p>
+<p>Depending on the IDE used, the documentation page can also be displayed interactively, by hovering over the function name.</p>
+<p><img src="img/03-help_hover.png" class="img-fluid"></p>
+<hr>
+</section>
+<section id="adding-a-vignette" class="level2">
+<h2 class="anchored" data-anchor-id="adding-a-vignette">Adding a vignette</h2>
+<p>Vignettes are more comprehensive documentation pages than function documentation pages. In R, you can easily create a vignette with the <code>usethis::use_vignette()</code> function.</p>
+<p>In Python, I have the impression that you need to dig into the <a href="https://www.sphinx-doc.org/en/master/"><code>sphinx</code></a> tool, which offers writing vignettes based on Markdown format (so a priori an R user wouldn’t be too lost!).</p>
+<hr>
+</section>
+<section id="internal-package-data" class="level2">
+<h2 class="anchored" data-anchor-id="internal-package-data">Internal package data</h2>
+<p>In my R projects, I’m used to using the <code>data-raw/</code> folder to insert data, and the <code>data/</code> folder for data that is included in the package. This is particularly useful for providing easily reproducible examples for package users, whether in the README, function help pages, or vignettes.</p>
+<p>In Python, I haven’t found an equivalent to these folders, but I was still able to insert data into the package by creating a function that returns data manipulable by the user.</p>
+<p>This data contains a sample of Bluesky posts. I stored a json file in a <code>data/</code> folder present at the same level as the source code (I have the impression that Python is more permissive than R for storing files/folders in the package).</p>
+<p>And in the end I have a <code>load_sample_posts()</code> function that allows me to load this data into the working environment.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">"""Data loading utilities for the blueskypy package."""</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> importlib.resources <span class="im">import</span> files</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_sample_posts():</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Load sample posts from the data directory."""</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    data_file <span class="op">=</span> files(<span class="st">"blueskypy"</span>) <span class="op">/</span> <span class="st">"data"</span> <span class="op">/</span> <span class="st">"sample_posts.json"</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(data_file, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> f:</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        json_content <span class="op">=</span> json.load(f)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> json_content</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="debugging-code" class="level2">
+<h2 class="anchored" data-anchor-id="debugging-code">Debugging code</h2>
+<p>Debugging is not specific to package development, but it’s an essential step in any development approach.</p>
+<p>In R, I very often use <code>browser()</code> or <code>debugonce()</code> — two indispensable functions for understanding code behavior, especially in nested functions.</p>
+<p>In Python, the most direct equivalent is the built-in <code>breakpoint()</code> function, which you place where you want to suspend execution. When it’s reached, the interpreter opens an interactive session (managed by the pdb module), which allows you to inspect variables, execute instructions step by step, and resume execution.</p>
+<hr>
+</section>
+<section id="tests-and-checks" class="level2">
+<h2 class="anchored" data-anchor-id="tests-and-checks">Tests and checks</h2>
+<p>Unit tests are placed in a <code>tests/</code> folder, which I created manually.<br>
+I use <code>pytest</code> to run them:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span> tests/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is the equivalent of <code>devtools::test()</code> in R.</p>
+<p>To check code and documentation quality in a more global way, I haven’t found a tool equivalent to <code>devtools::check()</code> in R. Sometimes this tool is my worst nightmare… but most of the time it’s a lifesaver!</p>
+<hr>
+</section>
+<section id="package-installation" class="level2">
+<h2 class="anchored" data-anchor-id="package-installation">Package installation</h2>
+<p>Local installation is done via:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install .</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>As an R developer, I wasn’t completely lost when developing a Python package.<br>
+The logic of structure and organization remains quite similar, even if the practice differs.</p>
+<p>A few points seemed less fluid to me:</p>
+<ul>
+<li>Documentation: in R, <code>roxygen2</code>, vignettes and <code>pkgdown</code> form a formidably efficient ecosystem.<br>
+</li>
+<li>The <code>load_all()</code>: Python requires a bit more gymnastics between <code>reload()</code> and “editable” environments.<br>
+</li>
+<li>The <code>devtools::check()</code>: I haven’t found a tool as complete and integrated.</li>
+</ul>
+<p>But overall, this experience allowed me to better understand the Python world, and to realize how much R has managed to make package development simple, integrated and coherent.</p>
+<p><strong>The package sources are available <a href="https://github.com/ymansiaux/blueskyPy_article">here</a>. (with a bit more functions than presented in the article)</strong></p>
+<p>Again, don’t hesitate to point out errors I may have made, or to guide me on the things I had more difficulty with!</p>
+<p>Thank you all!</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

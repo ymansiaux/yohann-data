@@ -9,8 +9,334 @@
 <link>https://ymansiaux.github.io/yohann-data/#category=R</link>
 <atom:link href="https://ymansiaux.github.io/yohann-data/index-r.xml" rel="self" type="application/rss+xml"/>
 <description>Yohann Mansiaux&#39;s blog - R, dev and other stuff</description>
-<generator>quarto-1.7.31</generator>
-<lastBuildDate>Mon, 19 May 2025 00:00:00 GMT</lastBuildDate>
+<generator>quarto-1.8.25</generator>
+<lastBuildDate>Mon, 13 Oct 2025 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Python package development for R developers</title>
+  <dc:creator>Yohann Mansiaux</dc:creator>
+  <link>https://ymansiaux.github.io/yohann-data/posts/pkg_dev_python/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<section id="developing-a-python-package-when-coming-from-r-experience-feedback" class="level1">
+<h1>Developing a Python package when coming from R: experience feedback</h1>
+<p>I’ve learned a lot by developing and contributing to various R packages over the years. Without having (yet!) a personal package on CRAN, I use package development on a daily basis and have had the chance to train several colleagues or students in this practice. Once the fear of the first package is overcome, package development in R becomes fluid, especially thanks to a well-integrated ecosystem of tools: <code>devtools</code>, <code>usethis</code>, <code>testthat</code>, <code>roxygen2</code>, etc. And if you use RStudio, the many utilities accessible with a few clicks simplify life even further.</p>
+<p>Wanting to improve my Python skills, I wanted to see if this reassuring framework also existed in Python by creating a small package project — a way to learn through direct comparison.</p>
+<p><strong>My Python experience is much more limited than my R experience, but I hope this feedback will be useful to you. Don’t hesitate to point out any errors or inaccuracies!</strong> 😀</p>
+<p>Happy reading 🐍</p>
+<hr>
+<section id="development-tool-choice" class="level2">
+<h2 class="anchored" data-anchor-id="development-tool-choice">Development tool choice</h2>
+<p>In recent months, I’ve seen many messages praising the <code>uv</code> tool as a Python environment and dependency manager. If I understand correctly, <code>uv</code> replaces both <code>pip</code>, <code>venv</code>, and to some extent <code>poetry</code>. It also offers several useful shortcuts for package development.</p>
+<p><code>poetry</code> could have been another option, but I haven’t had the opportunity to try it yet.</p>
+<hr>
+</section>
+<section id="package-creation" class="level2">
+<h2 class="anchored" data-anchor-id="package-creation">Package creation</h2>
+<p>In R, I often use <code>usethis::create_package()</code> to create a new package.</p>
+<p>With <code>uv</code>, you can do the same thing with the following command:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">uv</span> init blueskypy <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--lib</span></span></code></pre></div></div>
+<p>This creates a project structure similar to that of an R package:</p>
+<pre><code>blueskypy/
+├── pyproject.toml
+├── README.md
+├── .gitignore
+├── .python-version
+└── src/
+    └── blueskypy/
+        ├── __init__.py
+        └── py.typed</code></pre>
+<p>R developers will recognize several familiar elements:</p>
+<ul>
+<li><code>README.md</code>: package description, installation, usage examples.<br>
+</li>
+<li><code>.gitignore</code>: files to exclude from versioning.<br>
+</li>
+<li><code>src/</code>: source files directory (equivalent to the <code>R/</code> folder in an R package).<br>
+</li>
+<li><code>pyproject.toml</code>: metadata, dependencies, etc. (equivalent to the <code>DESCRIPTION</code> file).</li>
+</ul>
+<p>Other files are specific to Python, <code>py.typed</code> and <code>python-version</code>.</p>
+<hr>
+</section>
+<section id="version-control-setup" class="level2">
+<h2 class="anchored" data-anchor-id="version-control-setup">Version control setup</h2>
+<p>In R, I rarely use <code>usethis::use_git()</code>, preferring the command line.<br>
+Same approach here:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">git</span> init</span>
+<span id="cb3-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">git</span> remote add origin repo_url.git</span>
+<span id="cb3-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">git</span> branch <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-M</span> main</span></code></pre></div></div>
+<hr>
+</section>
+<section id="adding-a-function-and-its-dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="adding-a-function-and-its-dependencies">Adding a function and its dependencies</h2>
+<p>To interact with the Bluesky API, I chose to use the <code>requests</code> library.</p>
+<p>In R, I would have used <code>usethis::use_package()</code>.<br>
+In Python with <code>uv</code>, just run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">uv</span> add requests</span></code></pre></div></div>
+<p>This command updates the <code>pyproject.toml</code> file and creates a <code>uv.lock</code> file, which details all the exact dependencies of the project:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb5-1"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">dependencies</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span></span>
+<span id="cb5-2">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"requests&gt;=2.32.5"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb5-3"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span></span></code></pre></div></div>
+<p>I then add my first function in <code>src/blueskypy/session.py</code> (I could not find a equivalent to <code>usethis::use_r()</code> in Python):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">"""Bluesky session management module"""</span></span>
+<span id="cb6-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> requests</span>
+<span id="cb6-3"></span>
+<span id="cb6-4"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> create_session(</span>
+<span id="cb6-5">    handle<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>,</span>
+<span id="cb6-6">    password<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>,</span>
+<span id="cb6-7">    url<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"https://bsky.social/xrpc/com.atproto.server.createSession"</span>,</span>
+<span id="cb6-8">):</span>
+<span id="cb6-9">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">"""Create a Bluesky session and return the access JWT.</span></span>
+<span id="cb6-10"></span>
+<span id="cb6-11"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    Args:</span></span>
+<span id="cb6-12"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        handle: The Bluesky handle (if None, uses BLUESKY_HANDLE env var).</span></span>
+<span id="cb6-13"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        password: The password (if None, uses BLUESKY_PASSWORD env var).</span></span>
+<span id="cb6-14"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        url: The Bluesky API URL.</span></span>
+<span id="cb6-15"></span>
+<span id="cb6-16"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    Returns:</span></span>
+<span id="cb6-17"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        The access JWT.</span></span>
+<span id="cb6-18"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    """</span></span>
+<span id="cb6-19">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># ... code ...</span></span>
+<span id="cb6-20">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"access_jwt"</span></span></code></pre></div></div>
+<p>The documentation is here integrated in the form of a <em>docstring</em>, a concept close to <code>roxygen2</code> documentation in R (<code>#' @param</code>, etc.).</p>
+<p>In the Cursor IDE, I use the Pylance extension, which checks for the presence of docstrings and “complains” in case of missing documentation — a feature I’d love to see in R! And Cursor allows me to complete them very quickly.</p>
+<p><img src="https://ymansiaux.github.io/yohann-data/posts/pkg_dev_python/img/01-docstring.png" class="img-fluid"></p>
+<hr>
+</section>
+<section id="testing-and-reloading-code" class="level2">
+<h2 class="anchored" data-anchor-id="testing-and-reloading-code">Testing and reloading code</h2>
+<p>In R, I use <code>load_all()</code> almost compulsively to reload my package after each modification.<br>
+In Python, the equivalent is “editable” installation:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">uv</span> pip install <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-e</span> .</span></code></pre></div></div>
+<p>This makes the package available without having to reinstall it with each change.</p>
+<p>To run a test script:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">uv</span> run script.py</span></code></pre></div></div>
+<p>And if you work in a Quarto notebook, you can force reloading a modified module without restarting the kernel thanks to:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> blueskypy.bluesky_session</span>
+<span id="cb9-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> importlib</span>
+<span id="cb9-3">importlib.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">reload</span>(blueskypy.bluesky_session)</span>
+<span id="cb9-4">blueskypy.bluesky_session.create_session()  </span></code></pre></div></div>
+<p>This allows me to take into account code modifications in the <code>create_session()</code> function without having to restart the kernel.</p>
+<p>This is the Python equivalent of <code>devtools::load_all()</code> in R. But I find this much heavier than in R 🫤.</p>
+<hr>
+</section>
+<section id="documentation-and-vignettes" class="level2">
+<h2 class="anchored" data-anchor-id="documentation-and-vignettes">Documentation and vignettes</h2>
+<p>In the same way that using roxygen2 tags allows us to get a documentation page, the docstrings we used to document our <code>create_session()</code> function allow us to generate a documentation page for this function.</p>
+<p>Natively, the documentation displays in the terminal, and it’s apparently not possible to simply display the documentation in HTML format, as in an R package.</p>
+<p><img src="https://ymansiaux.github.io/yohann-data/posts/pkg_dev_python/img/02-help.png" class="img-fluid"></p>
+<p>Depending on the IDE used, the documentation page can also be displayed interactively, by hovering over the function name.</p>
+<p><img src="https://ymansiaux.github.io/yohann-data/posts/pkg_dev_python/img/03-help_hover.png" class="img-fluid"></p>
+<hr>
+</section>
+<section id="adding-a-vignette" class="level2">
+<h2 class="anchored" data-anchor-id="adding-a-vignette">Adding a vignette</h2>
+<p>Vignettes are more comprehensive documentation pages than function documentation pages. In R, you can easily create a vignette with the <code>usethis::use_vignette()</code> function.</p>
+<p>In Python, I have the impression that you need to dig into the <a href="https://www.sphinx-doc.org/en/master/"><code>sphinx</code></a> tool, which offers writing vignettes based on Markdown format (so a priori an R user wouldn’t be too lost!).</p>
+<hr>
+</section>
+<section id="internal-package-data" class="level2">
+<h2 class="anchored" data-anchor-id="internal-package-data">Internal package data</h2>
+<p>In my R projects, I’m used to using the <code>data-raw/</code> folder to insert data, and the <code>data/</code> folder for data that is included in the package. This is particularly useful for providing easily reproducible examples for package users, whether in the README, function help pages, or vignettes.</p>
+<p>In Python, I haven’t found an equivalent to these folders, but I was still able to insert data into the package by creating a function that returns data manipulable by the user.</p>
+<p>This data contains a sample of Bluesky posts. I stored a json file in a <code>data/</code> folder present at the same level as the source code (I have the impression that Python is more permissive than R for storing files/folders in the package).</p>
+<p>And in the end I have a <code>load_sample_posts()</code> function that allows me to load this data into the working environment.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">"""Data loading utilities for the blueskypy package."""</span></span>
+<span id="cb10-2"></span>
+<span id="cb10-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> json</span>
+<span id="cb10-4"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> importlib.resources <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> files</span>
+<span id="cb10-5"></span>
+<span id="cb10-6"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> load_sample_posts():</span>
+<span id="cb10-7">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">"""Load sample posts from the data directory."""</span></span>
+<span id="cb10-8">    data_file <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> files(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"blueskypy"</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"data"</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"sample_posts.json"</span></span>
+<span id="cb10-9">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">with</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">open</span>(data_file, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"r"</span>, encoding<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"utf-8"</span>) <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> f:</span>
+<span id="cb10-10">        json_content <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> json.load(f)</span>
+<span id="cb10-11">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> json_content</span></code></pre></div></div>
+<hr>
+</section>
+<section id="debugging-code" class="level2">
+<h2 class="anchored" data-anchor-id="debugging-code">Debugging code</h2>
+<p>Debugging is not specific to package development, but it’s an essential step in any development approach.</p>
+<p>In R, I very often use <code>browser()</code> or <code>debugonce()</code> — two indispensable functions for understanding code behavior, especially in nested functions.</p>
+<p>In Python, the most direct equivalent is the built-in <code>breakpoint()</code> function, which you place where you want to suspend execution. When it’s reached, the interpreter opens an interactive session (managed by the pdb module), which allows you to inspect variables, execute instructions step by step, and resume execution.</p>
+<hr>
+</section>
+<section id="tests-and-checks" class="level2">
+<h2 class="anchored" data-anchor-id="tests-and-checks">Tests and checks</h2>
+<p>Unit tests are placed in a <code>tests/</code> folder, which I created manually.<br>
+I use <code>pytest</code> to run them:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pytest</span> tests/</span></code></pre></div></div>
+<p>This is the equivalent of <code>devtools::test()</code> in R.</p>
+<p>To check code and documentation quality in a more global way, I haven’t found a tool equivalent to <code>devtools::check()</code> in R. Sometimes this tool is my worst nightmare… but most of the time it’s a lifesaver!</p>
+<hr>
+</section>
+<section id="package-installation" class="level2">
+<h2 class="anchored" data-anchor-id="package-installation">Package installation</h2>
+<p>Local installation is done via:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">uv</span> pip install .</span></code></pre></div></div>
+<hr>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>As an R developer, I wasn’t completely lost when developing a Python package.<br>
+The logic of structure and organization remains quite similar, even if the practice differs.</p>
+<p>A few points seemed less fluid to me:</p>
+<ul>
+<li>Documentation: in R, <code>roxygen2</code>, vignettes and <code>pkgdown</code> form a formidably efficient ecosystem.<br>
+</li>
+<li>The <code>load_all()</code>: Python requires a bit more gymnastics between <code>reload()</code> and “editable” environments.<br>
+</li>
+<li>The <code>devtools::check()</code>: I haven’t found a tool as complete and integrated.</li>
+</ul>
+<p>But overall, this experience allowed me to better understand the Python world, and to realize how much R has managed to make package development simple, integrated and coherent.</p>
+<p><strong>The package sources are available <a href="https://github.com/ymansiaux/blueskyPy_article">here</a>. (with a bit more functions than presented in the article)</strong></p>
+<p>Again, don’t hesitate to point out errors I may have made, or to guide me on the things I had more difficulty with!</p>
+<p>Thank you all!</p>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>development</category>
+  <category>package</category>
+  <category>R</category>
+  <category>python</category>
+  <guid>https://ymansiaux.github.io/yohann-data/posts/pkg_dev_python/</guid>
+  <pubDate>Mon, 13 Oct 2025 00:00:00 GMT</pubDate>
+  <media:content url="https://ymansiaux.github.io/yohann-data/posts/pkg_dev_python/image.jpg" medium="image" type="image/jpeg"/>
+</item>
 <item>
   <title>Keep your R code clean and consistent with Air</title>
   <dc:creator>Yohann Mansiaux</dc:creator>
@@ -43,7 +369,7 @@
 <p><strong>Warning for VSCode users</strong></p>
 <p>Before using Air I was using the REditorSupport formatter provided with the <a href="https://github.com/REditorSupport/vscode-R">R extension for VSCode</a>. Air was not working, because I forgot to edit correctly my <code>settings.json</code> file.</p>
 <p>If you wish Air to be used as your default formatter, please comment or remove the line <code>"editor.defaultFormatter": "REditorSupport.r"</code> in your <code>settings.json</code> file.</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1">  <span class="er" style="color: #AD0000;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1">  <span class="er" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">"</span><span class="ot" style="color: #003B4F;
 background-color: null;
@@ -147,7 +473,7 @@ font-weight: bold;
 font-style: inherit;">true</span></span>
 <span id="cb1-12">  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">}</span></span></code></pre></div>
+font-style: inherit;">}</span></span></code></pre></div></div>
 <p>As set in the <code>settings.json</code> file, Air is used as the default formatter as will be applied on save of any R file. There are other ways to use Air, the pre-commit or the Github Actions workflow.</p>
 </section>
 <section id="pre-commit-hook" class="level1">
@@ -156,7 +482,7 @@ font-style: inherit;">}</span></span></code></pre></div>
 <p>This pre-commit hook is added automatically to your project when you are using <code>usethis::use_readme_rmd()</code> !</p>
 <section id="how-to-add-a-pre-commit-hook" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-add-a-pre-commit-hook">How to add a pre-commit hook</h2>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">usethis<span class="sc" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">usethis<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -167,7 +493,7 @@ font-style: inherit;">"pre-commit"</span>,</span>
 <span id="cb2-3">  <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"air format ."</span></span>
-<span id="cb2-4">  )</span></code></pre></div>
+<span id="cb2-4">  )</span></code></pre></div></div>
 <p>This command implies that for each commit you will make, the entire codebase of your project will be reformated.</p>
 <p>Pre-commit hooks are located in a hidden folder of your repository. If you want to take a look at the generated/modified file you must look for the following file (starting from the root of your project): <code>.git/hooks/pre-commit</code></p>
 <p>The pros of pre-commit hooks are:</p>
@@ -194,7 +520,7 @@ font-style: inherit;">"air format ."</span></span>
 <p>This very convenient when you are working with other colleagues on the same project, with potentially different IDE, to ensure the code format is the same between everyone and hence to avoid merge conflicts because of formatting.</p>
 <p>Contrary to pre-commit hooks which are “computer-specific”, Github Actions workflow will be run remotely, ensuring that any modification to the code formatter settings will be applied to any code submitted to the main codebase !</p>
 <p>To use this Github Actions workflow, please create the following folder: <code>.github/workflow/</code> and add the following in a <code>.yaml</code> file.</p>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Workflow derived from https://github.com/posit-dev/setup-air/tree/main/examples</span></span>
 <span id="cb3-2"><span class="fu" style="color: #4758AB;
@@ -784,7 +1110,7 @@ font-style: inherit;">: </span><span class="ch" style="color: #20794D;
 background-color: null;
 font-style: inherit;">|</span></span>
 <span id="cb3-73">          git pull --rebase origin ${{ github.head_ref }}</span>
-<span id="cb3-74">          git push origin HEAD:${{ github.head_ref }}</span></code></pre></div>
+<span id="cb3-74">          git push origin HEAD:${{ github.head_ref }}</span></code></pre></div></div>
 </section>
 <section id="conclusion" class="level1">
 <h1>Conclusion</h1>
@@ -837,7 +1163,7 @@ font-style: inherit;">|</span></span>
 <p>We will be working with a <a href="https://github.com/ymansiaux/debugvscodepkg">very simple toy package called <code>{epidemiofuns}</code></a>. This package contains two functions meant to be used in epidemiology.</p>
 <p>The first one is <code>calculate_rr_in_df()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1">calculate_rr_in_df <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1">calculate_rr_in_df <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -891,11 +1217,11 @@ font-style: inherit;">/</span> risk2</span>
 <span id="cb1-13">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">return</span>(df)</span>
-<span id="cb1-14">}</span></code></pre></div>
+<span id="cb1-14">}</span></code></pre></div></div>
 </div>
 <p>This function calculates the relative risk (RR) from a data frame containing counts of cases and total individuals in both exposed and unexposed groups. It is calling another function <code>compute_risk()</code>. This function is not the main focus of this post, but it is a simple function that calculates the risk from two vectors.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">compute_risk <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">compute_risk <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -909,7 +1235,7 @@ font-style: inherit;">/</span> total</span>
 <span id="cb2-3">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">return</span>(results)</span>
-<span id="cb2-4">}</span></code></pre></div>
+<span id="cb2-4">}</span></code></pre></div></div>
 </div>
 </section>
 <section id="debugging-code-in-the-r-terminal" class="level1">
@@ -934,13 +1260,13 @@ font-style: inherit;">return</span>(results)</span>
 <li>Having installed the <a href="https://github.com/ManuelHentschel/vscDebugger">R package <code>{vscDebugger}</code></a>:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">remotes<span class="sc" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">remotes<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">install_github</span>(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"ManuelHentschel/vscDebugger"</span>)</span></code></pre></div>
+font-style: inherit;">"ManuelHentschel/vscDebugger"</span>)</span></code></pre></div></div>
 </div>
 <ul>
 <li>Having installed the VSCode extension <a href="https://marketplace.visualstudio.com/items?itemName=RDebugger.r-debugger">R Debugger</a>.</li>
@@ -974,7 +1300,7 @@ font-style: inherit;">"ManuelHentschel/vscDebugger"</span>)</span></code></pre><
 <p><img src="https://ymansiaux.github.io/yohann-data/posts/debugvscode/img/data_viewer.png" class="img-fluid"></p>
 <p>On my VSCode (I’m working on Windows 11), data.frames and plots were not opened by default in my current VSCode window. I had to edit the <code>RProfile</code> file to add the following:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="cf" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (<span class="fu" style="color: #4758AB;
@@ -1020,7 +1346,7 @@ background-color: null;
 font-style: inherit;">".vscode-R"</span>, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"init.R"</span>))</span>
-<span id="cb4-4">}</span></code></pre></div>
+<span id="cb4-4">}</span></code></pre></div></div>
 </div>
 <p>To have access to the <code>RProfile</code> file, you can run <code>usethis::edit_r_profile()</code> in the R console. This will open the <code>RProfile</code> file in your default editor. You can then add the code above to the file, and save it (your session must be restarted to use it).</p>
 </section>
@@ -1087,7 +1413,7 @@ font-style: inherit;">"init.R"</span>))</span>
 <h3 class="anchored" data-anchor-id="code-completion-writing-functions">Code Completion: Writing Functions</h3>
 <p>Let’s say we’re developing an R package and want to write a function to clean text by removing spaces and special characters.</p>
 <p>We start with a comment describing the function’s intent and provide an empty function skeleton:</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Function to clean text by removing spaces and special characters</span></span>
 <span id="cb1-2">clean_text <span class="ot" style="color: #003B4F;
@@ -1096,7 +1422,7 @@ font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">function</span>(text) {  </span>
-<span id="cb1-3">}</span></code></pre></div>
+<span id="cb1-3">}</span></code></pre></div></div>
 <p>After a few seconds, Copilot suggests an implementation for <code>clean_text</code>. Suggestions appear in gray and can be accepted by pressing the <code>Tab</code> key.</p>
 <p><img src="https://ymansiaux.github.io/yohann-data/posts/iaforr/img/02-copilot_suggestion.png" class="img-fluid"></p>
 <p>The initial function comment isn’t mandatory, but it helps Copilot better understand the context and suggest more relevant code.</p>
@@ -1292,7 +1618,7 @@ font-style: inherit;">function</span>(text) {  </span>
 <li><p>Create the <code>data-raw/</code> folder using the command <code>usethis::use_data_raw("my_dataset_demo")</code>. This command creates a <code>my_dataset_demo.R</code> file in the <code>data-raw/</code> folder.</p></li>
 <li><p>Prepare the dataset in the <code>my_dataset_demo.R</code> file:</p></li>
 </ol>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Create a sample of the "starwars" dataset from the dplyr package</span></span>
 <span id="cb1-2"><span class="co" style="color: #5E5E5E;
@@ -1331,18 +1657,18 @@ font-style: inherit;">use_data</span>(starwars_sample, <span class="at" style="c
 background-color: null;
 font-style: inherit;">overwrite =</span> <span class="cn" style="color: #8f5902;
 background-color: null;
-font-style: inherit;">TRUE</span>)</span></code></pre></div>
+font-style: inherit;">TRUE</span>)</span></code></pre></div></div>
 <ol start="3" type="1">
 <li><p>After running the command <code>usethis::use_data(starwars_sample, overwrite = TRUE)</code>, you’ll see a file named <code>starwars_sample.rda</code> in the <code>data/</code> folder.</p></li>
 <li><p>There’s still some work to do: now we need to document the dataset. For this, we will use the <code>{checkhelper}</code> package.</p></li>
 </ol>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">checkhelper<span class="sc" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">checkhelper<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">use_data_doc</span>(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"starwars_sample"</span>)</span></code></pre></div>
+font-style: inherit;">"starwars_sample"</span>)</span></code></pre></div></div>
 <p>This creates a <code>doc_starwars_sample.R</code> file in the package’s <code>R/</code> folder. The file contains the dataset’s documentation. You can now edit this file to add more information about the dataset</p>
 <p>`<code>r     #' starwars_sample #' #' Description. #' #' @format A data frame with 10 rows and 14 variables: #' \describe{ #'   \item{ name }{ The character's name } #'   \item{ height }{ numeric } #'   \item{ mass }{ numeric } #'   \item{ hair_color }{ character } #'   \item{ skin_color }{ character } #'   \item{ eye_color }{ character } #'   \item{ birth_year }{ numeric } #'   \item{ sex }{ character } #'   \item{ gender }{ character } #'   \item{ homeworld }{ character } #'   \item{ species }{ character } #'   \item{ films }{ character } #'   \item{ vehicles }{ character } #'   \item{ starships }{ character } #' } #' @source Source "starwars_sample"</code> While the overall structure of the file should be preserved, you can edit the description, format, and source information as needed.</p>
 <p>Finally, generate the LaTeX documentation using the command <code>devtools::document()</code> or <code>attachment::att_amend_desc()</code>.</p>
@@ -1440,7 +1766,7 @@ font-style: inherit;">"starwars_sample"</span>)</span></code></pre></div>
 <p>We retrieve the CDN URL and store this information for later use.</p>
 <p>After creating the skeleton of an application via <code>{golem}</code>, we will add the Chart.js dependency.</p>
 <p>Let’s open the <code>R/app_ui.R</code> file of our application and add the link we copied earlier into the body of the <code>golem_add_external_resources()</code> function.</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1">golem_add_external_resources <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1">golem_add_external_resources <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -1502,12 +1828,12 @@ font-style: inherit;">src =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"https://cdn.jsdelivr.net/npm/chart.js"</span>)</span>
 <span id="cb1-17">  )</span>
-<span id="cb1-18">}</span></code></pre></div>
+<span id="cb1-18">}</span></code></pre></div></div>
 </section>
 <section id="how-to-know-if-chart.js-is-properly-imported" class="level3">
 <h3 class="anchored" data-anchor-id="how-to-know-if-chart.js-is-properly-imported">How to know if Chart.js is properly imported ?</h3>
 <p>The <a href="https://www.chartjs.org/docs/latest/getting-started/" target="_blank"> “Getting Started”</a> section previously consulted to retrieve the CDN link indicates that it is necessary to incorporate the HTML <code>&lt;canvas&gt;</code> tag into our application to display a Chart.js chart. We add this element to the <code>R/app_ui.R</code> file of our application.</p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">app_ui <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">app_ui <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -1550,12 +1876,12 @@ font-style: inherit;">"myChart"</span>)</span>
 <span id="cb2-10">      )</span>
 <span id="cb2-11">    )</span>
 <span id="cb2-12">  )</span>
-<span id="cb2-13">}</span></code></pre></div>
+<span id="cb2-13">}</span></code></pre></div></div>
 <p>To verify that Chart.js is properly imported into our application, we run our app with <code>golem::run_dev()</code>, and the rest will take place in the web browser.</p>
 <p><strong>NB: The following screenshots were taken using the Google Chrome browser.</strong></p>
 <p>In the window of our application, right-click and then select “Inspect”. In the new window that opens, choose the “Console” tab and type the command to generate a Chart.js chart, as indicated once again in the <a href="https://www.chartjs.org/docs/latest/getting-started/" target="_blank"> “Getting Started”</a> section between the HTML <code>script</code> tags.</p>
 <p>The code to copy and paste into the console is the following:</p>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb3-1">  <span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb3-1">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> ctx <span class="op" style="color: #5E5E5E;
@@ -1705,7 +2031,7 @@ font-style: inherit;">true</span></span>
 <span id="cb3-19">    }</span>
 <span id="cb3-20">  })<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">;</span></span></code></pre></div>
+font-style: inherit;">;</span></span></code></pre></div></div>
 <p><img src="https://ymansiaux.github.io/yohann-data/posts/chartJS/img/02-example_chartJS.gif" width="80%"></p>
 <p>The chart from the demo page appears as expected! 🎉</p>
 <p>We can move on! 😊</p>
@@ -1716,7 +2042,7 @@ font-style: inherit;">;</span></span></code></pre></div>
 <h2 class="anchored" data-anchor-id="creating-a-bar-chart-with-chart.js">Creating a Bar Chart with Chart.js</h2>
 <p>The code used previously allowed us to verify that Chart.js was properly imported into our application. Now, we will see how to create a Chart.js chart from our <code>{shiny}</code> application. The goal is to produce bar charts for various datasets with customizable options based on user choices.</p>
 <p>Let’s revisit the code executed previously:</p>
-<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb4-1">  <span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb4-1">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> ctx <span class="op" style="color: #5E5E5E;
@@ -1866,21 +2192,21 @@ font-style: inherit;">true</span></span>
 <span id="cb4-19">    }</span>
 <span id="cb4-20">  })<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">;</span></span></code></pre></div>
+font-style: inherit;">;</span></span></code></pre></div></div>
 <p>We could imagine passing the <code>labels</code>, <code>label</code>, <code>data</code>, and <code>borderWidth</code> elements as function parameters.</p>
 <p>Let’s go! 🚀</p>
 <section id="creating-a-javascript-code-usable-from-r" class="level3">
 <h3 class="anchored" data-anchor-id="creating-a-javascript-code-usable-from-r">Creating a JavaScript code usable from R</h3>
 <p>We saw in our previous article that the way to call JavaScript code from R is to use a “JS handler”. To do this, go to the <code>dev/02_dev.R</code> file! We add the following line in the “External Resources” section:</p>
-<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1">golem<span class="sc" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1">golem<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">add_js_handler</span>(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"barchartJS"</span>)</span></code></pre></div>
+font-style: inherit;">"barchartJS"</span>)</span></code></pre></div></div>
 <p>We fill in the skeleton by indicating “barchartJS” as the name of our handler and adding the JavaScript code we saw previously.</p>
-<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb6-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb6-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">$</span>(<span class="bu" style="color: null;
 background-color: null;
@@ -2076,10 +2402,10 @@ background-color: null;
 font-style: inherit;">;</span></span>
 <span id="cb6-26">})<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">;</span></span></code></pre></div>
+font-style: inherit;">;</span></span></code></pre></div></div>
 <p>We replace the <code>labels</code>, <code>label</code>, <code>data</code>, and <code>borderWidth</code> parameters, which are hardcoded here, with the future elements passed as arguments to our handler. The notation to use here will be <code>arg.param_name</code> to access the values passed by our <code>{shiny}</code> application. The <code>.</code> notation is a JavaScript convention for accessing properties of an object. To draw a parallel with R, it’s somewhat like using <code>arg$param_name</code>.</p>
 <p>At the beginning of our handler, we add a call to the <code>console.log()</code> function to check the contents of the <code>arg</code> element from the JS console. This will allow us to verify that the elements passed from R are correctly transmitted to our handler.</p>
-<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb7-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb7-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">$</span>( <span class="bu" style="color: null;
 background-color: null;
@@ -2234,7 +2560,7 @@ font-style: inherit;">;</span> </span>
 <span id="cb7-24">  })</span>
 <span id="cb7-25">})<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">;</span></span></code></pre></div>
+font-style: inherit;">;</span></span></code></pre></div></div>
 <p>We will add elements to the <code>R/app_ui.R</code> file to generate the parameters to be passed to our handler:</p>
 <ul>
 <li><code>arg.labels</code> will be a vector of 5 character strings, randomly chosen from the letters of the latin alphabet.</li>
@@ -2244,7 +2570,7 @@ font-style: inherit;">;</span></span></code></pre></div>
 </ul>
 <p>The display of the chart will be triggered by clicking a “Show Barplot” button.</p>
 <p>Here is the content of our <code>R/app_ui.R</code> file:</p>
-<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1">app_ui <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1">app_ui <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -2301,9 +2627,9 @@ font-style: inherit;">"myChart"</span>)</span>
 <span id="cb8-14">            )</span>
 <span id="cb8-15">        )</span>
 <span id="cb8-16">    )</span>
-<span id="cb8-17">}</span></code></pre></div>
+<span id="cb8-17">}</span></code></pre></div></div>
 <p>And the content of the <code>R/app_server.R</code> file :</p>
-<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1">app_server <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1">app_server <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -2387,7 +2713,7 @@ font-style: inherit;">borderWidth =</span> app_borderWidth</span>
 <span id="cb9-15">            )</span>
 <span id="cb9-16">        )</span>
 <span id="cb9-17">    })</span>
-<span id="cb9-18">}</span></code></pre></div>
+<span id="cb9-18">}</span></code></pre></div></div>
 <p>Here are the key points to remember:</p>
 <ul>
 <li>The first parameter in the call to <code>golem::invoke_js()</code> is the name of the JavaScript handler.</li>
@@ -2419,7 +2745,7 @@ font-style: inherit;">borderWidth =</span> app_borderWidth</span>
 <li><p>If <code>chart</code> is not <code>undefined</code>, we update the existing chart.</p></li>
 </ul>
 <p>We adapt our handler by referring to the documentation for the <code>.update()</code> method: https://www.chartjs.org/docs/latest/developers/api.html#update-mode</p>
-<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb10-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb10-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">$</span>(<span class="bu" style="color: null;
 background-color: null;
@@ -2736,7 +3062,7 @@ background-color: null;
 font-style: inherit;">;</span></span>
 <span id="cb10-39">})<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">;</span></span></code></pre></div>
+font-style: inherit;">;</span></span></code></pre></div></div>
 <p>This example is a bit more complex than those seen so far:</p>
 <ul>
 <li><p>Retrieve the Chart.js object associated with the HTML “canvas” element using the method <code>Chart.getChart("myChart")</code>.</p></li>
@@ -2756,16 +3082,16 @@ font-style: inherit;">;</span></span></code></pre></div>
 <h2 class="anchored" data-anchor-id="creating-a-scatter-plot-with-chart.js">Creating a Scatter Plot with Chart.js</h2>
 <p>We will attempt to create a scatter plot with Chart.js. To develop our code, we will rely on the Chart.js documentation: https://www.chartjs.org/docs/latest/charts/scatter.html.</p>
 <p>As before, our code will be stored in a JS handler. Therefore, we will add a new handler in the <code>dev/02_dev.R</code> file:</p>
-<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1">golem<span class="sc" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1">golem<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">add_js_handler</span>(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"scatterplotJS"</span>)</span></code></pre></div>
+font-style: inherit;">"scatterplotJS"</span>)</span></code></pre></div></div>
 <p>The documentation is slightly different from that provided for bar charts. We will need to adapt our handler accordingly. We identify an element <code>config</code>, which will include the <code>type</code>, <code>data</code>, and <code>options</code> elements we have already seen. There is also a <code>data</code> element containing <code>datasets</code> and <code>labels</code>.</p>
 <p>We will fill in the skeleton of our handler with the JavaScript code from the Chart.js documentation. Initially, we will leave out the “update” part.</p>
-<div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb12-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb12-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">$</span>(<span class="bu" style="color: null;
 background-color: null;
@@ -3026,11 +3352,11 @@ background-color: null;
 font-style: inherit;">;</span></span>
 <span id="cb12-46">})<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">;</span></span></code></pre></div>
+font-style: inherit;">;</span></span></code></pre></div></div>
 <p>Our JS handler “scatterplotJS” is ready! We need to add the “div” and “canvas” to the UI to display the generated chart. We need to modify the HTML ID of our “canvas” to avoid any conflict with the bar chart. It will be named “myChart2” here.</p>
 <p>Note that there is a slightly different syntax compared to the code used for the bar chart, where the call to “new Chart” was made directly with the <code>data</code> and <code>options</code> elements. Here, we store these elements in <code>data</code> and <code>config</code> variables before passing them to <code>new Chart</code>.</p>
 <p>Next, we add the following to the <code>R/app_ui.R</code> file:</p>
-<div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">h1</span>(<span class="st" style="color: #20794D;
 background-color: null;
@@ -3063,9 +3389,9 @@ background-color: null;
 font-style: inherit;">id =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"myChart2"</span>)</span>
-<span id="cb13-8">)</span></code></pre></div>
+<span id="cb13-8">)</span></code></pre></div></div>
 <p>We add the following to the <code>R/app_server.R</code> file:</p>
-<div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1">  <span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">observeEvent</span>(input<span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -3083,7 +3409,7 @@ background-color: null;
 font-style: inherit;">list</span>(</span>
 <span id="cb14-5">      )</span>
 <span id="cb14-6">    )</span>
-<span id="cb14-7">  })</span></code></pre></div>
+<span id="cb14-7">  })</span></code></pre></div></div>
 <p>Our handler does not use any elements passed from R. However, it is necessary to pass an empty list as an argument to ensure the proper functioning of <code>golem::invoke_js()</code>.</p>
 <p>Let’s run your application with <code>golem::run_dev()</code> and verify that everything works as expected!</p>
 <p><img src="https://ymansiaux.github.io/yohann-data/posts/chartJS/img/06-scatterplot_basique.gif" width="80%"></p>
@@ -3095,7 +3421,7 @@ font-style: inherit;">list</span>(</span>
 <p>We will use the <code>iris</code> dataset to generate a scatter plot. We will pass as arguments to our JS handler the data from the <code>Sepal.Length</code> and <code>Sepal.Width</code> columns.</p>
 <p>As with the bar chart, we will use elements passed from R through the <code>arg</code> object in JavaScript.</p>
 <p>We modify the <code>data</code> object to include a legend title and, most importantly, the data. To observe the elements passed from R, we add a call to <code>console.log()</code>.</p>
-<div class="sourceCode" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb15-1"><span class="bu" style="color: null;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb15-1"><span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">console</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -3155,9 +3481,9 @@ background-color: null;
 font-style: inherit;">,</span></span>
 <span id="cb15-10">}<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">;</span></span></code></pre></div>
+font-style: inherit;">;</span></span></code></pre></div></div>
 <p>As a reminder, in the example from the documentation, the data is passed in the form of an “array of dictionaries”. Each dictionary contains the keys <code>x</code> and <code>y</code> for the point coordinates.</p>
-<div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb16-1">data<span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb16-1">data<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> [{</span>
 <span id="cb16-2">    <span class="dt" style="color: #AD0000;
@@ -3235,9 +3561,9 @@ background-color: null;
 font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">5.5</span></span>
-<span id="cb16-13">}]</span></code></pre></div>
+<span id="cb16-13">}]</span></code></pre></div></div>
 <p>Let’s try to pass the contents of the <code>Sepal.Length</code> and <code>Sepal.Width</code> columns via a list. We make the following modification in <code>R/app_server.R</code>:</p>
-<div class="sourceCode" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">observeEvent</span>(input<span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -3276,14 +3602,14 @@ font-style: inherit;">$</span>Sepal.Width</span>
 <span id="cb17-9">            )</span>
 <span id="cb17-10">        )</span>
 <span id="cb17-11">    )</span>
-<span id="cb17-12">})</span></code></pre></div>
+<span id="cb17-12">})</span></code></pre></div></div>
 <p>We restart our application, and unfortunately, nothing shows up!</p>
 <p><img src="https://ymansiaux.github.io/yohann-data/posts/chartJS/img/07-scatterplot_KO.gif" width="80%"></p>
 <p>Thanks to the <code>console.log()</code> call in our handler, we can observe the content of the <code>arg</code> object in the JavaScript console of the browser. We notice that the data passed is not in the correct format. Here, we get an array of two elements, the first containing the values of <code>Sepal.Length</code> and the second containing the values of <code>Sepal.Width</code>, which is not the expected format.</p>
 <p>Here, we need to do some work on the R side to transform our data into the expected format.</p>
 <p>If we display a JSON preview of the data we passed as input, indeed the rendering is incorrect.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1">jsonlite<span class="sc" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1">jsonlite<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -3302,7 +3628,7 @@ font-style: inherit;">y =</span> iris<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">$</span>Sepal.Width</span>
 <span id="cb18-5">    )</span>
-<span id="cb18-6">)</span></code></pre></div>
+<span id="cb18-6">)</span></code></pre></div></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -3311,7 +3637,7 @@ font-style: inherit;">$</span>Sepal.Width</span>
 </div>
 <p>For manipulating lists, the <code>{purrr}</code> package is a top choice.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1">new_data <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1">new_data <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> purrr<span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -3344,7 +3670,7 @@ background-color: null;
 font-style: inherit;">auto_unbox =</span> <span class="cn" style="color: #8f5902;
 background-color: null;
 font-style: inherit;">TRUE</span></span>
-<span id="cb20-10">)</span></code></pre></div>
+<span id="cb20-10">)</span></code></pre></div></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -3352,7 +3678,7 @@ font-style: inherit;">TRUE</span></span>
 </div>
 </div>
 <p>The rendering seems to be more in line with what is expected by Chart.js. Therefore, we will modify our code to pass the data in this manner.</p>
-<div class="sourceCode" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">observeEvent</span>(input<span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -3397,7 +3723,7 @@ font-style: inherit;">$</span>Sepal.Width</span>
 <span id="cb22-11">            )</span>
 <span id="cb22-12">        )</span>
 <span id="cb22-13">    )</span>
-<span id="cb22-14">})</span></code></pre></div>
+<span id="cb22-14">})</span></code></pre></div></div>
 <p>Let’s observe the result:</p>
 <p><img src="https://ymansiaux.github.io/yohann-data/posts/chartJS/img/08-scatterplot_OK.gif" width="80%"></p>
 <p>This time it’s good! 😊 We can see in the JavaScript console that the data has indeed been passed in the correct format.</p>
@@ -3410,7 +3736,7 @@ font-style: inherit;">$</span>Sepal.Width</span>
 <p>We will add a <code>title</code> element to the <code>x</code> object within our <code>scales</code> object. Several parameters are customizable, and we will need to modify the <code>text</code> parameter to set the title for each axis and the <code>display</code> parameter to show them, as this parameter is set to <code>false</code> by default (<strong>note the different boolean notation between JavaScript and R</strong>: <code>true/false</code> VS <code>TRUE/FALSE</code>).</p>
 <p>The documentation sometimes lacks examples, so we can also rely on StackOverflow: https://stackoverflow.com/questions/27910719/in-chart-js-set-chart-title-name-of-x-axis-and-y-axis. However, be careful with the version of Chart.js used, as parameters may vary.</p>
 <p>In our JS handler, we will add an <code>xAxisTitle</code> parameter and a <code>yAxisTitle</code> parameter.</p>
-<div class="sourceCode" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb23-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb23-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> config <span class="op" style="color: #5E5E5E;
@@ -3528,10 +3854,10 @@ font-style: inherit;">yAxisTitle</span></span>
 <span id="cb23-21">    }</span>
 <span id="cb23-22">  }<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">;</span></span></code></pre></div>
+font-style: inherit;">;</span></span></code></pre></div></div>
 <p>Be cautious once again about the syntax difference between JavaScript and R. Parameters are passed in the form <code>display: true</code> rather than <code>display = TRUE</code>, for example. Confusing <code>:</code> with <code>=</code> can easily occur and result in non-functional code.</p>
 <p>In our <code>R/app_server.R</code> file, we will add the <code>xAxisTitle</code> and <code>yAxisTitle</code> elements to the list passed as an argument to our handler.</p>
-<div class="sourceCode" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">observeEvent</span>(input<span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -3586,7 +3912,7 @@ background-color: null;
 font-style: inherit;">"Sepal Width"</span></span>
 <span id="cb24-14">        )</span>
 <span id="cb24-15">    )</span>
-<span id="cb24-16">})</span></code></pre></div>
+<span id="cb24-16">})</span></code></pre></div></div>
 <p>And here’s the result in our application:</p>
 <p><img src="https://ymansiaux.github.io/yohann-data/posts/chartJS/img/09_scatterplot_axislabels.gif" width="80%"></p>
 <p>The application code for this step is available here: https://github.com/ymansiaux/golemchartjs/tree/step6</p>
@@ -3609,7 +3935,7 @@ font-style: inherit;">"Sepal Width"</span></span>
 <p>Below is a preview of the chart created here (without functional “update” for now):</p>
 <p><img src="https://ymansiaux.github.io/yohann-data/posts/chartJS/img/10_fullscatter.gif" width="80%"></p>
 <p>The handler code has been completed to account for these new elements:</p>
-<div class="sourceCode" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb25-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb25-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">$</span>(<span class="bu" style="color: null;
 background-color: null;
@@ -3931,9 +4257,9 @@ background-color: null;
 font-style: inherit;">;</span></span>
 <span id="cb25-51">})<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">;</span></span></code></pre></div>
+font-style: inherit;">;</span></span></code></pre></div></div>
 <p>In <code>R/app_ui.R</code>, elements have been added to allow the user to pass the necessary parameters:</p>
-<div class="sourceCode" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">h1</span>(<span class="st" style="color: #20794D;
 background-color: null;
@@ -4045,9 +4371,9 @@ background-color: null;
 font-style: inherit;">id =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"myChart2"</span>)</span>
-<span id="cb26-25">)</span></code></pre></div>
+<span id="cb26-25">)</span></code></pre></div></div>
 <p>Finally, in <code>R/app_server.R</code>, we add the necessary elements to pass the parameters to our handler:</p>
-<div class="sourceCode" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">observeEvent</span>(input<span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -4122,11 +4448,11 @@ background-color: null;
 font-style: inherit;">$</span>points_background_color</span>
 <span id="cb27-18">            )</span>
 <span id="cb27-19">        )</span>
-<span id="cb27-20">    })</span></code></pre></div>
+<span id="cb27-20">    })</span></code></pre></div></div>
 <p>The application code for this step is available here: https://github.com/ymansiaux/golemchartjs/tree/step7</p>
 <p>We still need to include the <code>.update()</code> method to account for updates to <code>shiny</code> inputs related to the title and the color of the points.</p>
 <p>We will use the approach from the previous chart to modify our JS handler accordingly.</p>
-<div class="sourceCode" id="cb28" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb28-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb28-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">$</span>(<span class="bu" style="color: null;
 background-color: null;
@@ -4580,7 +4906,7 @@ background-color: null;
 font-style: inherit;">;</span></span>
 <span id="cb28-63">})<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">;</span></span></code></pre></div>
+font-style: inherit;">;</span></span></code></pre></div></div>
 <p>Let’s observe the result:</p>
 <p><img src="https://ymansiaux.github.io/yohann-data/posts/chartJS/img/11_fullscatter_with_update.gif" width="80%"></p>
 <p>Well done! 🎉</p>
@@ -4597,7 +4923,7 @@ font-style: inherit;">;</span></span></code></pre></div>
 <p>This part will be more complex than the previous ones. But we will manage it! 💪</p>
 <p>The <code>plugins</code> object, used previously to manage the chart title, contains a <code>tooltip</code> element, which in turn contains a <code>callbacks</code> element. It is within this element that we can modify the title and content of the tooltip. Most tooltip elements can be configured via a function call that takes a <code>context</code> element as input. This is a JavaScript object that contains several items related to the hovered point. We will explore the content of this object to extract the information we need later when customizing the tooltip content.</p>
 <p>We modify our JS handler by including a fixed title (we could also have passed it as a parameter):</p>
-<div class="sourceCode" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb29-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb29-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> tooltip <span class="op" style="color: #5E5E5E;
@@ -4687,14 +5013,14 @@ background-color: null;
 font-style: inherit;">:</span> tooltip</span>
 <span id="cb29-16">}<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">;</span></span></code></pre></div>
+font-style: inherit;">;</span></span></code></pre></div></div>
 <p>Let’s see if it works:</p>
 <p><img src="https://ymansiaux.github.io/yohann-data/posts/chartJS/img/12_tooltip_title.gif" width="80%"></p>
 <p>The application code for this step is available here: https://github.com/ymansiaux/golemchartjs/tree/step9</p>
 <p>Let’s proceed with customizing the tooltip content!</p>
 <p>In this step, we will modify the <code>label</code> parameter in the <code>tooltip</code> object. To refine our code, we will use the <code>debugger</code> function, which we haven’t used so far! If you are familiar with using <code>browser()</code> in R, <code>debugger</code> is its JavaScript equivalent. It allows you to pause the code execution and open the browser console to explore the arguments passed to a function.</p>
 <p>Let’s modify our handler:</p>
-<div class="sourceCode" id="cb30" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb30-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb30-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> tooltip <span class="op" style="color: #5E5E5E;
@@ -4801,7 +5127,7 @@ background-color: null;
 font-style: inherit;">,</span></span>
 <span id="cb30-19">}<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">;</span></span></code></pre></div>
+font-style: inherit;">;</span></span></code></pre></div></div>
 <p>We add a call to the JavaScript <code>debugger</code> in the <code>label</code> function of the <code>callbacks</code> object. We restart our application:</p>
 <p><img src="https://ymansiaux.github.io/yohann-data/posts/chartJS/img/13_debugger.gif" width="80%"></p>
 <p>When hovering over a point on the chart, code execution is paused and the browser console opens. We can then explore the content of the <code>context</code> object passed to the <code>label</code> function.</p>
@@ -4811,7 +5137,7 @@ font-style: inherit;">;</span></span></code></pre></div>
 <li><p>The values of the point: <code>context.formattedValue</code></p></li>
 </ul>
 <p>We can then construct a customized tooltip (remembering to remove the <code>debugger</code> call 😉):</p>
-<div class="sourceCode" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb31-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb31-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> tooltip <span class="op" style="color: #5E5E5E;
@@ -4947,7 +5273,7 @@ background-color: null;
 font-style: inherit;">,</span></span>
 <span id="cb31-24">}<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">;</span></span></code></pre></div>
+font-style: inherit;">;</span></span></code></pre></div></div>
 <p><img src="https://ymansiaux.github.io/yohann-data/posts/chartJS/img/14_final.gif" width="80%"></p>
 <p>Mission accomplished! 🚀</p>
 <p>The code for this step is available here: <a href="https://github.com/ymansiaux/golemchartjs/tree/step10">https://github.com/ymansiaux/golemchartjs/tree/step10</a></p>
@@ -5068,7 +5394,7 @@ font-style: inherit;">;</span></span></code></pre></div>
 <section id="method-1-add-dependencies-to-sweetalert2-via-the-cdn" class="level4">
 <h4 class="anchored" data-anchor-id="method-1-add-dependencies-to-sweetalert2-via-the-cdn">Method 1: Add dependencies to sweetalert2 via the CDN</h4>
 <p>Let’s open the <code>R/app_ui.R</code> file of our application and add the two links we copied earlier to the body of the <code>golem_add_external_resources()</code> function.</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1">golem_add_external_resources <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1">golem_add_external_resources <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -5139,7 +5465,7 @@ background-color: null;
 font-style: inherit;">"stylesheet"</span>)</span>
 <span id="cb1-17"> </span>
 <span id="cb1-18">  )</span>
-<span id="cb1-19">}</span></code></pre></div>
+<span id="cb1-19">}</span></code></pre></div></div>
 <p>We find here a call to <code>tags$script</code> and a call to <code>tags$link</code> corresponding respectively to the <code>&lt;script&gt;</code> and <code>&lt;link&gt;</code> tags seen on the links provided by the CDN.</p>
 <p>We copy-paste the elements being careful about the parameter names <code>src</code>, <code>href</code> and <code>rel</code> and remembering to separate them with commas. We are indeed moving from HTML code (where elements are separated by spaces) to R code.</p>
 </section>
@@ -5148,7 +5474,7 @@ font-style: inherit;">"stylesheet"</span>)</span>
 <p>The links identified earlier will also be useful to download the files needed to use sweetalert2.</p>
 <p>The link to the JavaScript file will be passed to the <code>golem::use_external_js_file()</code> function while the link to the CSS file will be passed to the <code>golem::use_external_css_file()</code> function.</p>
 <p>To keep a record of this, we will save the following commands in the <code>dev/02_dev.R</code> file in the “External resources” section.</p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">golem<span class="sc" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">golem<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5161,7 +5487,7 @@ font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">use_external_css_file</span>(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.min.css"</span>)</span></code></pre></div>
+font-style: inherit;">"https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.min.css"</span>)</span></code></pre></div></div>
 <p>Both files are now present in the <code>inst/app/www</code> folder of our application project.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -5236,16 +5562,16 @@ font-style: inherit;">"https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/swe
 <p>In order to call sweetalert2 from our application, we are going to create a JavaScript file in which we will write a function that will allow us to create an alert.</p>
 <p>Let’s create a <code>inst/app/www/sweet_alert.js</code> file in which we will paste the code to create the alert selected earlier. We could have created this file manually, but we will take advantage of the features offered by <code>{golem}</code> to do so.</p>
 <p>Let’s go to the <code>dev/02_dev.R</code> file! We add the following line in the “External Resources” section:</p>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">golem<span class="sc" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">golem<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">add_js_handler</span>(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"sweet_alert"</span>)</span></code></pre></div>
+font-style: inherit;">"sweet_alert"</span>)</span></code></pre></div></div>
 <p>The file name doesn’t matter, but it is important to respect the <code>.js</code> extension so that the file is correctly interpreted as JavaScript code. We could have also created subfolders if we had had many imports and files to manage. The only prerequisite is that everything is located in the <code>inst/app/www</code> directory.</p>
 <p>We obtain a slightly strange skeleton, which will in fact be the skeleton of a JavaScript function, usable in our <code>{shiny}</code> application:</p>
-<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="sc" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">$</span>( document )<span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5263,10 +5589,10 @@ font-weight: bold;
 font-style: inherit;">function</span>(arg) {</span>
 <span id="cb4-3"> </span>
 <span id="cb4-4">  })</span>
-<span id="cb4-5">});</span></code></pre></div>
+<span id="cb4-5">});</span></code></pre></div></div>
 <p>We are going to substitute the term <code>'fun'</code> with the name of the function we want to call in our <code>{shiny}</code> application and add the code to create the sweetalert2 alert.</p>
 <p>We therefore obtain the following code:</p>
-<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><span class="sc" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">$</span>( document )<span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5302,10 +5628,10 @@ background-color: null;
 font-style: inherit;">"question"</span></span>
 <span id="cb5-7">    });</span>
 <span id="cb5-8">  })</span>
-<span id="cb5-9">});</span></code></pre></div>
+<span id="cb5-9">});</span></code></pre></div></div>
 <p>Our parameters “title”, “text” and “icon” are fixed, we need to find a way to make them vary according to the choices of the user. We can notice the existence of a “arg” parameter in the <code>Shiny.addCustomMessageHandler()</code> function. It is this parameter that will allow us to transmit information to our JavaScript function.</p>
 <p>Let’s modify our code:</p>
-<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><span class="sc" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">$</span>( document )<span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5335,14 +5661,14 @@ background-color: null;
 font-style: inherit;">:</span> arg.icon</span>
 <span id="cb6-7">    });</span>
 <span id="cb6-8">  })</span>
-<span id="cb6-9">});</span></code></pre></div>
+<span id="cb6-9">});</span></code></pre></div></div>
 <p>The notation to use here will be <code>arg.parameter_name</code> to access the values transmitted by our <code>{shiny}</code> application. The notation with the “.” is a JavaScript convention for accessing object properties. To make the parallel with R, it’s a bit like if we were doing <code>arg$parameter_name</code>.</p>
 <p>Our JavaScript code is ready! Let’s move back to the R side!</p>
 </section>
 <section id="what-if-we-tested-all-this-in-our-shiny-app-finally" class="level3">
 <h3 class="anchored" data-anchor-id="what-if-we-tested-all-this-in-our-shiny-app-finally">What if we tested all this in our <code>{shiny}</code> app (FINALLY!)?</h3>
 <p>We are going to add a button in the <code>R/app_ui.R</code> file:</p>
-<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1">app_ui <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1">app_ui <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -5382,7 +5708,7 @@ background-color: null;
 font-style: inherit;">"Alert demo"</span>)</span>
 <span id="cb7-10">    )</span>
 <span id="cb7-11">  )</span>
-<span id="cb7-12">}</span></code></pre></div>
+<span id="cb7-12">}</span></code></pre></div></div>
 <p>On the server side, we add an <code>observeEvent()</code> in the <code>R/app_server.R</code> file, which will call our JavaScript function to generate an alert when the user clicks on the “Alert demo” button.</p>
 <p>Once more, <code>{golem}</code> will make our life easier! We will use the <code>golem::invoke_js()</code> function to call our JavaScript function.</p>
 <p>Two parameters are passed to <code>golem::invoke_js()</code>:</p>
@@ -5390,7 +5716,7 @@ font-style: inherit;">"Alert demo"</span>)</span>
 <li>the first parameter corresponds to the name of the JavaScript function to call</li>
 <li>the second parameter corresponds to a list of parameters, the JavaScript equivalent of our <code>arg</code> object which will be used to transmit the information necessary to create the sweetalert2 alert. The names used in the list here must correspond to the names used in the JavaScript function for the <code>arg</code> parameter (“title”, “text” and “icon”).</li>
 </ul>
-<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1">app_server <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1">app_server <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -5434,7 +5760,7 @@ font-style: inherit;">"success"</span></span>
 <span id="cb8-11">        ))</span>
 <span id="cb8-12">    }</span>
 <span id="cb8-13">  )</span>
-<span id="cb8-14">}</span></code></pre></div>
+<span id="cb8-14">}</span></code></pre></div></div>
 <p>We run a call to <code>golem::run_dev()</code> to see our application in action!</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -5451,15 +5777,15 @@ font-style: inherit;">"success"</span></span>
 <section id="create-an-r-function-to-call-sweetalert2" class="level3">
 <h3 class="anchored" data-anchor-id="create-an-r-function-to-call-sweetalert2">Create an R function to call sweetalert2</h3>
 <p>We are going to go through <code>{golem}</code> to create our function. To do this, we will add the following line in the <code>dev/02_dev.R</code> file of our application:</p>
-<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1">golem<span class="sc" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1">golem<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">add_fct</span>(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"create_alert_title_and_text_under"</span>)</span></code></pre></div>
+font-style: inherit;">"create_alert_title_and_text_under"</span>)</span></code></pre></div></div>
 <p>We obtain a <code>R/fct_create_alert_title_and_text_under.R</code> file in which we will be able to write our function, which will call the JavaScript code created in the previous step.</p>
-<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">#' create_alert_title_and_text_under</span></span>
 <span id="cb10-2"><span class="co" style="color: #5E5E5E;
@@ -5530,9 +5856,9 @@ background-color: null;
 font-style: inherit;">icon =</span> icon</span>
 <span id="cb10-21">    )</span>
 <span id="cb10-22">  )</span>
-<span id="cb10-23">}</span></code></pre></div>
+<span id="cb10-23">}</span></code></pre></div></div>
 <p>Let’s modify both the <code>R/app_ui.R</code> and <code>R/app_server.R</code> files to be able to define the parameters of our alert through choices made by the user.</p>
-<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1">app_ui <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1">app_ui <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -5623,9 +5949,9 @@ background-color: null;
 font-style: inherit;">"Alert demo"</span>)</span>
 <span id="cb11-17">    )</span>
 <span id="cb11-18">  )</span>
-<span id="cb11-19">}</span></code></pre></div>
+<span id="cb11-19">}</span></code></pre></div></div>
 <p>To define the list of possible “choices” for the <code>radioButtons</code>, we took the possible values for the <code>icon</code> parameter of sweetalert2, as indicated in the official documentation: https://sweetalert2.github.io/#icon.</p>
-<div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1">app_server <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1">app_server <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -5661,7 +5987,7 @@ font-style: inherit;">$</span>icon</span>
 <span id="cb12-9">      )</span>
 <span id="cb12-10">    }</span>
 <span id="cb12-11">  )</span>
-<span id="cb12-12">}</span></code></pre></div>
+<span id="cb12-12">}</span></code></pre></div></div>
 <p>Let’s finally call <code>golem::run_dev()</code>!</p>
 <div class="cell">
 <div class="cell-output-display">

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -36,14 +36,15 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6fc0b4f21feaadf59918ca6973b0cd26.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-29a19b5acbeac218a8c860e48340d4df.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -143,7 +144,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -169,6 +170,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Yohann’s blog</span>
     </a>
@@ -253,6 +256,10 @@ window.Quarto = {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+      </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -273,7 +280,7 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(10)</span></div><div class="category" data-category="ZGVidWc=">debug <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGV2ZWxvcG1lbnQ=">development <span class="quarto-category-count">(6)</span></div><div class="category" data-category="aWE=">ia <span class="quarto-category-count">(1)</span></div><div class="category" data-category="amF2YXNjcmlwdA==">javascript <span class="quarto-category-count">(3)</span></div><div class="category" data-category="bmV3cw==">news <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGFja2FnZQ==">package <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(7)</span></div><div class="category" data-category="c2hpbnk=">shiny <span class="quarto-category-count">(3)</span></div><div class="category" data-category="dmlkZW8=">video <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dnNjb2Rl">vscode <span class="quarto-category-count">(3)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(11)</span></div><div class="category" data-category="ZGVidWc=">debug <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGV2ZWxvcG1lbnQ=">development <span class="quarto-category-count">(7)</span></div><div class="category" data-category="aWE=">ia <span class="quarto-category-count">(1)</span></div><div class="category" data-category="amF2YXNjcmlwdA==">javascript <span class="quarto-category-count">(3)</span></div><div class="category" data-category="bmV3cw==">news <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGFja2FnZQ==">package <span class="quarto-category-count">(4)</span></div><div class="category" data-category="cHl0aG9u">python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(8)</span></div><div class="category" data-category="c2hpbnk=">shiny <span class="quarto-category-count">(3)</span></div><div class="category" data-category="dmlkZW8=">video <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dnNjb2Rl">vscode <span class="quarto-category-count">(3)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-body" id="quarto-document-content">
 
@@ -287,7 +294,43 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="dnNjb2RlJTJDZGV2ZWxvcG1lbnQlMkNS" data-listing-date-sort="1747612800000" data-listing-file-modified-sort="1747644195666" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1324">
+<div class="quarto-post image-right" data-index="0" data-categories="ZGV2ZWxvcG1lbnQlMkNwYWNrYWdlJTJDUiUyQ3B5dGhvbg==" data-listing-date-sort="1760313600000" data-listing-file-modified-sort="1760426846751" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1332">
+<div class="thumbnail"><a href="./posts/pkg_dev_python/index.html" class="no-external">
+
+<img loading="lazy" src="./posts/pkg_dev_python/image.jpg" class="thumbnail-image">
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/pkg_dev_python/index.html" class="no-external">Python package development for R developers</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('ZGV2ZWxvcG1lbnQ='); return false;">development</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('cGFja2FnZQ=='); return false;">package</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
+
+</div>
+<div class="delink listing-description"><a href="./posts/pkg_dev_python/index.html" class="no-external">
+I’ve learned a lot by developing and contributing to various R packages over the years. Without having (yet!) a personal package on CRAN, I use package development on a…<code></code><code></code><code></code><code></code>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./posts/pkg_dev_python/index.html" class="no-external">
+<div class="listing-date">
+Oct 13, 2025
+</div>
+<div class="listing-author">
+Yohann Mansiaux
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="dnNjb2RlJTJDZGV2ZWxvcG1lbnQlMkNS" data-listing-date-sort="1747612800000" data-listing-file-modified-sort="1760426846586" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1324">
 <div class="thumbnail"><a href="./posts/airformatter/index.html" class="no-external">
 
 <img loading="lazy" src="./posts/airformatter/image.jpg" class="thumbnail-image">
@@ -321,7 +364,7 @@ Yohann Mansiaux
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="ZGVidWclMkN2c2NvZGUlMkNkZXZlbG9wbWVudCUyQ1I=" data-listing-date-sort="1746835200000" data-listing-file-modified-sort="1747644195826" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1354">
+<div class="quarto-post image-right" data-index="2" data-categories="ZGVidWclMkN2c2NvZGUlMkNkZXZlbG9wbWVudCUyQ1I=" data-listing-date-sort="1746835200000" data-listing-file-modified-sort="1760426846745" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1354">
 <div class="thumbnail"><a href="./posts/debugvscode/index.html" class="no-external">
 
 <img loading="lazy" src="./posts/debugvscode/image.jpg" class="thumbnail-image">
@@ -357,7 +400,7 @@ Yohann Mansiaux
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="ZGV2ZWxvcG1lbnQlMkNwYWNrYWdlJTJDaWElMkNS" data-listing-date-sort="1731110400000" data-listing-file-modified-sort="1747644195831" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1486">
+<div class="quarto-post image-right" data-index="3" data-categories="ZGV2ZWxvcG1lbnQlMkNwYWNrYWdlJTJDaWElMkNS" data-listing-date-sort="1731110400000" data-listing-file-modified-sort="1760426846750" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1486">
 <div class="thumbnail"><a href="./posts/iaforr/index.html" class="no-external">
 
 <img loading="lazy" src="./posts/iaforr/image.jpg" class="thumbnail-image">
@@ -393,7 +436,7 @@ Yohann Mansiaux
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="ZGV2ZWxvcG1lbnQlMkN2c2NvZGU=" data-listing-date-sort="1730937600000" data-listing-file-modified-sort="1747644195836" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="104">
+<div class="quarto-post image-right" data-index="4" data-categories="ZGV2ZWxvcG1lbnQlMkN2c2NvZGU=" data-listing-date-sort="1730937600000" data-listing-file-modified-sort="1760426846755" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="104">
 <div class="thumbnail"><a href="./posts/vscodeR/index.html" class="no-external">
 
 <img loading="lazy" src="./posts/vscodeR/image.png" class="thumbnail-image">
@@ -425,7 +468,7 @@ Yohann Mansiaux
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="ZGV2ZWxvcG1lbnQlMkNwYWNrYWdlJTJDUiUyQ3ZpZGVv" data-listing-date-sort="1730851200000" data-listing-file-modified-sort="1747644195760" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="31">
+<div class="quarto-post image-right" data-index="5" data-categories="ZGV2ZWxvcG1lbnQlMkNwYWNrYWdlJTJDUiUyQ3ZpZGVv" data-listing-date-sort="1730851200000" data-listing-file-modified-sort="1760426846680" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="31">
 <div class="thumbnail"><a href="./posts/datainpkgs_video/index.html" class="no-external">
 
 <img loading="lazy" src="./posts/datainpkgs_video/image.jpg" class="thumbnail-image">
@@ -461,7 +504,7 @@ Yohann Mansiaux
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-categories="ZGV2ZWxvcG1lbnQlMkNwYWNrYWdlJTJDUg==" data-listing-date-sort="1728864000000" data-listing-file-modified-sort="1747644195692" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="885">
+<div class="quarto-post image-right" data-index="6" data-categories="ZGV2ZWxvcG1lbnQlMkNwYWNrYWdlJTJDUg==" data-listing-date-sort="1728864000000" data-listing-file-modified-sort="1760426846611" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="885">
 <div class="thumbnail"><a href="./posts/datainpkgs/index.html" class="no-external">
 
 <img loading="lazy" src="./posts/datainpkgs/image.jpg" class="thumbnail-image">
@@ -495,7 +538,7 @@ Yohann Mansiaux
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="6" data-categories="c2hpbnklMkNqYXZhc2NyaXB0JTJDUg==" data-listing-date-sort="1725321600000" data-listing-file-modified-sort="1747644195690" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="34" data-listing-word-count-sort="6684">
+<div class="quarto-post image-right" data-index="7" data-categories="c2hpbnklMkNqYXZhc2NyaXB0JTJDUg==" data-listing-date-sort="1725321600000" data-listing-file-modified-sort="1760426846610" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="34" data-listing-word-count-sort="6684">
 <div class="thumbnail"><a href="./posts/chartJS/index.html" class="no-external">
 
 <img loading="lazy" src="./posts/chartJS/image.jpg" class="thumbnail-image">
@@ -529,7 +572,7 @@ Yohann Mansiaux
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="7" data-categories="c2hpbnklMkNqYXZhc2NyaXB0" data-listing-date-sort="1722297600000" data-listing-file-modified-sort="1747644195832" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="66">
+<div class="quarto-post image-right" data-index="8" data-categories="c2hpbnklMkNqYXZhc2NyaXB0" data-listing-date-sort="1722297600000" data-listing-file-modified-sort="1760426846750" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="66">
 <div class="thumbnail"><a href="./posts/mycomicslibrary/index.html" class="no-external">
 
 <img loading="lazy" src="./posts/mycomicslibrary/image.jpg" class="thumbnail-image">
@@ -561,7 +604,7 @@ Yohann Mansiaux
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="8" data-categories="bmV3cw==" data-listing-date-sort="1717200000000" data-listing-file-modified-sort="1747644195836" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="161">
+<div class="quarto-post image-right" data-index="9" data-categories="bmV3cw==" data-listing-date-sort="1717200000000" data-listing-file-modified-sort="1760426846755" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="161">
 <div class="thumbnail"><a href="./posts/welcome/index.html" class="no-external">
 
 <img loading="lazy" src="./posts/welcome/thumbnail.jpg" class="thumbnail-image">
@@ -591,7 +634,7 @@ Yohann Mansiaux
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="9" data-categories="c2hpbnklMkNqYXZhc2NyaXB0JTJDUg==" data-listing-date-sort="1714435200000" data-listing-file-modified-sort="1747644195835" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14" data-listing-word-count-sort="2706">
+<div class="quarto-post image-right" data-index="10" data-categories="c2hpbnklMkNqYXZhc2NyaXB0JTJDUg==" data-listing-date-sort="1714435200000" data-listing-file-modified-sort="1760426846755" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14" data-listing-word-count-sort="2706">
 <div class="thumbnail"><a href="./posts/sweetalert2/index.html" class="no-external">
 
 <img loading="lazy" src="./posts/sweetalert2/image.jpg" class="thumbnail-image">
@@ -679,13 +722,14 @@ Yohann Mansiaux
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

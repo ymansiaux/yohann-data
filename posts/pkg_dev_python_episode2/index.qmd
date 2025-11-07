@@ -1,0 +1,172 @@
+---
+title: "Python package development for R developers (episode 2 !)"
+author: "Yohann Mansiaux"
+categories: [development, package, R, python]
+image: "image.jpg"
+date: 2025-11-12
+---
+
+[In a previous article](https://yohann-data.fr/posts/pkg_dev_python/), I shared my experience as an R developer diving into Python package development!
+
+I had noted several aspects that felt less smooth than in R, or even completely missing!
+
+Thanks to feedback from the community, I've been able to identify some tools that can help address the frustrations I encountered initially!
+
+# The disappearance of my beloved pkgload::load_all()
+
+I showed that automatic module loading was a bit more complicated in Python than in R. While this worked fine in development mode with `uv pip install -e .`, I found it more cumbersome when working in notebooks (especially Quarto).
+
+To reproduce `pkgload::load_all()` behavior, I explored two options: autoreload in Quarto and Marimo.
+
+## Quarto
+
+Adding a specific code chunk at the beginning of my notebook helped me work around the problem!
+
+```python
+%load_ext autoreload
+%autoreload 2
+```
+
+This option automatically reloads imported Python modules when you modify their source code. This is a slight difference compared with `pkgload::load_all()` in R, which reloads all modules in the current environment.
+
+The parameter 2 means that all imported modules will be automatically reloaded, except those in system packages.
+
+For more information, you can check the [official IPython documentation](https://ipython.readthedocs.io/en/stable/config/extensions/autoreload.html).
+
+## Marimo
+
+This was the big discovery following my article! 😍
+
+Marimo is a Python framework for building interactive and reproducible notebooks, and it feels surprisingly smooth to use. It feels a bit like a mix between Quarto and Shiny in the R world. Like Shiny, it's reactive: when you change [an input or a variable](https://docs.marimo.io/api/inputs/), everything that depends on it automatically updates. And like Quarto, it's designed to combine code, text, and visuals in a single, shareable document. The result is a clean, self-contained environment where you can explore data, build small apps, or publish interactive reports all without leaving Python.
+
+The result is beautiful, and the development experience is genuinely enjoyable!
+
+Most importantly, coming back to my initial problem, it automatically reloads imported modules when you modify their source code!
+
+To learn more, the documentation is available [here](https://docs.marimo.io/getting_started/quickstart/).
+
+For managing auto-reload, there's a parameter to enable in Marimo's options—see the dedicated documentation [here](https://docs.marimo.io/guides/configuration/runtime_configuration/).
+
+To install it with `uv`, simply run:
+
+```bash	
+uv add "marimo[recommended]"
+```
+
+Quick reminder: `uv add` adds the package to your dependencies (in pyproject.toml) and installs it automatically.
+
+
+And then to create/edit a notebook, just run:
+
+```bash
+uv run marimo edit path_to_your_notebook.py
+```
+
+And that's it!
+
+---
+
+# Documentation on a website like with {pkgdown}
+
+[quartodoc](https://github.com/machow/quartodoc?tab=readme-ov-file) allows you to generate documentation as a website, just like `{pkgdown}` in R. 
+
+`quartodoc` extracts docstrings to generate .qmd or .md files, which Quarto can then render as static documentation sites.
+
+I haven't explored the tool in detail—it seems like more work than what `{pkgdown}` requires in R (which, let's admit it, makes our lives much easier), but the output is honestly impressive and [can look exactly like `{pkgdown}`](https://rstudio.github.io/pins-python/).
+
+The documentation offers a [fairly comprehensive video tutorial](https://machow.github.io/quartodoc/tutorials/).
+
+---
+
+# The absence of the "dreaded" devtools::check()
+
+I had a hard time finding a tool that would let me check the quality of my code and documentation. `devtools::check()` sometimes makes us pull our hair out, but it's really handy!
+
+Eventually, two tools were suggested to me: [pre-commit](https://pre-commit.com/#intro) and [ruff](https://docs.astral.sh/ruff/).
+
+## pre-commit
+
+`pre-commit` manages hooks that automatically run checks before each commit, helping you enforce consistent formatting and code quality. It's very handy for avoiding formatting errors, documentation issues, etc.
+
+To install it with `uv`, simply run:
+
+```bash
+uv add pre-commit
+```
+
+Following the minimal example from the documentation page, I was able to create a `.pre-commit-config.yaml` file that checks the quality of my code and documentation on every commit.
+
+You can also manually trigger these checks (a bit like `devtools::check()` in R) with:
+
+```bash
+uv run pre-commit run --all-files
+```
+
+---
+
+## ruff
+
+`ruff` acts as both a linter and a formatter, similar to how lintr and styler (or [Air](https://github.com/posit-dev/air)) complement each other in R.
+
+For more information, see the [ruff documentation](https://docs.astral.sh/ruff/).
+
+As usual, installation with uv:
+
+```bash
+uv add ruff
+```
+
+Then, two commands are available:
+
+```bash
+uv run ruff format .
+```
+
+and
+
+```bash
+uv run ruff check .
+```
+
+The first command formats the code, the second checks code quality, which complements `pre-commit` (you can also configure `pre-commit` to run `ruff` automatically on each commit by adding a hook in your `.pre-commit-config.yaml` file).
+
+---
+
+## Conclusion
+
+Thanks to the community's help, I've been able to identify tools that address the frustrations I encountered initially!
+
+I've essentially been able to find all the features I appreciate in R within Python! My favorite discovery is Marimo, which lets me develop interactive notebooks in a very simple and efficient way!
+
+The only remaining drawback is the `{pkgdown}` equivalent: while it can produce beautiful sites, it feels a bit less automated than its R counterpart.
+
+**Key takeaways of this article**
+
+- IPython extension `%autoreload` and Marimo solve module reloading issues
+  
+- `quartodoc` can serve as a `{pkgdown}`-like documentation tool
+  
+- `pre-commit` and `ruff` replace `devtools::check()` for quality assessment
+
+
+### Comparison: R vs Python package development tools
+
+| Task | R | Python |
+|------|---|---------|
+| Environment & dependency management | `{renv}` | `uv`, `poetry`, `pip`, `venv` |
+| Package creation | `usethis::create_package()` | `uv init --lib` |
+| Load / reload during development | `pkgload::load_all()` | `%autoreload`, Marimo |
+| Documentation | `roxygen2`, `{pkgdown}` | docstrings, `quartodoc` |
+| Unit testing | `testthat` | `pytest` |
+| Code quality & checks | `devtools::check()` | `pre-commit`, `ruff` |
+| Website / documentation site | `{pkgdown}` | `quartodoc` + Quarto |
+
+
+---
+
+**The package sources are available [here](https://github.com/ymansiaux/blueskyPy_article) (with examples of notebooks).**
+
+Again, don't hesitate to point out errors I may have made, or to guide me on the things I had more difficulty with! 
+
+Thank you all, especially Joseph Barbier, James Azam, Uriah Finkel, Antoine Languillaume for giving me feedback on the first article on this topic!
+

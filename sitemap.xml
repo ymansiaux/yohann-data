@@ -2,54 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ymansiaux.github.io/yohann-data/about.html</loc>
-    <lastmod>2025-10-14T07:27:26.586Z</lastmod>
+    <lastmod>2025-11-10T08:32:54.175Z</lastmod>
   </url>
   <url>
-    <loc>https://ymansiaux.github.io/yohann-data/posts/vscodeR/index.html</loc>
-    <lastmod>2025-10-14T07:27:26.755Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ymansiaux.github.io/yohann-data/posts/pkg_dev_python/index.html</loc>
-    <lastmod>2025-10-14T07:27:26.751Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ymansiaux.github.io/yohann-data/posts/debugvscode/index.html</loc>
-    <lastmod>2025-10-14T07:27:26.745Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ymansiaux.github.io/yohann-data/posts/airformatter/index.html</loc>
-    <lastmod>2025-10-14T07:27:26.586Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ymansiaux.github.io/yohann-data/posts/datainpkgs/index.html</loc>
-    <lastmod>2025-10-14T07:27:26.611Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ymansiaux.github.io/yohann-data/index.html</loc>
-    <lastmod>2025-10-14T07:27:26.586Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ymansiaux.github.io/yohann-data/posts/sweetalert2/index.html</loc>
-    <lastmod>2025-10-14T07:27:26.755Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ymansiaux.github.io/yohann-data/posts/datainpkgs_video/index.html</loc>
-    <lastmod>2025-10-14T07:27:26.680Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ymansiaux.github.io/yohann-data/posts/mycomicslibrary/index.html</loc>
-    <lastmod>2025-10-14T07:27:26.750Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ymansiaux.github.io/yohann-data/posts/chartJS/index.html</loc>
-    <lastmod>2025-10-14T07:27:26.610Z</lastmod>
+    <loc>https://ymansiaux.github.io/yohann-data/posts/pkg_dev_python_episode2/index.html</loc>
+    <lastmod>2025-11-10T08:32:54.344Z</lastmod>
   </url>
   <url>
     <loc>https://ymansiaux.github.io/yohann-data/posts/iaforr/index.html</loc>
-    <lastmod>2025-10-14T07:27:26.750Z</lastmod>
+    <lastmod>2025-11-10T08:32:54.342Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ymansiaux.github.io/yohann-data/posts/chartJS/index.html</loc>
+    <lastmod>2025-11-10T08:32:54.200Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ymansiaux.github.io/yohann-data/posts/mycomicslibrary/index.html</loc>
+    <lastmod>2025-11-10T08:32:54.342Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ymansiaux.github.io/yohann-data/posts/datainpkgs_video/index.html</loc>
+    <lastmod>2025-11-10T08:32:54.270Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ymansiaux.github.io/yohann-data/posts/sweetalert2/index.html</loc>
+    <lastmod>2025-11-10T08:32:54.347Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ymansiaux.github.io/yohann-data/index.html</loc>
+    <lastmod>2025-11-10T08:32:54.175Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ymansiaux.github.io/yohann-data/posts/datainpkgs/index.html</loc>
+    <lastmod>2025-11-10T08:32:54.202Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ymansiaux.github.io/yohann-data/posts/airformatter/index.html</loc>
+    <lastmod>2025-11-10T08:32:54.176Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ymansiaux.github.io/yohann-data/posts/debugvscode/index.html</loc>
+    <lastmod>2025-11-10T08:32:54.337Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ymansiaux.github.io/yohann-data/posts/pkg_dev_python/index.html</loc>
+    <lastmod>2025-11-10T08:32:54.344Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ymansiaux.github.io/yohann-data/posts/vscodeR/index.html</loc>
+    <lastmod>2025-11-10T08:32:54.348Z</lastmod>
   </url>
   <url>
     <loc>https://ymansiaux.github.io/yohann-data/posts/welcome/index.html</loc>
-    <lastmod>2025-10-14T07:27:26.755Z</lastmod>
+    <lastmod>2025-11-10T08:32:54.348Z</lastmod>
   </url>
 </urlset>

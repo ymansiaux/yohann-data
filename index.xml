@@ -10,7 +10,192 @@
 <atom:link href="https://ymansiaux.github.io/yohann-data/index.xml" rel="self" type="application/rss+xml"/>
 <description>Yohann Mansiaux&#39;s blog - R, dev and other stuff</description>
 <generator>quarto-1.8.25</generator>
-<lastBuildDate>Mon, 13 Oct 2025 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Wed, 12 Nov 2025 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Python package development for R developers (episode 2 !)</title>
+  <dc:creator>Yohann Mansiaux</dc:creator>
+  <link>https://ymansiaux.github.io/yohann-data/posts/pkg_dev_python_episode2/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p><a href="https://yohann-data.fr/posts/pkg_dev_python/">In a previous article</a>, I shared my experience as an R developer diving into Python package development!</p>
+<p>I had noted several aspects that felt less smooth than in R, or even completely missing!</p>
+<p>Thanks to feedback from the community, I’ve been able to identify some tools that can help address the frustrations I encountered initially!</p>
+<section id="the-disappearance-of-my-beloved-pkgloadload_all" class="level1">
+<h1>The disappearance of my beloved pkgload::load_all()</h1>
+<p>I showed that automatic module loading was a bit more complicated in Python than in R. While this worked fine in development mode with <code>uv pip install -e .</code>, I found it more cumbersome when working in notebooks (especially Quarto).</p>
+<p>To reproduce <code>pkgload::load_all()</code> behavior, I explored two options: autoreload in Quarto and Marimo.</p>
+<section id="quarto" class="level2">
+<h2 class="anchored" data-anchor-id="quarto">Quarto</h2>
+<p>Adding a specific code chunk at the beginning of my notebook helped me work around the problem!</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">%</span>load_ext autoreload</span>
+<span id="cb1-2"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">%</span>autoreload <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span></span></code></pre></div></div>
+<p>This option automatically reloads imported Python modules when you modify their source code. This is a slight difference compared with <code>pkgload::load_all()</code> in R, which reloads all modules in the current environment.</p>
+<p>The parameter 2 means that all imported modules will be automatically reloaded, except those in system packages.</p>
+<p>For more information, you can check the <a href="https://ipython.readthedocs.io/en/stable/config/extensions/autoreload.html">official IPython documentation</a>.</p>
+</section>
+<section id="marimo" class="level2">
+<h2 class="anchored" data-anchor-id="marimo">Marimo</h2>
+<p>This was the big discovery following my article! 😍</p>
+<p>Marimo is a Python framework for building interactive and reproducible notebooks, and it feels surprisingly smooth to use. It feels a bit like a mix between Quarto and Shiny in the R world. Like Shiny, it’s reactive: when you change <a href="https://docs.marimo.io/api/inputs/">an input or a variable</a>, everything that depends on it automatically updates. And like Quarto, it’s designed to combine code, text, and visuals in a single, shareable document. The result is a clean, self-contained environment where you can explore data, build small apps, or publish interactive reports all without leaving Python.</p>
+<p>The result is beautiful, and the development experience is genuinely enjoyable!</p>
+<p>Most importantly, coming back to my initial problem, it automatically reloads imported modules when you modify their source code!</p>
+<p>To learn more, the documentation is available <a href="https://docs.marimo.io/getting_started/quickstart/">here</a>.</p>
+<p>For managing auto-reload, there’s a parameter to enable in Marimo’s options—see the dedicated documentation <a href="https://docs.marimo.io/guides/configuration/runtime_configuration/">here</a>.</p>
+<p>To install it with <code>uv</code>, simply run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">uv</span> add <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"marimo[recommended]"</span></span></code></pre></div></div>
+<p>Quick reminder: <code>uv add</code> adds the package to your dependencies (in pyproject.toml) and installs it automatically.</p>
+<p>And then to create/edit a notebook, just run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">uv</span> run marimo edit path_to_your_notebook.py</span></code></pre></div></div>
+<p>And that’s it!</p>
+<hr>
+</section>
+</section>
+<section id="documentation-on-a-website-like-with-pkgdown" class="level1">
+<h1>Documentation on a website like with {pkgdown}</h1>
+<p><a href="https://github.com/machow/quartodoc?tab=readme-ov-file">quartodoc</a> allows you to generate documentation as a website, just like <code>{pkgdown}</code> in R.</p>
+<p><code>quartodoc</code> extracts docstrings to generate .qmd or .md files, which Quarto can then render as static documentation sites.</p>
+<p>I haven’t explored the tool in detail—it seems like more work than what <code>{pkgdown}</code> requires in R (which, let’s admit it, makes our lives much easier), but the output is honestly impressive and <a href="https://rstudio.github.io/pins-python/">can look exactly like <code>{pkgdown}</code></a>.</p>
+<p>The documentation offers a <a href="https://machow.github.io/quartodoc/tutorials/">fairly comprehensive video tutorial</a>.</p>
+<hr>
+</section>
+<section id="the-absence-of-the-dreaded-devtoolscheck" class="level1">
+<h1>The absence of the “dreaded” devtools::check()</h1>
+<p>I had a hard time finding a tool that would let me check the quality of my code and documentation. <code>devtools::check()</code> sometimes makes us pull our hair out, but it’s really handy!</p>
+<p>Eventually, two tools were suggested to me: <a href="https://pre-commit.com/#intro">pre-commit</a> and <a href="https://docs.astral.sh/ruff/">ruff</a>.</p>
+<section id="pre-commit" class="level2">
+<h2 class="anchored" data-anchor-id="pre-commit">pre-commit</h2>
+<p><code>pre-commit</code> manages hooks that automatically run checks before each commit, helping you enforce consistent formatting and code quality. It’s very handy for avoiding formatting errors, documentation issues, etc.</p>
+<p>To install it with <code>uv</code>, simply run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">uv</span> add pre-commit</span></code></pre></div></div>
+<p>Following the minimal example from the documentation page, I was able to create a <code>.pre-commit-config.yaml</code> file that checks the quality of my code and documentation on every commit.</p>
+<p>You can also manually trigger these checks (a bit like <code>devtools::check()</code> in R) with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">uv</span> run pre-commit run <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--all-files</span></span></code></pre></div></div>
+<hr>
+</section>
+<section id="ruff" class="level2">
+<h2 class="anchored" data-anchor-id="ruff">ruff</h2>
+<p><code>ruff</code> acts as both a linter and a formatter, similar to how lintr and styler (or <a href="https://github.com/posit-dev/air">Air</a>) complement each other in R.</p>
+<p>For more information, see the <a href="https://docs.astral.sh/ruff/">ruff documentation</a>.</p>
+<p>As usual, installation with uv:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">uv</span> add ruff</span></code></pre></div></div>
+<p>Then, two commands are available:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">uv</span> run ruff format .</span></code></pre></div></div>
+<p>and</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">uv</span> run ruff check .</span></code></pre></div></div>
+<p>The first command formats the code, the second checks code quality, which complements <code>pre-commit</code> (you can also configure <code>pre-commit</code> to run <code>ruff</code> automatically on each commit by adding a hook in your <code>.pre-commit-config.yaml</code> file).</p>
+<hr>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Thanks to the community’s help, I’ve been able to identify tools that address the frustrations I encountered initially!</p>
+<p>I’ve essentially been able to find all the features I appreciate in R within Python! My favorite discovery is Marimo, which lets me develop interactive notebooks in a very simple and efficient way!</p>
+<p>The only remaining drawback is the <code>{pkgdown}</code> equivalent: while it can produce beautiful sites, it feels a bit less automated than its R counterpart.</p>
+<p><strong>Key takeaways of this article</strong></p>
+<ul>
+<li><p>IPython extension <code>%autoreload</code> and Marimo solve module reloading issues</p></li>
+<li><p><code>quartodoc</code> can serve as a <code>{pkgdown}</code>-like documentation tool</p></li>
+<li><p><code>pre-commit</code> and <code>ruff</code> replace <code>devtools::check()</code> for quality assessment</p></li>
+</ul>
+<section id="comparison-r-vs-python-package-development-tools" class="level3">
+<h3 class="anchored" data-anchor-id="comparison-r-vs-python-package-development-tools">Comparison: R vs Python package development tools</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 16%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Task</th>
+<th>R</th>
+<th>Python</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Environment &amp; dependency management</td>
+<td><code>{renv}</code></td>
+<td><code>uv</code>, <code>poetry</code>, <code>pip</code>, <code>venv</code></td>
+</tr>
+<tr class="even">
+<td>Package creation</td>
+<td><code>usethis::create_package()</code></td>
+<td><code>uv init --lib</code></td>
+</tr>
+<tr class="odd">
+<td>Load / reload during development</td>
+<td><code>pkgload::load_all()</code></td>
+<td><code>%autoreload</code>, Marimo</td>
+</tr>
+<tr class="even">
+<td>Documentation</td>
+<td><code>roxygen2</code>, <code>{pkgdown}</code></td>
+<td>docstrings, <code>quartodoc</code></td>
+</tr>
+<tr class="odd">
+<td>Unit testing</td>
+<td><code>testthat</code></td>
+<td><code>pytest</code></td>
+</tr>
+<tr class="even">
+<td>Code quality &amp; checks</td>
+<td><code>devtools::check()</code></td>
+<td><code>pre-commit</code>, <code>ruff</code></td>
+</tr>
+<tr class="odd">
+<td>Website / documentation site</td>
+<td><code>{pkgdown}</code></td>
+<td><code>quartodoc</code> + Quarto</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><strong>The package sources are available <a href="https://github.com/ymansiaux/blueskyPy_article">here</a> (with examples of notebooks).</strong></p>
+<p>Again, don’t hesitate to point out errors I may have made, or to guide me on the things I had more difficulty with!</p>
+<p>Thank you all, especially Joseph Barbier, James Azam, Uriah Finkel, Antoine Languillaume for giving me feedback on the first article on this topic!</p>
+
+
+</section>
+</section>
+</section>
+
+ ]]></description>
+  <category>development</category>
+  <category>package</category>
+  <category>R</category>
+  <category>python</category>
+  <guid>https://ymansiaux.github.io/yohann-data/posts/pkg_dev_python_episode2/</guid>
+  <pubDate>Wed, 12 Nov 2025 00:00:00 GMT</pubDate>
+  <media:content url="https://ymansiaux.github.io/yohann-data/posts/pkg_dev_python_episode2/image.jpg" medium="image" type="image/jpeg"/>
+</item>
 <item>
   <title>Python package development for R developers</title>
   <dc:creator>Yohann Mansiaux</dc:creator>
@@ -5361,37 +5546,6 @@ font-style: inherit;">;</span></span></code></pre></div></div>
   <media:content url="https://ymansiaux.github.io/yohann-data/posts/mycomicslibrary/image.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
-  <title>Welcome To My Blog</title>
-  <dc:creator>Yohann Mansiaux</dc:creator>
-  <link>https://ymansiaux.github.io/yohann-data/posts/welcome/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<p>Hi folks !</p>
-<p>I am a R trainer and developer. Passionate about knowledge sharing and open source, I enjoy engaging with my peers and learners and contributing to a dynamic and collaborative community.</p>
-<p>I used to have a blog a few years ago, based on Hugo (<a href="https://ymansiaux-data.netlify.app/">in French only</a>).</p>
-<p>I have decided to give a try to Quarto Websites. This new site aims at sharing my thoughts and knowledge about R, data science, epidemiology-related stuff.</p>
-<p>Besides videos and blog posts present on this website, you can find some of my contributions to open source projects on Github :</p>
-<ul>
-<li><p><a href="https://github.com/spyrales/shinygouv">{shinygouv} - Use the French Governmental Design System (DSFR) on you shiny apps”</a></p></li>
-<li><p><a href="https://github.com/ThinkR-open/lozen">{lozen} - Github and Gitlab project management tools for devs and lead dev”</a></p></li>
-<li><p><a href="https://github.com/ThinkR-open/fusen">{fusen} - Inflates a Rmarkdown file to magically create a package.”</a></p></li>
-</ul>
-<p>I hope you will enjoy reading my posts. Feel free to <a href="https://ymansiaux.github.io/yohann-data/about.html">contact me</a> if you have any questions !</p>
-<p><em>The sources of this website are available on <a href="https://github.com/ymansiaux/yohann-data/">Github</a>.</em></p>
-
-
-
- ]]></description>
-  <category>news</category>
-  <guid>https://ymansiaux.github.io/yohann-data/posts/welcome/</guid>
-  <pubDate>Sat, 01 Jun 2024 00:00:00 GMT</pubDate>
-  <media:content url="https://ymansiaux.github.io/yohann-data/posts/welcome/thumbnail.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
   <title>Pimping your {shiny} app with a JavaScript library : an example using sweetalert2</title>
   <dc:creator>Yohann Mansiaux</dc:creator>
   <link>https://ymansiaux.github.io/yohann-data/posts/sweetalert2/</link>
@@ -6126,6 +6280,37 @@ font-style: inherit;">$</span>icon</span>
   <guid>https://ymansiaux.github.io/yohann-data/posts/sweetalert2/</guid>
   <pubDate>Tue, 30 Apr 2024 00:00:00 GMT</pubDate>
   <media:content url="https://ymansiaux.github.io/yohann-data/posts/sweetalert2/image.jpg" medium="image" type="image/jpeg"/>
+</item>
+<item>
+  <title>Welcome To My Blog</title>
+  <dc:creator>Yohann Mansiaux</dc:creator>
+  <link>https://ymansiaux.github.io/yohann-data/posts/welcome/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>Hi folks !</p>
+<p>I am a R trainer and developer. Passionate about knowledge sharing and open source, I enjoy engaging with my peers and learners and contributing to a dynamic and collaborative community.</p>
+<p>I used to have a blog a few years ago, based on Hugo (<a href="https://ymansiaux-data.netlify.app/">in French only</a>).</p>
+<p>I have decided to give a try to Quarto Websites. This new site aims at sharing my thoughts and knowledge about R, data science, epidemiology-related stuff.</p>
+<p>Besides videos and blog posts present on this website, you can find some of my contributions to open source projects on Github :</p>
+<ul>
+<li><p><a href="https://github.com/spyrales/shinygouv">{shinygouv} - Use the French Governmental Design System (DSFR) on you shiny apps”</a></p></li>
+<li><p><a href="https://github.com/ThinkR-open/lozen">{lozen} - Github and Gitlab project management tools for devs and lead dev”</a></p></li>
+<li><p><a href="https://github.com/ThinkR-open/fusen">{fusen} - Inflates a Rmarkdown file to magically create a package.”</a></p></li>
+</ul>
+<p>I hope you will enjoy reading my posts. Feel free to <a href="https://ymansiaux.github.io/yohann-data/about.html">contact me</a> if you have any questions !</p>
+<p><em>The sources of this website are available on <a href="https://github.com/ymansiaux/yohann-data/">Github</a>.</em></p>
+
+
+
+ ]]></description>
+  <category>news</category>
+  <guid>https://ymansiaux.github.io/yohann-data/posts/welcome/</guid>
+  <pubDate>Fri, 01 Mar 2024 00:00:00 GMT</pubDate>
+  <media:content url="https://ymansiaux.github.io/yohann-data/posts/welcome/thumbnail.jpg" medium="image" type="image/jpeg"/>
 </item>
 </channel>
 </rss>

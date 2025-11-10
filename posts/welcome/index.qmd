@@ -3,7 +3,7 @@ title: "Welcome To My Blog"
 author: "Yohann Mansiaux"
 categories: [news]
 image: "thumbnail.jpg"
-date: 2024-06-01
+date: 2024-03-01
 ---
 
 Hi folks !
